@@ -1,31 +1,51 @@
 package com.cryptocodes.thorrent;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.Gravity;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import it.gmariotti.cardslib.library.internal.Card;
+import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
 import it.gmariotti.cardslib.library.internal.CardHeader;
 import it.gmariotti.cardslib.library.internal.CardThumbnail;
-import it.gmariotti.cardslib.library.view.CardView;
+import it.gmariotti.cardslib.library.view.CardListView;
 
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+
+    private static final String TV_SHOWS_FEED_URL = "http://www.scnsrc.me/category/tv/feed/";
+    private static final String MOVIES_FEED_URL = "http://www.scnsrc.me/category/films/feed/";
+    private static final String MUSIC_FEED_URL = "http://www.scnsrc.me/category/new-music/feed/";
+    private static final String GAMES_FEED_URL = "http://www.scnsrc.me/category/games/feed/";
+    private static final String ALL_FEED_URL = "http://feeds.feedburner.com/scnsrc/rss?format=xml";
+    private static final String BOOKS_FEED_URL = "http://www.scnsrc.me/category/ebooks/feed/";
+    private static final String APPLICATIONS_FEED_URL = "http://www.scnsrc.me/category/applications/feed/";
+
+    private static String CURRENT_RSS_FEED = null;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -50,27 +70,6 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
-
-        // Create a Card
-        Card card = new Card(this, R.layout.row_card);
-
-        // Create a CardHeader
-        CardHeader header = new CardHeader(this);
-        header.setTitle("The Good Wife");
-
-        card.setTitle("S05E03 - Oppo Research");
-        card.setShadow(true);
-        CardThumbnail thumb = new CardThumbnail(this);
-        thumb.setDrawableResource(R.drawable.ic_launcher);
-
-        card.addCardThumbnail(thumb);
-
-        // Add Header to card
-        card.addCardHeader(header);
-
-        // Set card in the cardView
-        CardView cardView = (CardView) findViewById(R.id.carddemo);
-        cardView.setCard(card);
     }
 
     @Override
@@ -85,15 +84,50 @@ public class MainActivity extends ActionBarActivity
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
-                mTitle = getString(R.string.title_section1);
+                // All categories
+                mTitle = getString(R.string.Everything);
+                refreshFeed(ALL_FEED_URL);
                 break;
             case 2:
-                mTitle = getString(R.string.title_section2);
+                // TV Shows was selected
+                mTitle = getString(R.string.TVShows);
+                refreshFeed(TV_SHOWS_FEED_URL);
                 break;
             case 3:
-                mTitle = getString(R.string.title_section3);
+                // Movies was selected
+                mTitle = getString(R.string.Movies);
+                refreshFeed(MOVIES_FEED_URL);
+                break;
+            case 4:
+                // Games
+                mTitle = getString(R.string.Games);
+                refreshFeed(GAMES_FEED_URL);
+                break;
+            case 5:
+                // Music
+                mTitle = getString(R.string.Music);
+                refreshFeed(MUSIC_FEED_URL);
+                break;
+            case 6:
+                // Books
+                mTitle = getString(R.string.Books);
+                refreshFeed(BOOKS_FEED_URL);
+                break;
+            case 7:
+                // Applications
+                mTitle = getString(R.string.Applications);
+                refreshFeed(APPLICATIONS_FEED_URL);
+                break;
+            case 8:
+                // About was selected
+                mTitle = getString(R.string.About);
+                // Start the about activity
                 break;
         }
+    }
+
+    private void refreshFeed(String rssFeed) {
+        CURRENT_RSS_FEED = rssFeed;
     }
 
     public void restoreActionBar() {
@@ -167,6 +201,196 @@ public class MainActivity extends ActionBarActivity
             ((MainActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
+
+        @Override
+        public void onStart() {
+            super.onStart();
+            new GetAndroidPitRssFeedTask().execute();
+        }
+
+        public static String getAndroidPitRssFeed() throws IOException {
+            InputStream in = null;
+            String rssFeed = null;
+            try {
+                //URL url = new URL("http://feeds.feedburner.com/scnsrc/rss?format=xml");
+                URL url;
+
+                if (CURRENT_RSS_FEED == null)
+                {
+                    url = new URL(ALL_FEED_URL);
+                } else {
+                    url = new URL(CURRENT_RSS_FEED);
+                }
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                in = conn.getInputStream();
+                ByteArrayOutputStream out = new ByteArrayOutputStream();
+                byte[] buffer = new byte[1024];
+                for (int count; (count = in.read(buffer)) != -1; ) {
+                    out.write(buffer, 0, count);
+                }
+                byte[] response = out.toByteArray();
+                rssFeed = new String(response, "UTF-8");
+            } finally {
+                if (in != null) {
+                    in.close();
+                }
+            }
+            return rssFeed;
+        }
+
+        private class GetAndroidPitRssFeedTask extends AsyncTask<Void, Void, List<String>> {
+
+            @Override
+            protected List<String> doInBackground(Void... voids) {
+                List<String> result = null;
+                try {
+                    String feed = getAndroidPitRssFeed();
+                    result = parse(feed);
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return result;
+            }
+
+            private List<String> parse(String rssFeed) throws XmlPullParserException, IOException {
+                XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+                XmlPullParser xpp = factory.newPullParser();
+                xpp.setInput(new StringReader(rssFeed));
+                xpp.nextTag();
+                return readRss(xpp);
+            }
+
+            private List<String> readRss(XmlPullParser parser)
+                    throws XmlPullParserException, IOException {
+                List<String> items = new ArrayList<String>();
+                parser.require(XmlPullParser.START_TAG, null, "rss");
+                while (parser.next() != XmlPullParser.END_TAG) {
+                    if (parser.getEventType() != XmlPullParser.START_TAG) {
+                        continue;
+                    }
+                    String name = parser.getName();
+                    if (name.equals("channel")) {
+                        items.addAll(readChannel(parser));
+                    } else {
+                        skip(parser);
+                    }
+                }
+                return items;
+            }
+
+            private List<String> readChannel(XmlPullParser parser)
+                    throws IOException, XmlPullParserException {
+                List<String> items = new ArrayList<String>();
+                parser.require(XmlPullParser.START_TAG, null, "channel");
+                while (parser.next() != XmlPullParser.END_TAG) {
+                    if (parser.getEventType() != XmlPullParser.START_TAG) {
+                        continue;
+                    }
+                    String name = parser.getName();
+                    if (name.equals("item")) {
+                        items.add(readItem(parser));
+                    } else {
+                        skip(parser);
+                    }
+                }
+                return items;
+            }
+
+            private String readItem(XmlPullParser parser) throws XmlPullParserException, IOException {
+                String result = null;
+                parser.require(XmlPullParser.START_TAG, null, "item");
+                while (parser.next() != XmlPullParser.END_TAG) {
+                    if (parser.getEventType() != XmlPullParser.START_TAG) {
+                        continue;
+                    }
+                    String name = parser.getName();
+                    if (name.equals("title")) {
+                        result = readTitle(parser);
+                    } else {
+                        skip(parser);
+                    }
+                }
+                return result;
+            }
+
+            // Processes title tags in the feed.
+            private String readTitle(XmlPullParser parser)
+                    throws IOException, XmlPullParserException {
+                parser.require(XmlPullParser.START_TAG, null, "title");
+                String title = readText(parser);
+                parser.require(XmlPullParser.END_TAG, null, "title");
+                return title;
+            }
+
+            private String readText(XmlPullParser parser)
+                    throws IOException, XmlPullParserException {
+                String result = "";
+                if (parser.next() == XmlPullParser.TEXT) {
+                    result = parser.getText();
+                    parser.nextTag();
+                }
+                return result;
+            }
+
+            private void skip(XmlPullParser parser) throws XmlPullParserException, IOException {
+                if (parser.getEventType() != XmlPullParser.START_TAG) {
+                    throw new IllegalStateException();
+                }
+                int depth = 1;
+                while (depth != 0) {
+                    switch (parser.next()) {
+                        case XmlPullParser.END_TAG:
+                            depth--;
+                            break;
+                        case XmlPullParser.START_TAG:
+                            depth++;
+                            break;
+                    }
+                }
+            }
+
+            @Override
+            protected void onPostExecute(List<String> rssFeed) {
+                if (rssFeed != null) {
+
+                    ArrayList<Card> cards = new ArrayList<Card>();
+
+                    for (int i = 0; i<rssFeed.size(); i++) {
+                        // Create a Card
+                        Card card = new Card(getActivity());
+
+                        // Create a CardHeader
+                        CardHeader header = new CardHeader(getActivity());
+
+                        // Add Header to card
+                        header.setTitle(rssFeed.get(i));
+                        card.setTitle("Description goes here");
+                        card.addCardHeader(header);
+                        CardThumbnail thumb = new CardThumbnail(getActivity());
+                        thumb.setDrawableResource(R.drawable.ic_launcher);
+                        card.addCardThumbnail(thumb);
+                        cards.add(card);
+                    }
+
+                    CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(getActivity(), cards);
+                    CardListView listView = (CardListView) getActivity().findViewById(R.id.myList);
+                    if (listView != null) {
+                        listView.setAdapter(mCardArrayAdapter);
+                    }
+
+//                    ListView listView = (ListView)getActivity().findViewById(R.id.mainListView);
+//                    listView.setAdapter(new ArrayAdapter<String>(
+//                            getActivity(),
+//                            android.R.layout.simple_list_item_1,
+//                            android.R.id.text1,
+//                            rssFeed));
+                }
+            }
+        }
     }
+
+
 
 }

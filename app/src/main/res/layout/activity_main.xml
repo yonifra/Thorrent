@@ -15,12 +15,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <it.gmariotti.cardslib.library.view.CardView
-        android:id="@+id/carddemo"
+    <!--<it.gmariotti.cardslib.library.view.CardView-->
+        <!--android:id="@+id/carddemo"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--card:card_layout_resourceID="@layout/card_thumbnail_layout"-->
+        <!--/>-->
+
+    <it.gmariotti.cardslib.library.view.CardListView
+        android:id="@+id/myList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        card:card_layout_resourceID="@layout/card_thumbnail_layout"
-        />
+        android:layout_height="match_parent"
+        card:list_card_layout_resourceID="@layout/list_card_thumbnail_layout"
+        style="@style/list_card.thumbnail"/>
+
+    <!--<ListView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:id="@+id/mainListView"></ListView>-->
 
     <!-- android:layout_gravity="start" tells DrawerLayout to treat
          this as a sliding drawer on the left side for left-to-right

@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string-array name="navigation_drawer_items_array">
+        <item>Everything</item>
+        <item>TV Shows</item>
+        <item>Movies</item>
+        <item>Games</item>
+        <item>Music</item>
+        <item>Books</item>
+        <item>Applications</item>
+        <item>About…</item>
+    </string-array>
     <string name="app_name">Thorrent</string>
-    <string name="title_section1">TV Shows</string>
-    <string name="title_section2">Movies</string>
-    <string name="title_section3">About...</string>
+    <string name="TVShows">TV Shows</string>
+    <string name="Movies">Movies</string>
+    <string name="About">About…</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Refresh</string>
     <string name="action_settings">Settings</string>
+    <string name="Games">Games</string>
+    <string name="Music">Music</string>
+    <string name="Books">Books</string>
+    <string name="Applications">Applications</string>
+    <string name="Everything">Everything</string>
 
 </resources>
