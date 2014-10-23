@@ -256,6 +256,9 @@ public class NavigationDrawerFragment extends Fragment {
 
         if (item.getItemId() == R.id.action_example) {
             Toast.makeText(getActivity(), "Refreshing...", Toast.LENGTH_SHORT).show();
+            if (getActivity().getLocalClassName() == "MainActivity") {
+                ((MainActivity)getActivity()).refreshFeed( ((MainActivity)getActivity()).CURRENT_RSS_FEED);
+            }
             return true;
         }
 
