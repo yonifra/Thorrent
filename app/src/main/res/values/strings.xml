@@ -11,6 +11,7 @@
         <item>Applications</item>
         <item>About…</item>
     </string-array>
+
     <string name="app_name">Thorrent</string>
     <string name="TVShows">TV Shows</string>
     <string name="Movies">Movies</string>
@@ -24,5 +25,15 @@
     <string name="Books">Books</string>
     <string name="Applications">Applications</string>
     <string name="Everything">Everything</string>
+    <string name="RefreshingMessage">Refreshing...</string>
+    <string name="title_activity_about">About Thorrent</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="Version">Version</string>
+    <string name="AboutMessage">Made with love by the folks at Cryptocodes, Inc.</string>
+    <string name="ReleaseDate">October 24, 2014</string>
+    <string name="cryptocodesUrl">http://www.cryptocodes.com</string>
+    <string name="TorrentProviderInfo">Torrent information provided by ScnSrc</string>
+    <string name="title_activity_yoni">YoniActivity</string>
+    <string name="CheckInternetConn">Could not fetch RSS feed, check your internet connection</string>
 
 </resources>

@@ -1,6 +1,8 @@
 package com.cryptocodes.thorrent;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,11 +11,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.EventLogTags;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -41,6 +45,8 @@ import it.gmariotti.cardslib.library.view.CardListView;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+
+    private final String LOGTAG = "MainActivity";
 
     private static final String TV_SHOWS_FEED_URL = "http://www.scnsrc.me/category/tv/feed/";
     private static final String MOVIES_FEED_URL = "http://www.scnsrc.me/category/films/feed/";
@@ -127,6 +133,8 @@ public class MainActivity extends ActionBarActivity
                 // About was selected
                 mTitle = getString(R.string.About);
                 // Start the about activity
+                Intent intent = new Intent(this, AboutActivity.class);
+                startActivity(intent);
                 break;
         }
     }
@@ -217,7 +225,6 @@ public class MainActivity extends ActionBarActivity
             InputStream in = null;
             String rssFeed = null;
             try {
-                //URL url = new URL("http://feeds.feedburner.com/scnsrc/rss?format=xml");
                 URL url;
 
                 if (CURRENT_RSS_FEED == null)
@@ -235,6 +242,10 @@ public class MainActivity extends ActionBarActivity
                 }
                 byte[] response = out.toByteArray();
                 rssFeed = new String(response, "UTF-8");
+            }
+            catch (Exception ex) {
+                rssFeed = null;
+                Log.e("GetRSSFeed", ex.getMessage());
             } finally {
                 if (in != null) {
                     in.close();
@@ -250,7 +261,12 @@ public class MainActivity extends ActionBarActivity
                 List<ThorrentItem> result = null;
                 try {
                     String feed = getAndroidPitRssFeed();
-                    result = parse(feed);
+
+                    if (feed == null) {
+                        return new ArrayList<ThorrentItem>();
+                    } else {
+                        result = parse(feed);
+                    }
                 } catch (XmlPullParserException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -320,7 +336,7 @@ public class MainActivity extends ActionBarActivity
                         // get creator
                         result.creator = readCreator(parser);
                     } else if (name.equals("category")) {
-                        result.category = readCategory(parser);
+                        result.category = readCategory(parser, result.category);
                     } else {
                         skip(parser);
                     }
@@ -334,15 +350,17 @@ public class MainActivity extends ActionBarActivity
                 parser.require(XmlPullParser.START_TAG, null, "title");
                 String title = readText(parser);
                 parser.require(XmlPullParser.END_TAG, null, "title");
+
                 return title;
             }
 
             private String readCreator(XmlPullParser parser)
                     throws IOException, XmlPullParserException {
                 parser.require(XmlPullParser.START_TAG, null, "dc:creator");
-                String desc = readText(parser);
+                String creator = readText(parser);
                 parser.require(XmlPullParser.END_TAG, null, "dc:creator");
-                return desc;
+
+                return creator.replace("&#124;","&");
             }
 
             private String readPubDate(XmlPullParser parser)
@@ -360,11 +378,16 @@ public class MainActivity extends ActionBarActivity
                 }
             }
 
-            private Category readCategory(XmlPullParser parser)
+            private Category readCategory(XmlPullParser parser, Category currentCategory)
                     throws IOException, XmlPullParserException {
+
                 parser.require(XmlPullParser.START_TAG, null, "category");
                 String category = readText(parser);
                 parser.require(XmlPullParser.END_TAG, null, "category");
+
+                if (category == null || currentCategory != Category.NONE) {
+                    return currentCategory;
+                }
 
                 if (category.contains("TV")) {
                     return Category.TV;
@@ -376,7 +399,11 @@ public class MainActivity extends ActionBarActivity
                     return Category.APPLICATION;
                 } else if (category.contains("eBooks")) {
                     return Category.BOOK;
-                } else if (category.contains("Games") || category.contains("PS3") || category.contains("DOX") || category.contains("ISO")) {
+                } else if (category.contains("Games")
+                        || category.contains("PS3")
+                        || category.contains("DOX")
+                        || category.contains("XBOX")
+                        || category.contains("ISO")) {
                     return Category.GAME;
                 }
 
@@ -414,6 +441,10 @@ public class MainActivity extends ActionBarActivity
             @Override
             protected void onPostExecute(List<ThorrentItem> rssFeed) {
                 if (rssFeed != null) {
+                    if (rssFeed.size() == 0) {
+                        Toast.makeText(getActivity(), getString(R.string.CheckInternetConn), Toast.LENGTH_LONG).show();
+                        return;
+                    }
 
                     ArrayList<Card> cards = new ArrayList<Card>();
 
@@ -429,6 +460,7 @@ public class MainActivity extends ActionBarActivity
                         card.setTitle(rssFeed.get(i).time + "\n" + "By " + rssFeed.get(i).creator);
                         card.addCardHeader(header);
                         CardThumbnail thumb = new CardThumbnail(getActivity());
+
                         switch (rssFeed.get(i).category)
                         {
                             case APPLICATION:
