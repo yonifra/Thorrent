@@ -1,8 +1,24 @@
 <resources>
 
-    <!-- Base application theme. -->
+    <!-- Base application theme -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+        <item name="actionBarStyle">@style/ActionBar.Solid.Thorrent</item>
+    </style>
+
+    <!-- ActionBar style -->
+    <style name="ActionBar.Solid.Thorrent" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="background">@color/thorrent_actionbar_color</item>
+    </style>
+
+    <!-- Main activity theme -->
+    <style name="ForecastTheme" parent="AppTheme">
+        <item name="actionBarStyle">@style/ActionBar.Solid.Thorrent.NoTitle</item>
+    </style>
+
+    <!-- Main activity action bar style -->
+    <style name="ActionBar.Solid.Thorrent.NoTitle" parent="@style/ActionBar.Solid.Thorrent">
+        <item name="displayOptions">useLogo|showHome</item>
+        <item name="logo">@drawable/ic_launcher</item>
     </style>
 
 </resources>

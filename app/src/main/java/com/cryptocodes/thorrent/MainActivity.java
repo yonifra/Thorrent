@@ -131,7 +131,7 @@ public class MainActivity extends ActionBarActivity
                 break;
             case 8:
                 // About was selected
-                mTitle = getString(R.string.About);
+                //mTitle = getString(R.string.About);
                 // Start the about activity
                 Intent intent = new Intent(this, AboutActivity.class);
                 startActivity(intent);
@@ -169,10 +169,10 @@ public class MainActivity extends ActionBarActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        int id = item.getItemId();
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
         return super.onOptionsItemSelected(item);
     }
 
