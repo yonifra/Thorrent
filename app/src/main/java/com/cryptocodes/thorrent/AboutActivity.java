@@ -8,8 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import java.util.jar.Manifest;
-
 
 public class AboutActivity extends Activity {
     private final String LOGTAG = "AboutActivity";

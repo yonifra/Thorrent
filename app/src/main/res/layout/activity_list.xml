@@ -9,7 +9,7 @@
         android:id="@+id/myList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        card:list_card_layout_resourceID="@layout/list_card_thumbnail_layout"
+        card:list_card_layout_resourceID="@layout/thorrent_card_view"
         style="@style/list_card.thumbnail"/>
 
 </LinearLayout>

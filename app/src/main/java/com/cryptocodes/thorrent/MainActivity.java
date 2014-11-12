@@ -2,7 +2,6 @@ package com.cryptocodes.thorrent;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,7 +9,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.EventLogTags;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -337,6 +335,11 @@ public class MainActivity extends ActionBarActivity
                         result.creator = readCreator(parser);
                     } else if (name.equals("category")) {
                         result.category = readCategory(parser, result.category);
+
+                        if (result.category == Category.MOVIE)
+                        {
+                            result = new MovieItem(result);
+                        }
                     } else {
                         skip(parser);
                     }
@@ -470,7 +473,8 @@ public class MainActivity extends ActionBarActivity
                                 thumb.setDrawableResource(R.drawable.ic_tv_black_48dp);
                                 break;
                             case MOVIE:
-                                thumb.setDrawableResource(R.drawable.ic_movie_black_48dp);
+                                //thumb.setDrawableResource(R.drawable.ic_movie_black_48dp);
+                                thumb.setUrlResource(((MovieItem)(rssFeed.get(i))).posterUrl);
                                 break;
                             case BOOK:
                                 thumb.setDrawableResource(R.drawable.ic_my_library_books_black_48dp);
@@ -495,18 +499,8 @@ public class MainActivity extends ActionBarActivity
                     if (listView != null) {
                         listView.setAdapter(mCardArrayAdapter);
                     }
-
-//                    ListView listView = (ListView)getActivity().findViewById(R.id.mainListView);
-//                    listView.setAdapter(new ArrayAdapter<String>(
-//                            getActivity(),
-//                            android.R.layout.simple_list_item_1,
-//                            android.R.id.text1,
-//                            rssFeed));
                 }
             }
         }
     }
-
-
-
 }

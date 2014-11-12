@@ -1,15 +1,15 @@
 package com.cryptocodes.thorrent;
 
-        import it.gmariotti.cardslib.library.internal.Card;
-        import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
-        import it.gmariotti.cardslib.library.internal.CardHeader;
-        import it.gmariotti.cardslib.library.internal.CardThumbnail;
-        import it.gmariotti.cardslib.library.view.CardListView;
+import android.app.Activity;
+import android.os.Bundle;
 
-        import java.util.ArrayList;
+import java.util.ArrayList;
 
-        import android.app.Activity;
-        import android.os.Bundle;
+import it.gmariotti.cardslib.library.internal.Card;
+import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
+import it.gmariotti.cardslib.library.internal.CardHeader;
+import it.gmariotti.cardslib.library.internal.CardThumbnail;
+import it.gmariotti.cardslib.library.view.CardListView;
 
 public class CardListActivity extends Activity {
 
