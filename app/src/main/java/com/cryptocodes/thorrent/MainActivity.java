@@ -17,6 +17,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.omertron.themoviedbapi.MovieDbException;
+import com.omertron.themoviedbapi.TheMovieDbApi;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -339,6 +342,9 @@ public class MainActivity extends ActionBarActivity
                         if (result.category == Category.MOVIE)
                         {
                             result = new MovieItem(result);
+                        } else if (result.category == Category.TV)
+                        {
+                            //result = new TvItem(result);
                         }
                     } else {
                         skip(parser);
@@ -467,23 +473,22 @@ public class MainActivity extends ActionBarActivity
                         switch (rssFeed.get(i).category)
                         {
                             case APPLICATION:
-                                thumb.setDrawableResource(R.drawable.ic_settings_applications_black_48dp);
+                                thumb.setDrawableResource(R.drawable.app);
                                 break;
                             case TV:
-                                thumb.setDrawableResource(R.drawable.ic_tv_black_48dp);
+                                thumb.setDrawableResource(R.drawable.tv);
                                 break;
                             case MOVIE:
-                                //thumb.setDrawableResource(R.drawable.ic_movie_black_48dp);
                                 thumb.setUrlResource(((MovieItem)(rssFeed.get(i))).posterUrl);
                                 break;
                             case BOOK:
-                                thumb.setDrawableResource(R.drawable.ic_my_library_books_black_48dp);
+                                thumb.setDrawableResource(R.drawable.books);
                                 break;
                             case GAME:
-                                thumb.setDrawableResource(R.drawable.ic_gamepad_black_48dp);
+                                thumb.setDrawableResource(R.drawable.games);
                                 break;
                             case MUSIC:
-                                thumb.setDrawableResource(R.drawable.ic_my_library_music_black_48dp);
+                                thumb.setDrawableResource(R.drawable.music);
                                 break;
                             case NONE:
                                 thumb.setDrawableResource(R.drawable.ic_error_black_48dp);

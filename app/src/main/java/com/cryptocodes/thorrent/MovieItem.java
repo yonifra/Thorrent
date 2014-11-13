@@ -1,12 +1,7 @@
 package com.cryptocodes.thorrent;
 
 import android.util.Log;
-
-import com.omertron.themoviedbapi.MovieDbException;
-import com.omertron.themoviedbapi.TheMovieDbApi;
 import com.omertron.themoviedbapi.model.MovieDb;
-
-import java.util.List;
 
 /**
  * Created by jonathanf on 12/11/2014.
@@ -16,8 +11,8 @@ public class MovieItem extends ThorrentItem {
     public String posterUrl;
     public int year;
 
-    private String[] splittedStrings;
-    private int yearIndex;
+    protected String[] splittedStrings;
+    protected int yearIndex;
     private String rawMovieName;
 
     public MovieItem()
@@ -42,23 +37,17 @@ public class MovieItem extends ThorrentItem {
         getImdbData();
     }
 
-    private void getImdbData() {
-        try {
-            posterUrl = "";
-            TheMovieDbApi api = new TheMovieDbApi("6f8f5ded34fa534314a23fa7d705681b");
+    protected void getImdbData() {
+        posterUrl = "";
 
-            List<MovieDb> movieResults = api.searchMovie(rawMovieName, year, "en", true, 0).getResults();
-            if (movieResults.size() > 0)
-            {
-                posterUrl = "http://image.tmdb.org/t/p/w185" + movieResults.get(0).getPosterPath();
-            }
-        } catch (MovieDbException e) {
-            e.printStackTrace();
-            Log.e("MovieItem", e.getMessage());
+        MovieDb movie = MovieManager.getInstance().getMovie(rawMovieName, year);
+        if (movie != null)
+        {
+            posterUrl = "http://image.tmdb.org/t/p/w185" + movie.getPosterPath();
         }
     }
 
-    private String getTitle() {
+    protected String getTitle() {
         StringBuilder sb = new StringBuilder();
         year = getYear();
 
@@ -76,7 +65,7 @@ public class MovieItem extends ThorrentItem {
         return title;
     }
 
-    private void getResolution()
+    protected void getResolution()
     {
         if (isContained("720"))
         {
@@ -108,7 +97,7 @@ public class MovieItem extends ThorrentItem {
         }
     }
 
-    private int getYear()
+    protected int getYear()
     {
         for (int i = 0; i < splittedStrings.length; i++) {
             int len = splittedStrings[i].length();
@@ -128,7 +117,7 @@ public class MovieItem extends ThorrentItem {
         return -1;
     }
 
-    private boolean isContained(String value)
+    protected boolean isContained(String value)
     {
         for (String s : splittedStrings)
         {
