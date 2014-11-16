@@ -9,10 +9,10 @@ public class ThorrentItem {
         category = Category.NONE;
     }
 
-    public String title;
-    public String description;
+    public String title = "";
+    public String description = "";
     public Category category;
     public String time;
-    public String creator;
+    public String creator = "";
 }
 

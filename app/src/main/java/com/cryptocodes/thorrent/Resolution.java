@@ -10,5 +10,7 @@ public enum Resolution {
     FullHD,
     FourK,
     TwoK,
-    ThreeDimensions
+    ThreeD,
+    Bluray,
+    NA
 }

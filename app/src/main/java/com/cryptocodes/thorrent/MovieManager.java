@@ -21,7 +21,7 @@ public class MovieManager {
     private static MovieManager instance;
     private static TheMovieDbApi api;
     //private static TVRageApi tvRageApi;
-    private static FanartTvApi fanartTvApi;
+    //private static FanartTvApi fanartTvApi;
     public static MovieManager getInstance(){
         if (instance == null)
         {
@@ -29,7 +29,7 @@ public class MovieManager {
             try {
                 api = new TheMovieDbApi("6f8f5ded34fa534314a23fa7d705681b");
                 //tvRageApi = new TVRageApi("itvZsAlUGQtel7AxEVsI");
-                fanartTvApi = new FanartTvApi("61c3c64203aefe3fe16c7797f9a72bd8");
+                //fanartTvApi = new FanartTvApi("61c3c64203aefe3fe16c7797f9a72bd8");
             } catch (MovieDbException e) {
                 e.printStackTrace();
                 Log.e("MovieManager", e.getMessage());
@@ -46,6 +46,18 @@ public class MovieManager {
 
     public MovieDb getMovie(String movieName, int year) {
         List<MovieDb> results = null;
+
+        if (movieName == null || movieName == "") return null;
+
+        if (api == null)
+        {
+            try {
+                api = new TheMovieDbApi("6f8f5ded34fa534314a23fa7d705681b");
+            } catch (MovieDbException e) {
+                e.printStackTrace();
+                Log.e("MovieManager", e.getMessage());
+            }
+        }
 
         try {
             results = api.searchMovie(movieName, year, "en", true, 0).getResults();
@@ -80,14 +92,14 @@ public class MovieManager {
 //        return null;
 //    }
 
-    public com.omertron.fanarttvapi.model.FTSeries getTvArtwork(String showName)
-    {
-        try {
-            //fanartTvApi.
-            return fanartTvApi.getTvArtwork(showName);
-        } catch (FanartTvException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+//    public com.omertron.fanarttvapi.model.FTSeries getTvArtwork(String showName)
+//    {
+//        try {
+//            //fanartTvApi.
+//            return fanartTvApi.getTvArtwork(showName);
+//        } catch (FanartTvException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 }

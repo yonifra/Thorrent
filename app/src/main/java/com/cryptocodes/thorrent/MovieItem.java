@@ -10,6 +10,7 @@ public class MovieItem extends ThorrentItem {
     public Resolution resolution;
     public String posterUrl;
     public int year;
+    public float rating;
 
     protected String[] splittedStrings;
     protected int yearIndex;
@@ -35,16 +36,38 @@ public class MovieItem extends ThorrentItem {
 
         title = getTitle();
         getImdbData();
+
+        StringBuilder sb = new StringBuilder();
+
+        // Add resolution string
+        if (resolution != Resolution.NA) {
+            sb.append("[Resolution: ").append(resolution).append("]");
+        }
+
+        // Don't add rating if it's zero
+        if (rating > 0.001f) {
+            if (resolution != Resolution.NA)
+                sb.append(" ");
+
+            sb.append("[Rating: ").append(rating).append("/10]");
+        }
+
+        description = sb.toString();
     }
 
     protected void getImdbData() {
-        posterUrl = "";
+        //new Thread(new Runnable() {
+          //  public void run() {
+                posterUrl = "";
 
-        MovieDb movie = MovieManager.getInstance().getMovie(rawMovieName, year);
-        if (movie != null)
-        {
-            posterUrl = "http://image.tmdb.org/t/p/w185" + movie.getPosterPath();
-        }
+                MovieDb movie = MovieManager.getInstance().getMovie(rawMovieName, year);
+                if (movie != null)
+                {
+                    posterUrl = "http://image.tmdb.org/t/p/w185" + movie.getPosterPath();
+                    rating = movie.getVoteAverage();
+                }
+         //   }
+        //}).start();
     }
 
     protected String getTitle() {
@@ -55,12 +78,16 @@ public class MovieItem extends ThorrentItem {
             sb.append(splittedStrings[i] + " ");
         }
 
-        rawMovieName = sb.toString().substring(0, sb.length() - 1);
 
-        sb.append("(" + year + ")");
+        if (sb.length() > 0) {
+            // Remove the last space from title
+            rawMovieName = sb.toString().substring(0, sb.toString().length() - 1);
 
-        if (sb.toString() != "")
-            return sb.toString();
+            sb.append("(" + year + ")");
+
+            if (sb.toString() != "")
+                return sb.toString();
+        }
 
         return title;
     }
@@ -89,11 +116,19 @@ public class MovieItem extends ThorrentItem {
         }
         else if (isContained("3D"))
         {
-            resolution = Resolution.ThreeDimensions;
+            resolution = Resolution.ThreeD;
         }
         else if (isContained("CAM"))
         {
             resolution = Resolution.Cam;
+        }
+        else if (isContained("BDRip") || isContained("BRRip"))
+        {
+            resolution = Resolution.Bluray;
+        }
+        else
+        {
+            resolution = Resolution.NA;
         }
     }
 
@@ -102,7 +137,19 @@ public class MovieItem extends ThorrentItem {
         for (int i = 0; i < splittedStrings.length; i++) {
             int len = splittedStrings[i].length();
 
-            if (len != 4) continue;
+            if (len == 6 && splittedStrings[i].charAt(0) == '(' && splittedStrings[i].charAt(5) == ')')
+            {
+                try {
+                    int year = Integer.parseInt(splittedStrings[i].substring(1, 5));
+                    yearIndex = i;
+                    return year;
+                }
+                catch (Exception ex) {
+                    Log.e("MovieItem", ex.getMessage());
+                    continue;
+                }
+            }
+            else if (len != 4) continue;
 
             try {
                 int year = Integer.parseInt(splittedStrings[i].substring(len - 4));

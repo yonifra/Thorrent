@@ -68,15 +68,15 @@ public class TvItem extends MovieItem {
         //if (series != null)
        // {
         String showTitle = getShowTitle();
-        FTSeries tvArtwork = MovieManager.getInstance().getTvArtwork(getShowTitle());
+        //FTSeries tvArtwork = MovieManager.getInstance().getTvArtwork(getShowTitle());
 
-        if (tvArtwork != null)
-        {
-            List<FTArtwork> artworks = tvArtwork.getArtwork(FTArtworkType.TVPOSTER);
-            if (!artworks.isEmpty()) {
-                posterUrl = artworks.get(0).getUrl();
-            }
-        }
+//        if (tvArtwork != null)
+//        {
+//            List<FTArtwork> artworks = tvArtwork.getArtwork(FTArtworkType.TVPOSTER);
+//            if (!artworks.isEmpty()) {
+//                posterUrl = artworks.get(0).getUrl();
+//            }
+//        }
 
        // }
     }

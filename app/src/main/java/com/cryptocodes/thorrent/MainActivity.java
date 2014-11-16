@@ -466,7 +466,7 @@ public class MainActivity extends ActionBarActivity
 
                         // Add Header to card
                         header.setTitle(rssFeed.get(i).title);
-                        card.setTitle(rssFeed.get(i).time + "\n" + "By " + rssFeed.get(i).creator);
+                        card.setTitle(rssFeed.get(i).time + "\n" + "By " + rssFeed.get(i).creator + "\n" + rssFeed.get(i).description);
                         card.addCardHeader(header);
                         CardThumbnail thumb = new CardThumbnail(getActivity());
 
