@@ -34,6 +34,8 @@
     <string name="cryptocodesUrl">http://www.cryptocodes.com</string>
     <string name="TorrentProviderInfo">Torrent information provided by ScnSrc</string>
     <string name="title_activity_yoni">YoniActivity</string>
+    <string name="loading_dialog_header">Loading...</string>
+    <string name="loading_dialog_content">Please wait while we fetch the data from the Torrent sources</string>
     <string name="CheckInternetConn">Could not fetch RSS feed, check your internet connection</string>
 
 </resources>

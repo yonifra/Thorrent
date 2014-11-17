@@ -16,6 +16,10 @@ public class MovieItem extends ThorrentItem {
     protected int yearIndex;
     private String rawMovieName;
 
+    // Used to validate the year range
+    private final int MAX_YEAR = 2100;
+    private final int MIN_YEAR = 1900;
+
     public MovieItem()
     {
 
@@ -33,15 +37,14 @@ public class MovieItem extends ThorrentItem {
         splittedStrings = title.split(" ");
 
         getResolution();
-
-        title = getTitle();
+        getTitle();
         getImdbData();
 
         StringBuilder sb = new StringBuilder();
 
-        // Add resolution string
+        // Add resolution string (Only if it was decoded successfully)
         if (resolution != Resolution.NA) {
-            sb.append("[Resolution: ").append(resolution).append("]");
+            sb.append("[Quality: ").append(getResolutionString(resolution)).append("]");
         }
 
         // Don't add rating if it's zero
@@ -55,9 +58,35 @@ public class MovieItem extends ThorrentItem {
         description = sb.toString();
     }
 
+    private String getResolutionString(Resolution resolution) {
+        switch (resolution)
+        {
+            case Bluray:
+                return "Bluray";
+            case Cam:
+                return "CAM";
+            case FourK:
+                return "4K UHD";
+            case TwoK:
+                return "2K";
+            case DVD:
+                return "DVD";
+            case FullHD:
+                return "1080p";
+            case HDReady:
+                return "720p";
+            case ThreeD:
+                return "3D";
+            case NA:
+                return "N/A";
+        }
+
+        return "";
+    }
+
     protected void getImdbData() {
-        //new Thread(new Runnable() {
-          //  public void run() {
+//        new Thread(new Runnable() {
+//            public void run() {
                 posterUrl = "";
 
                 MovieDb movie = MovieManager.getInstance().getMovie(rawMovieName, year);
@@ -66,8 +95,8 @@ public class MovieItem extends ThorrentItem {
                     posterUrl = "http://image.tmdb.org/t/p/w185" + movie.getPosterPath();
                     rating = movie.getVoteAverage();
                 }
-         //   }
-        //}).start();
+//            }
+//        }).start();
     }
 
     protected String getTitle() {
@@ -85,8 +114,9 @@ public class MovieItem extends ThorrentItem {
 
             sb.append("(" + year + ")");
 
-            if (sb.toString() != "")
-                return sb.toString();
+            if (sb.toString() != "") {
+                title = sb.toString();
+            }
         }
 
         return title;
@@ -122,7 +152,7 @@ public class MovieItem extends ThorrentItem {
         {
             resolution = Resolution.Cam;
         }
-        else if (isContained("BDRip") || isContained("BRRip"))
+        else if (isContained("BDRip") || isContained("BRRip") || isContained("bluray"))
         {
             resolution = Resolution.Bluray;
         }
@@ -137,12 +167,16 @@ public class MovieItem extends ThorrentItem {
         for (int i = 0; i < splittedStrings.length; i++) {
             int len = splittedStrings[i].length();
 
+            // If year is in "(2014)" format
             if (len == 6 && splittedStrings[i].charAt(0) == '(' && splittedStrings[i].charAt(5) == ')')
             {
                 try {
                     int year = Integer.parseInt(splittedStrings[i].substring(1, 5));
-                    yearIndex = i;
-                    return year;
+
+                    if (year >= MIN_YEAR && year <= MAX_YEAR) {
+                        yearIndex = i;
+                        return year;
+                    }
                 }
                 catch (Exception ex) {
                     Log.e("MovieItem", ex.getMessage());
@@ -151,10 +185,15 @@ public class MovieItem extends ThorrentItem {
             }
             else if (len != 4) continue;
 
+            // Length of string is exactly 4, so try to parse it to an int;
             try {
                 int year = Integer.parseInt(splittedStrings[i].substring(len - 4));
-                yearIndex = i;
-                return year;
+
+                // We found the year only if it's a valid year
+                if (year >= MIN_YEAR && year <= MAX_YEAR) {
+                    yearIndex = i;
+                    return year;
+                }
             }
             catch (Exception ex) {
                 Log.e("MovieItem", ex.getMessage());

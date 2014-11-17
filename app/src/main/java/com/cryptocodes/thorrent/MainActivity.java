@@ -1,6 +1,7 @@
 package com.cryptocodes.thorrent;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,9 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
-import com.omertron.themoviedbapi.MovieDbException;
-import com.omertron.themoviedbapi.TheMovieDbApi;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -47,7 +45,7 @@ import it.gmariotti.cardslib.library.view.CardListView;
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
-    private final String LOGTAG = "MainActivity";
+    private final String LOG_TAG = "MainActivity";
 
     private static final String TV_SHOWS_FEED_URL = "http://www.scnsrc.me/category/tv/feed/";
     private static final String MOVIES_FEED_URL = "http://www.scnsrc.me/category/films/feed/";
@@ -56,6 +54,7 @@ public class MainActivity extends ActionBarActivity
     private static final String ALL_FEED_URL = "http://feeds.feedburner.com/scnsrc/rss?format=xml";
     private static final String BOOKS_FEED_URL = "http://www.scnsrc.me/category/ebooks/feed/";
     private static final String APPLICATIONS_FEED_URL = "http://www.scnsrc.me/category/applications/feed/";
+    private static ProgressDialog progress;
 
     public static String CURRENT_RSS_FEED = null;
 
@@ -91,6 +90,19 @@ public class MainActivity extends ActionBarActivity
         fragmentManager.beginTransaction()
                 .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
                 .commit();
+    }
+
+    public static void showDialog(Activity context)
+    {
+        progress = ProgressDialog.show(context,
+                context.getString(R.string.loading_dialog_header),
+                context.getString(R.string.loading_dialog_content),
+                true);
+    }
+
+    public static void dismissDialog()
+    {
+        progress.dismiss();
     }
 
     public void onSectionAttached(int number) {
@@ -219,6 +231,11 @@ public class MainActivity extends ActionBarActivity
         @Override
         public void onStart() {
             super.onStart();
+
+            // Show the "Loading" dialog
+            showDialog(getActivity());
+
+            // Run the Async task
             new GetAndroidPitRssFeedTask().execute();
         }
 
@@ -504,6 +521,8 @@ public class MainActivity extends ActionBarActivity
                     if (listView != null) {
                         listView.setAdapter(mCardArrayAdapter);
                     }
+
+                    ((MainActivity)getActivity()).dismissDialog();
                 }
             }
         }
