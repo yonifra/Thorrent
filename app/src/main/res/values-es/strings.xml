@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="navigation_drawer_items_array">
+        <item>Everything</item>
+        <item>TV Shows</item>
+        <item>Movies</item>
+        <item>Games</item>
+        <item>Music</item>
+        <item>Books</item>
+        <item>Applications</item>
+        <item>About…</item>
+    </string-array>
+
+    <string name="app_name">Thorrent</string>
+    <string name="TVShows">Programas de Televisión</string>
+    <string name="Movies">Películas</string>
+    <string name="About">Acerca de…</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Refrescar</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="Games">Juegos</string>
+    <string name="Music">Música</string>
+    <string name="Books">Libros</string>
+    <string name="Applications">Aplicaciones</string>
+    <string name="Everything">Todo</string>
+    <string name="RefreshingMessage">Refrescando…</string>
+    <string name="title_activity_about">Acerca de Thorrent</string>
+    <string name="Version">Versión</string>
+    <string name="AboutMessage">Hecho con amor por Cryptocodes, Inc.</string>
+    <string name="ReleaseDate">Noviembre 17, 2014</string>
+    <string name="cryptocodesUrl">http://www.cryptocodes.com</string>
+    <string name="TorrentProviderInfo">Informacion de Torrents por ScnSrc</string>
+    <string name="loading_dialog_header">Cargando...</string>
+    <string name="loading_dialog_content">Por favor espere mientras cargamos la lista de Torrents</string>
+    <string name="CheckInternetConn">No hay conexión al internet</string>
+    <string name="quality_text">Calidad</string>
+    <string name="rating_text">Puntuación</string>
+    <string name="by_user_text">Por</string>
+</resources>

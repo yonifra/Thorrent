@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="navigation_drawer_items_array">
+        <item>Everything</item>
+        <item>TV Shows</item>
+        <item>Movies</item>
+        <item>Games</item>
+        <item>Music</item>
+        <item>Books</item>
+        <item>Applications</item>
+        <item>About…</item>
+    </string-array>
+
+    <string name="app_name">Thorrent</string>
+    <string name="TVShows">תוכניות טלויזיה</string>
+    <string name="Movies">סרטים</string>
+    <string name="About">…אודות</string>
+    <string name="navigation_drawer_open">פתח תפריט</string>
+    <string name="navigation_drawer_close">סגור תפריט</string>
+    <string name="action_example">רענן</string>
+    <string name="action_settings">הגדרות</string>
+    <string name="Games">משחקים</string>
+    <string name="Music">מוסיקה</string>
+    <string name="Books">ספרים</string>
+    <string name="Applications">אפליקציות</string>
+    <string name="Everything">הכל</string>
+    <string name="RefreshingMessage">…מרענן</string>
+    <string name="title_activity_about">Thorrentאודות </string>
+    <string name="Version">גרסא</string>
+    <string name="AboutMessage">נעשה באהבה על ידי Cryptocodes, Inc.</string>
+    <string name="ReleaseDate">נובמבר 17, 2014</string>
+    <string name="cryptocodesUrl">http://www.cryptocodes.com</string>
+    <string name="TorrentProviderInfo">מידע אודות הטורנטים מסופק על ידי ScnSrc</string>
+    <string name="loading_dialog_header">…טוען</string>
+    <string name="loading_dialog_content">אנא המתן בזמן שרשימת הטורנטים נטענת</string>
+    <string name="CheckInternetConn">אין חיבור רשת</string>
+    <string name="quality_text">איכות</string>
+    <string name="rating_text">ציון</string>
+    <string name="by_user_text">על ידי</string>
+</resources>
