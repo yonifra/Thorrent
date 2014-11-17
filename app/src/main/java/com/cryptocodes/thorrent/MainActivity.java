@@ -110,37 +110,37 @@ public class MainActivity extends ActionBarActivity
             case 1:
                 // All categories
                 mTitle = getString(R.string.Everything);
-                refreshFeed(ALL_FEED_URL);
+                refreshFeed(ALL_FEED_URL, false);
                 break;
             case 2:
                 // TV Shows was selected
                 mTitle = getString(R.string.TVShows);
-                refreshFeed(TV_SHOWS_FEED_URL);
+                refreshFeed(TV_SHOWS_FEED_URL, false);
                 break;
             case 3:
                 // Movies was selected
                 mTitle = getString(R.string.Movies);
-                refreshFeed(MOVIES_FEED_URL);
+                refreshFeed(MOVIES_FEED_URL, false);
                 break;
             case 4:
                 // Games
                 mTitle = getString(R.string.Games);
-                refreshFeed(GAMES_FEED_URL);
+                refreshFeed(GAMES_FEED_URL, false);
                 break;
             case 5:
                 // Music
                 mTitle = getString(R.string.Music);
-                refreshFeed(MUSIC_FEED_URL);
+                refreshFeed(MUSIC_FEED_URL, false);
                 break;
             case 6:
                 // Books
                 mTitle = getString(R.string.Books);
-                refreshFeed(BOOKS_FEED_URL);
+                refreshFeed(BOOKS_FEED_URL, false);
                 break;
             case 7:
                 // Applications
                 mTitle = getString(R.string.Applications);
-                refreshFeed(APPLICATIONS_FEED_URL);
+                refreshFeed(APPLICATIONS_FEED_URL, false);
                 break;
             case 8:
                 // About was selected
@@ -152,8 +152,12 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
-    public void refreshFeed(String rssFeed) {
+    public void refreshFeed(String rssFeed, boolean isRefresh) {
         CURRENT_RSS_FEED = rssFeed;
+
+        if (isRefresh) {
+            // TODO: Handle refresh
+        }
     }
 
     public void restoreActionBar() {
@@ -162,7 +166,6 @@ public class MainActivity extends ActionBarActivity
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -272,7 +275,7 @@ public class MainActivity extends ActionBarActivity
             return rssFeed;
         }
 
-        private class GetAndroidPitRssFeedTask extends AsyncTask<Void, Void, List<ThorrentItem>> {
+        public class GetAndroidPitRssFeedTask extends AsyncTask<Void, Void, List<ThorrentItem>> {
 
             @Override
             protected List<ThorrentItem> doInBackground(Void... voids) {
@@ -483,7 +486,9 @@ public class MainActivity extends ActionBarActivity
 
                         // Add Header to card
                         header.setTitle(rssFeed.get(i).title);
-                        card.setTitle(rssFeed.get(i).time + "\n" + "By " + rssFeed.get(i).creator + "\n" + rssFeed.get(i).description);
+                        StringBuilder sb = new StringBuilder();
+                        card.setTitle(sb.append(rssFeed.get(i).time).append("\n").append(getActivity().getString(R.string.by_user_text))
+                                .append(" ").append(rssFeed.get(i).creator).append("\n").append(rssFeed.get(i).description).toString());
                         card.addCardHeader(header);
                         CardThumbnail thumb = new CardThumbnail(getActivity());
 

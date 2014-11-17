@@ -25,17 +25,19 @@
     <string name="Books">Books</string>
     <string name="Applications">Applications</string>
     <string name="Everything">Everything</string>
-    <string name="RefreshingMessage">Refreshing...</string>
+    <string name="RefreshingMessage">Refreshing…</string>
     <string name="title_activity_about">About Thorrent</string>
     <string name="hello_world">Hello world!</string>
     <string name="Version">Version</string>
     <string name="AboutMessage">Made with love by the folks at Cryptocodes, Inc.</string>
-    <string name="ReleaseDate">October 24, 2014</string>
+    <string name="ReleaseDate">November 17, 2014</string>
     <string name="cryptocodesUrl">http://www.cryptocodes.com</string>
     <string name="TorrentProviderInfo">Torrent information provided by ScnSrc</string>
     <string name="title_activity_yoni">YoniActivity</string>
     <string name="loading_dialog_header">Loading...</string>
     <string name="loading_dialog_content">Please wait while we fetch the data from the Torrent sources</string>
     <string name="CheckInternetConn">Could not fetch RSS feed, check your internet connection</string>
-
+    <string name="quality_text">Quality</string>
+    <string name="rating_text">Rating</string>
+    <string name="by_user_text">By</string>
 </resources>

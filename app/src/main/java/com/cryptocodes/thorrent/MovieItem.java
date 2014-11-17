@@ -44,7 +44,7 @@ public class MovieItem extends ThorrentItem {
 
         // Add resolution string (Only if it was decoded successfully)
         if (resolution != Resolution.NA) {
-            sb.append("[Quality: ").append(getResolutionString(resolution)).append("]");
+            sb.append("[").append(ThorrentApp.getContext().getString(R.string.quality_text)).append(": ").append(getResolutionString(resolution)).append("]");
         }
 
         // Don't add rating if it's zero
@@ -52,7 +52,7 @@ public class MovieItem extends ThorrentItem {
             if (resolution != Resolution.NA)
                 sb.append(" ");
 
-            sb.append("[Rating: ").append(rating).append("/10]");
+            sb.append("[").append(ThorrentApp.getContext().getString(R.string.rating_text)).append(": ").append(rating).append("/10]");
         }
 
         description = sb.toString();
