@@ -38,4 +38,9 @@
     <string name="quality_text">איכות</string>
     <string name="rating_text">ציון</string>
     <string name="by_user_text">על ידי</string>
+    <string name="card_empty_cardwithlist_text">אין מידע</string>
+    <string name="card_progressbar_cardwithlist_text">טוען נתונים</string>
+    <string name="font_fontFamily_medium">sans-serif</string>
+    <string name="font_fontFamily_regular">sans-serif</string>
+    <string name="list_card_undo_title">בטל</string>
 </resources>

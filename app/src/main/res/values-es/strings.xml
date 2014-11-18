@@ -38,4 +38,9 @@
     <string name="quality_text">Calidad</string>
     <string name="rating_text">Puntuación</string>
     <string name="by_user_text">Por</string>
+    <string name="card_empty_cardwithlist_text">No hay datos…</string>
+    <string name="card_progressbar_cardwithlist_text">Cargando informacion…</string>
+    <string name="font_fontFamily_medium">sans-serif</string>
+    <string name="font_fontFamily_regular">sans-serif</string>
+    <string name="list_card_undo_title">Deshacer</string>
 </resources>
