@@ -41,7 +41,6 @@ import it.gmariotti.cardslib.library.internal.CardHeader;
 import it.gmariotti.cardslib.library.internal.CardThumbnail;
 import it.gmariotti.cardslib.library.view.CardListView;
 
-
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
@@ -119,8 +118,12 @@ public class MainActivity extends ActionBarActivity
                 break;
             case 3:
                 // Movies was selected
+                Log.i(LOG_TAG, "Starting get on info for movies");
+
                 mTitle = getString(R.string.Movies);
                 refreshFeed(MOVIES_FEED_URL, false);
+
+                Log.i(LOG_TAG, "Finished refreshing info for movies");
                 break;
             case 4:
                 // Games
@@ -156,7 +159,7 @@ public class MainActivity extends ActionBarActivity
         CURRENT_RSS_FEED = rssFeed;
 
         if (isRefresh) {
-            // TODO: Handle refresh
+            // Handle the refresh
         }
     }
 

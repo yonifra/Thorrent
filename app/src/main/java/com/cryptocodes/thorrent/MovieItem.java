@@ -1,7 +1,10 @@
 package com.cryptocodes.thorrent;
 
+import android.text.format.Time;
 import android.util.Log;
 import com.omertron.themoviedbapi.model.MovieDb;
+
+import java.util.Date;
 
 /**
  * Created by jonathanf on 12/11/2014.
@@ -20,6 +23,8 @@ public class MovieItem extends ThorrentItem {
     private final int MAX_YEAR = 2100;
     private final int MIN_YEAR = 1900;
 
+    private static final String LOG_TAG = "MovieItemClass";
+
     public MovieItem()
     {
 
@@ -28,6 +33,7 @@ public class MovieItem extends ThorrentItem {
     public MovieItem(ThorrentItem baseItem)
     {
         this();
+
         title = baseItem.title;
         category = baseItem.category;
         creator = baseItem.creator;
@@ -84,19 +90,22 @@ public class MovieItem extends ThorrentItem {
         return "";
     }
 
+    // This method takes most of the time. If you encounter slowness, check this method
     protected void getImdbData() {
-//        new Thread(new Runnable() {
-//            public void run() {
+        new Thread(new Runnable() {
+            public void run() {
                 posterUrl = "";
 
                 MovieDb movie = MovieManager.getInstance().getMovie(rawMovieName, year);
                 if (movie != null)
                 {
+                    StringBuilder sb = new StringBuilder();
                     posterUrl = "http://image.tmdb.org/t/p/w185" + movie.getPosterPath();
                     rating = movie.getVoteAverage();
+                    description += sb.append("[").append(ThorrentApp.getContext().getString(R.string.rating_text)).append(": ").append(rating).append("/10]");
                 }
-//            }
-//        }).start();
+            }
+        }).start();
     }
 
     protected String getTitle() {
