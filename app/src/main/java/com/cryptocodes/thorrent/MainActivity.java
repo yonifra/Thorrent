@@ -353,6 +353,7 @@ public class MainActivity extends ActionBarActivity
                     String name = parser.getName();
                     if (name.equals("title")) {
                         result.title = readTitle(parser);
+                        result.formattedTitle = result.title;
                     } else if (name.equals("pubDate")) {
                         // get pubdate
                         result.time = readPubDate(parser);
@@ -488,7 +489,7 @@ public class MainActivity extends ActionBarActivity
                         CardHeader header = new CardHeader(getActivity());
 
                         // Add Header to card
-                        header.setTitle(rssFeed.get(i).title);
+                        header.setTitle(rssFeed.get(i).formattedTitle);
                         StringBuilder sb = new StringBuilder();
                         card.setTitle(sb.append(rssFeed.get(i).time).append("\n").append(getActivity().getString(R.string.by_user_text))
                                 .append(" ").append(rssFeed.get(i).creator).append("\n").append(rssFeed.get(i).description).toString());

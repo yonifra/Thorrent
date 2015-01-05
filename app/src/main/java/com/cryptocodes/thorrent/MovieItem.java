@@ -34,7 +34,7 @@ public class MovieItem extends ThorrentItem {
     {
         this();
 
-        title = baseItem.title;
+        formattedTitle = title = baseItem.title;
         category = baseItem.category;
         creator = baseItem.creator;
         description = baseItem.description;
@@ -83,6 +83,8 @@ public class MovieItem extends ThorrentItem {
                 return "720p";
             case ThreeD:
                 return "3D";
+            case Telesync:
+                return "Telesync";
             case NA:
                 return "N/A";
         }
@@ -92,20 +94,10 @@ public class MovieItem extends ThorrentItem {
 
     // This method takes most of the time. If you encounter slowness, check this method
     protected void getImdbData() {
-        new Thread(new Runnable() {
-            public void run() {
-                posterUrl = "";
+        MovieDetail md = new GetMovieDataAsync().doInBackground(rawMovieName, String.valueOf(year));
 
-                MovieDb movie = MovieManager.getInstance().getMovie(rawMovieName, year);
-                if (movie != null)
-                {
-                    StringBuilder sb = new StringBuilder();
-                    posterUrl = "http://image.tmdb.org/t/p/w185" + movie.getPosterPath();
-                    rating = movie.getVoteAverage();
-                    description += sb.append("[").append(ThorrentApp.getContext().getString(R.string.rating_text)).append(": ").append(rating).append("/10]");
-                }
-            }
-        }).start();
+        posterUrl = md.posterUrl;
+        rating = md.rating;
     }
 
     protected String getTitle() {
@@ -124,11 +116,11 @@ public class MovieItem extends ThorrentItem {
             sb.append("(" + year + ")");
 
             if (sb.toString() != "") {
-                title = sb.toString();
+                formattedTitle = sb.toString();
             }
         }
 
-        return title;
+        return formattedTitle;
     }
 
     protected void getResolution()
@@ -157,13 +149,17 @@ public class MovieItem extends ThorrentItem {
         {
             resolution = Resolution.ThreeD;
         }
+        else if (isContained("BDRip") || isContained("BRRip") || isContained("bluray"))
+        {
+            resolution = Resolution.Bluray;
+        }
         else if (isContained("CAM"))
         {
             resolution = Resolution.Cam;
         }
-        else if (isContained("BDRip") || isContained("BRRip") || isContained("bluray"))
+        else if (isContained("TS") || isContained("TELESYNC"))
         {
-            resolution = Resolution.Bluray;
+            resolution = Resolution.Telesync;
         }
         else
         {

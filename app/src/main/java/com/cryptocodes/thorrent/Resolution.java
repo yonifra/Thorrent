@@ -12,5 +12,6 @@ public enum Resolution {
     TwoK,
     ThreeD,
     Bluray,
+    Telesync,
     NA
 }

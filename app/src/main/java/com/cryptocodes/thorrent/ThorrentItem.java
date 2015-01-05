@@ -10,6 +10,7 @@ public class ThorrentItem {
     }
 
     public String title = "";
+    public String formattedTitle = "";
     public String description = "";
     public Category category;
     public String time;

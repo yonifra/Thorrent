@@ -30,8 +30,8 @@ public class TvItem extends MovieItem {
     protected String getTitle() {
         StringBuilder sb = new StringBuilder();
 
-        title = sb.append(getShowTitle()).append(" ").append(SEtext).toString();
-        return title;
+        formattedTitle = sb.append(getShowTitle()).append(" ").append(SEtext).toString();
+        return formattedTitle;
     }
 
     public TvItem(ThorrentItem baseItem)
