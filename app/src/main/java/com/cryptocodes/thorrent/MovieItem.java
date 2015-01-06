@@ -21,7 +21,7 @@ public class MovieItem extends ThorrentItem {
     public Resolution resolution;
     public String posterUrl = "";
     public int year;
-    public float rating = 0f;
+    public String rating = "";
     public String imdbUrl = "";
     public String plot = "";
 
@@ -69,7 +69,7 @@ public class MovieItem extends ThorrentItem {
         }
 
         // Don't add rating if it's zero
-        if (rating > 0.001f) {
+        if (rating != "0") {
             if (resolution != Resolution.NA)
                 sb.append(" ");
 
@@ -127,8 +127,8 @@ public class MovieItem extends ThorrentItem {
 
             String ratingStr = jsonObject.getString("imdbRating");
 
-            if(ratingStr != null) {
-                rating = Float.parseFloat(ratingStr);
+            if(ratingStr != null || ratingStr != "N/A") {
+                rating = ratingStr;
             }
 
             plot = jsonObject.getString("Plot");
