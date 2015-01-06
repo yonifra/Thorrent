@@ -8,8 +8,8 @@ android {
         applicationId "com.cryptocodes.thorrent"
         minSdkVersion 17
         targetSdkVersion 20
-        versionCode 5
-        versionName "1.4"
+        versionCode 6
+        versionName "1.5"
     }
     buildTypes {
         release {
@@ -35,4 +35,6 @@ dependencies {
     compile 'com.omertron:thetvdbapi:1.6'
     compile 'com.omertron:tvrageapi:1.4'
     compile 'com.omertron:fanarttvapi:3.0'
+    compile files('libs/API-OMDB-1.0-20141230.200036-39.jar')
+    compile 'org.json:json:20141113'
 }

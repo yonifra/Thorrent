@@ -6,4 +6,5 @@ package com.cryptocodes.thorrent;
 public class MovieDetail {
     public String posterUrl;
     public float rating;
+    public String imdbUrl;
 }

@@ -3,33 +3,56 @@ package com.cryptocodes.thorrent;
 import android.graphics.Movie;
 import android.os.AsyncTask;
 
+import com.omertron.omdbapi.OMDBException;
+import com.omertron.omdbapi.OmdbApi;
+import com.omertron.omdbapi.model.OmdbVideoBasic;
+import com.omertron.omdbapi.model.OmdbVideoFull;
+import com.omertron.omdbapi.wrapper.WrapperSearch;
 import com.omertron.themoviedbapi.model.MovieDb;
+
+import java.util.List;
 
 /**
  * Created by Jake on 5/1/2015.
  */
 public class GetMovieDataAsync extends AsyncTask<String, Integer, MovieDetail> {
-    private String posterUrl;
-    private float rating;
-
     @Override
     protected MovieDetail doInBackground(String... strings) {
-        posterUrl = "";
 
-        MovieDb movie = MovieManager.getInstance().getMovie(strings[0], Integer.parseInt(strings[1]));
-        if (movie != null)
-        {
-            MovieDetail md = new MovieDetail();
+//        OmdbApi omdb = new OmdbApi();
+//        omdb.setTomatoes(false);
+//        omdb.setShortPlot();
 
-            md.posterUrl = "http://image.tmdb.org/t/p/w185" + movie.getPosterPath();
-            md.rating = movie.getVoteAverage();
-           // StringBuilder sb = new StringBuilder();
-            //posterUrl = "http://image.tmdb.org/t/p/w185" + movie.getPosterPath();
-            //rating = movie.getVoteAverage();
-            //  description += sb.append("[").append(ThorrentApp.getContext().getString(R.string.rating_text)).append(": ").append(rating).append("/10]");
-
-            return md;
-        }
+//        try {
+//            OmdbVideoFull search = omdb.movieInfo(strings[0]);//,Integer.parseInt(strings[1]));
+//
+//            if (search != null) {
+//                MovieDetail md = new MovieDetail();
+//
+//                md.posterUrl = search.getPoster();
+//                md.rating = Float.parseFloat(search.getImdbRating());
+//               // md.plot = search.getPlot();
+//                md.imdbUrl = "http://www.imdb.com/title/" + search.getImdbID();
+//            }
+//        } catch (OMDBException e) {
+//            e.printStackTrace();
+//        }
+//        MovieDb movie = MovieManager.getInstance().getMovie(strings[0], Integer.parseInt(strings[1]));
+//        if (movie != null)
+//        {
+//
+//            MovieDetail md = new MovieDetail();
+//
+//            md.posterUrl = "http://image.tmdb.org/t/p/w185" + movie.getPosterPath();
+//            md.rating = movie.getVoteAverage();
+//            md.imdbUrl = "http://www.imdb.com/title/" + movie.getImdbID();
+//           // StringBuilder sb = new StringBuilder();
+//            //posterUrl = "http://image.tmdb.org/t/p/w185" + movie.getPosterPath();
+//            //rating = movie.getVoteAverage();
+//            //  description += sb.append("[").append(ThorrentApp.getContext().getString(R.string.rating_text)).append(": ").append(rating).append("/10]");
+//
+//            return md;
+//        }
 
         return null;
     }

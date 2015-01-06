@@ -3,6 +3,7 @@ package com.cryptocodes.thorrent;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -488,15 +489,27 @@ public class MainActivity extends ActionBarActivity
                         // Create a CardHeader
                         CardHeader header = new CardHeader(getActivity());
 
+                        ThorrentItem currentItem = rssFeed.get(i);
+
                         // Add Header to card
-                        header.setTitle(rssFeed.get(i).formattedTitle);
+                        header.setTitle(currentItem.formattedTitle);
+
                         StringBuilder sb = new StringBuilder();
-                        card.setTitle(sb.append(rssFeed.get(i).time).append("\n").append(getActivity().getString(R.string.by_user_text))
-                                .append(" ").append(rssFeed.get(i).creator).append("\n").append(rssFeed.get(i).description).toString());
+
+                        if (currentItem.category == Category.MOVIE)
+                        {
+                            card.setTitle(sb.append(currentItem.time).append("\n").append(currentItem.description).toString());
+                        }
+                        else
+                        {
+                            card.setTitle(sb.append(currentItem.time).append("\n").append(getActivity().getString(R.string.by_user_text))
+                                    .append(" ").append(currentItem.creator).append("\n").append(currentItem.description).toString());
+                        }
+
                         card.addCardHeader(header);
                         CardThumbnail thumb = new CardThumbnail(getActivity());
 
-                        switch (rssFeed.get(i).category)
+                        switch (currentItem.category)
                         {
                             case APPLICATION:
                                 thumb.setDrawableResource(R.drawable.app);
@@ -505,7 +518,22 @@ public class MainActivity extends ActionBarActivity
                                 thumb.setDrawableResource(R.drawable.tv);
                                 break;
                             case MOVIE:
-                                thumb.setUrlResource(((MovieItem)(rssFeed.get(i))).posterUrl);
+                                final MovieItem movie = (MovieItem)currentItem;
+                                thumb.setUrlResource(movie.posterUrl);
+
+                                //Set onClick listener
+                                card.setOnClickListener(new Card.OnCardClickListener() {
+                                    @Override
+                                    public void onClick(Card card, View view) {
+                                        if (movie.imdbUrl == "") {
+                                            Toast.makeText(getActivity(), "Failed to get info", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(movie.imdbUrl));
+                                            startActivity(browserIntent);
+                                        }
+                                    }
+                                });
+
                                 break;
                             case BOOK:
                                 thumb.setDrawableResource(R.drawable.books);

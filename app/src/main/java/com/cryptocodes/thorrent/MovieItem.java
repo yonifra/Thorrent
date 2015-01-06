@@ -1,19 +1,29 @@
 package com.cryptocodes.thorrent;
 
-import android.text.format.Time;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
+
+import com.omertron.omdbapi.OMDBException;
+import com.omertron.omdbapi.OmdbApi;
+import com.omertron.omdbapi.model.OmdbVideoFull;
 import com.omertron.themoviedbapi.model.MovieDb;
 
-import java.util.Date;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 /**
  * Created by jonathanf on 12/11/2014.
  */
 public class MovieItem extends ThorrentItem {
     public Resolution resolution;
-    public String posterUrl;
+    public String posterUrl = "";
     public int year;
-    public float rating;
+    public float rating = 0f;
+    public String imdbUrl = "";
+    public String plot = "";
 
     protected String[] splittedStrings;
     protected int yearIndex;
@@ -47,6 +57,11 @@ public class MovieItem extends ThorrentItem {
         getImdbData();
 
         StringBuilder sb = new StringBuilder();
+
+        if (plot.length() > 1) {
+            sb.append(plot);
+            sb.append("\n");
+        }
 
         // Add resolution string (Only if it was decoded successfully)
         if (resolution != Resolution.NA) {
@@ -94,10 +109,45 @@ public class MovieItem extends ThorrentItem {
 
     // This method takes most of the time. If you encounter slowness, check this method
     protected void getImdbData() {
-        MovieDetail md = new GetMovieDataAsync().doInBackground(rawMovieName, String.valueOf(year));
+        try {
+            String s = "http://www.omdbapi.com/?t=" + rawMovieName;
+            JSONObject jsonObject = JSONReader.readJsonFromUrl(s.replace(" ", "%20"));
 
-        posterUrl = md.posterUrl;
-        rating = md.rating;
+            if (jsonObject == null)
+                return;
+
+            if (jsonObject.getString("Response") == "False") return;
+
+            posterUrl = jsonObject.getString("Poster");
+
+            if (posterUrl == null)
+            {
+                posterUrl = "";
+            }
+
+            String ratingStr = jsonObject.getString("imdbRating");
+
+            if(ratingStr != null) {
+                rating = Float.parseFloat(ratingStr);
+            }
+
+            plot = jsonObject.getString("Plot");
+
+            if (plot == null || plot == "")
+            {
+                plot = "";
+            }
+            else
+            {
+                plot = plot.substring(0,Math.min(120, plot.length())) + "...";
+            }
+
+            imdbUrl = "http://www.imdb.com/title/" + jsonObject.getString("imdbID");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     protected String getTitle() {

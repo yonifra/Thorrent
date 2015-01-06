@@ -88,6 +88,7 @@
     <orderEntry type="library" exported="" name="jackson-databind-2.4.2" level="project" />
     <orderEntry type="library" exported="" name="pojava-2.8.1" level="project" />
     <orderEntry type="library" exported="" name="thetvdbapi-1.6" level="project" />
+    <orderEntry type="library" exported="" name="API-OMDB-1.0-20141230.200036-39" level="project" />
     <orderEntry type="library" exported="" name="fanarttvapi-3.0" level="project" />
     <orderEntry type="library" exported="" name="commons-pool-1.6" level="project" />
     <orderEntry type="library" exported="" name="themoviedbapi-3.9" level="project" />
