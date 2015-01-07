@@ -2,6 +2,7 @@ package com.cryptocodes.thorrent;
 
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -31,6 +33,7 @@ public class MediaDetailActivity extends ActionBarActivity {
     TextView movieName;
     TextView imdbRating;
     TextView metascoreRating;
+    ScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +46,10 @@ public class MediaDetailActivity extends ActionBarActivity {
         runtime = (TextView) findViewById(R.id.movieDetailsRuntime);
         genre = (TextView) findViewById(R.id.movieDetailsGenre);
         releaseYear = (TextView) findViewById(R.id.movieDetailsReleaseYear);
-        mainLayout = (LinearLayout) findViewById(R.id.movieDetailsLayout);
         movieName = (TextView) findViewById(R.id.movieDetailsMovieName);
         imdbRating = (TextView) findViewById(R.id.movieDetailsRating);
         metascoreRating = (TextView) findViewById(R.id.movieDetailsMetascoreRating);
+        scrollView = (ScrollView)findViewById(R.id.movieDetailsScrollView);
 
         // Set the background of the activity to be the poster
         //mainLayout.setBackground();
@@ -59,7 +62,7 @@ public class MediaDetailActivity extends ActionBarActivity {
     protected void getImdbData(String name) {
         MovieDetail md = null;
         try {
-            md = new RetrieveFeedTask().execute(name).get();
+            md = new RetrieveMovieDetails().execute(name).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -71,7 +74,7 @@ public class MediaDetailActivity extends ActionBarActivity {
         Drawable posterDrawable = LoadImageFromUrl(md.posterUrl);
 
         if (posterDrawable != null) {
-            mainLayout.setBackground(posterDrawable);
+            scrollView.setBackground(posterDrawable);
         }
 
         plot.setText(md.plot);
@@ -87,9 +90,13 @@ public class MediaDetailActivity extends ActionBarActivity {
 
     public static Drawable LoadImageFromUrl(String url) {
         try {
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "src name");
-            return d;
+            Drawable drawable = new RetrievePoster().execute(url).get();
+
+            drawable.setAlpha(40);
+            //drawable.setColorFilter(0, PorterDuff.Mode.DARKEN);
+            //drawable.mutate().setColorFilter( 0xff000000, PorterDuff.Mode.OVERLAY);
+
+            return drawable;
         } catch (Exception e) {
             return null;
         }
@@ -118,7 +125,7 @@ public class MediaDetailActivity extends ActionBarActivity {
     }
 }
 
-class RetrieveFeedTask extends AsyncTask<String, Void, MovieDetail> {
+class RetrieveMovieDetails extends AsyncTask<String, Void, MovieDetail> {
 
     private Exception exception;
 
@@ -147,6 +154,26 @@ class RetrieveFeedTask extends AsyncTask<String, Void, MovieDetail> {
             return null;
         } catch (Exception e) {
             this.exception = e;
+            return null;
+        }
+    }
+
+    protected void onPostExecute(MovieDetail object) {
+        // TODO: check this.exception
+        // TODO: do something with the feed
+    }
+}
+
+class RetrievePoster extends AsyncTask<String, Void, Drawable> {
+
+    private Exception exception;
+
+    protected Drawable doInBackground(String... urls) {
+        try {
+            InputStream is = (InputStream) new URL(urls[0]).getContent();
+            Drawable d = Drawable.createFromStream(is, "src name");
+            return d;
+        } catch (Exception e) {
             return null;
         }
     }

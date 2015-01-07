@@ -38,7 +38,7 @@
     <string name="quality_text">Quality</string>
     <string name="rating_text">Rating</string>
     <string name="by_user_text">By</string>
-    <string name="title_activity_media_detail">MediaDetailActivity</string>
+    <string name="title_activity_media_detail">Details</string>
     <string name="hello_world">Hello world!</string>
 
 </resources>
