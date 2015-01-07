@@ -528,8 +528,10 @@ public class MainActivity extends ActionBarActivity
                                         if (movie.imdbUrl == "") {
                                             Toast.makeText(getActivity(), "Failed to get info", Toast.LENGTH_SHORT).show();
                                         } else {
-                                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(movie.imdbUrl));
-                                            startActivity(browserIntent);
+//                                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(movie.imdbUrl));
+                                            Intent movieDetailsIntent = new Intent(getActivity(), MediaDetailActivity.class);
+                                            movieDetailsIntent.putExtra("MOVIE_NAME", movie.rawMovieName);
+                                            startActivity(movieDetailsIntent);
                                         }
                                     }
                                 });

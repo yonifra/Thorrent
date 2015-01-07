@@ -1,0 +1,208 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    android:paddingBottom="0dp"
+    tools:context="com.cryptocodes.thorrent.MediaDetailActivity"
+    android:background="@color/card_background"
+    android:id="@+id/movieDetailsLayout"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <TextView android:text="Movie Name"
+        android:textColor="@color/card_text_color_header"
+        android:textSize="26dp"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/movieDetailsMovieName"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="("
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/card_text_color_header"
+            android:textSize="20dp"
+            android:layout_marginLeft="5dp"/>
+        <TextView android:text="N/A"
+            android:textColor="@color/card_text_color_header"
+            android:textSize="20dp"
+            android:fontFamily="sans-serif-condensed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/movieDetailsReleaseYear"/>
+        <TextView
+            android:textColor="@color/card_text_color_header"
+            android:textSize="20dp"
+            android:fontFamily="sans-serif-condensed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=")"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <TextView android:text="Genre: "
+        android:textColor="@color/card_text_color_header"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView android:text="N/A"
+        android:textColor="@color/card_text_color_header"
+        android:textSize="20dp"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/movieDetailsGenre"/>
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView android:text="Runtime: "
+            android:textColor="@color/card_text_color_header"
+            android:textSize="20dp"
+            android:fontFamily="sans-serif-condensed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView android:text="N/A"
+            android:textColor="@color/card_text_color_header"
+            android:textSize="20dp"
+            android:fontFamily="sans-serif-condensed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/movieDetailsRuntime"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView android:text="IMDB Rating: "
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/card_text_color_header"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView android:text="N/A"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/card_text_color_header"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/movieDetailsRating"/>
+
+        <TextView android:text=" / 10"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/card_text_color_header"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView android:text="Metascore: "
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/card_text_color_header"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView android:text="N/A"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/card_text_color_header"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/movieDetailsMetascoreRating"/>
+        <TextView android:text=" / 100"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/card_text_color_header"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView android:text="Director: "
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/card_text_color_header"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView android:text="N/A"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/card_text_color_header"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/movieDetailsDirector"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView android:text="Actors: "
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/card_text_color_header"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView android:text="N/A"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/card_text_color_header"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/movieDetailsActors"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView android:text="Plot summary..."
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/card_text_color_header"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/movieDetailsPlot"/>
+    </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
+

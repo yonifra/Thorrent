@@ -1,13 +1,6 @@
 package com.cryptocodes.thorrent;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.util.Log;
-
-import com.omertron.omdbapi.OMDBException;
-import com.omertron.omdbapi.OmdbApi;
-import com.omertron.omdbapi.model.OmdbVideoFull;
-import com.omertron.themoviedbapi.model.MovieDb;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,7 +20,7 @@ public class MovieItem extends ThorrentItem {
 
     protected String[] splittedStrings;
     protected int yearIndex;
-    private String rawMovieName;
+    public String rawMovieName;
 
     // Used to validate the year range
     private final int MAX_YEAR = 2100;

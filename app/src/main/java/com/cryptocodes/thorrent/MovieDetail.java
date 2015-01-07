@@ -5,6 +5,14 @@ package com.cryptocodes.thorrent;
  */
 public class MovieDetail {
     public String posterUrl;
-    public float rating;
-    public String imdbUrl;
+    public String rating;
+    public String actors;
+    public String plot;
+    public String runtime;
+    public String genre;
+    public String year;
+    public String metascore;
+    public String country;
+    public String director;
+    public String name;
 }
