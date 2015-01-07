@@ -496,15 +496,8 @@ public class MainActivity extends ActionBarActivity
 
                         StringBuilder sb = new StringBuilder();
 
-                        if (currentItem.category == Category.MOVIE)
-                        {
-                            card.setTitle(sb.append(currentItem.time).append("\n").append(currentItem.description).toString());
-                        }
-                        else
-                        {
-                            card.setTitle(sb.append(currentItem.time).append("\n").append(getActivity().getString(R.string.by_user_text))
-                                    .append(" ").append(currentItem.creator).append("\n").append(currentItem.description).toString());
-                        }
+                        card.setTitle(sb.append(currentItem.time).append("\n").append(getActivity().getString(R.string.by_user_text))
+                            .append(" ").append(currentItem.creator).append("\n").append(currentItem.description).toString());
 
                         card.addCardHeader(header);
                         CardThumbnail thumb = new CardThumbnail(getActivity());
@@ -526,7 +519,7 @@ public class MainActivity extends ActionBarActivity
                                     @Override
                                     public void onClick(Card card, View view) {
                                         if (movie.imdbUrl == "") {
-                                            Toast.makeText(getActivity(), "Failed to get info", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getActivity(), "No info", Toast.LENGTH_SHORT).show();
                                         } else {
 //                                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(movie.imdbUrl));
                                             Intent movieDetailsIntent = new Intent(getActivity(), MediaDetailActivity.class);

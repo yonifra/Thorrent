@@ -124,17 +124,6 @@ public class MovieItem extends ThorrentItem {
                 rating = ratingStr;
             }
 
-            plot = jsonObject.getString("Plot");
-
-            if (plot == null || plot == "")
-            {
-                plot = "";
-            }
-            else
-            {
-                plot = plot.substring(0,Math.min(120, plot.length())) + "...";
-            }
-
             imdbUrl = "http://www.imdb.com/title/" + jsonObject.getString("imdbID");
         } catch (JSONException e) {
             e.printStackTrace();
