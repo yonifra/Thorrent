@@ -27,6 +27,7 @@ public class MediaDetailActivity extends ActionBarActivity {
     TextView metascoreRating;
     ScrollView scrollView;
     TextView country;
+    TextView imdbVotes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +45,18 @@ public class MediaDetailActivity extends ActionBarActivity {
         metascoreRating = (TextView) findViewById(R.id.movieDetailsMetascoreRating);
         scrollView = (ScrollView)findViewById(R.id.movieDetailsScrollView);
         country = (TextView)findViewById(R.id.movieDetailsCountry);
+        imdbVotes = (TextView) findViewById(R.id.mediaDetailsImdbVotes);
 
         String movieName = getIntent().getStringExtra("MOVIE_NAME");
+        String year = getIntent().getStringExtra("MOVIE_YEAR");
 
-        getImdbData(movieName);
+        getImdbData(movieName, year);
     }
 
-    protected void getImdbData(String name) {
+    protected void getImdbData(String name, String year) {
         MovieDetail md = null;
         try {
-            md = new RetrieveMovieDetails().execute(name).get();
+            md = new RetrieveMovieDetails().execute(name, year).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -78,6 +81,7 @@ public class MediaDetailActivity extends ActionBarActivity {
         metascoreRating.setText(md.metascore);
         imdbRating.setText(md.rating);
         country.setText(md.country);
+        imdbVotes.setText(md.imdbVotes);
     }
 
     public static Drawable LoadImageFromUrl(String url) {
@@ -118,8 +122,7 @@ class RetrieveMovieDetails extends AsyncTask<String, Void, MovieDetail> {
 
     protected MovieDetail doInBackground(String... movies) {
         try {
-            String s = "http://www.omdbapi.com/?t=" + movies[0].replace(" ", "%20");
-            JSONObject jsonObject = JSONReader.readJsonFromUrl(s);
+            JSONObject jsonObject = JSONReader.readJsonFromUrl(MovieItem.buildJsonUrl(movies[0], Integer.parseInt(movies[1])));
 
             if (jsonObject != null) {
                 MovieDetail md = new MovieDetail();
@@ -134,6 +137,7 @@ class RetrieveMovieDetails extends AsyncTask<String, Void, MovieDetail> {
                 md.metascore = jsonObject.getString("Metascore");
                 md.year = jsonObject.getString("Year");
                 md.name = jsonObject.getString("Title");
+                md.imdbVotes = jsonObject.getString("imdbVotes");
 
                 return md;
             }
@@ -155,8 +159,7 @@ class RetrievePoster extends AsyncTask<String, Void, Drawable> {
     protected Drawable doInBackground(String... urls) {
         try {
             InputStream is = (InputStream) new URL(urls[0]).getContent();
-            Drawable d = Drawable.createFromStream(is, "src name");
-            return d;
+            return Drawable.createFromStream(is, "src name");
         } catch (Exception e) {
             return null;
         }

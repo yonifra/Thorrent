@@ -15,4 +15,5 @@ public class MovieDetail {
     public String country;
     public String director;
     public String name;
+    public String imdbVotes;
 }

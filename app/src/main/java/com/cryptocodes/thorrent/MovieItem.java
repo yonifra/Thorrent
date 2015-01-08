@@ -62,7 +62,7 @@ public class MovieItem extends ThorrentItem {
         }
 
         // Don't add rating if it's zero
-        if (rating != "0") {
+        if (!rating.equals("0")) {
             if (resolution != Resolution.NA)
                 sb.append(" ");
 
@@ -108,7 +108,7 @@ public class MovieItem extends ThorrentItem {
             if (jsonObject == null)
                 return;
 
-            if (jsonObject.getString("Response") == "False") return;
+            if (jsonObject.getString("Response").equals("False")) return;
 
             posterUrl = jsonObject.getString("Poster");
 
@@ -119,7 +119,7 @@ public class MovieItem extends ThorrentItem {
 
             String ratingStr = jsonObject.getString("imdbRating");
 
-            if(ratingStr != null || ratingStr != "N/A") {
+            if(ratingStr != null || !ratingStr.equals("N/A")) {
                 rating = ratingStr;
             }
 
@@ -131,16 +131,8 @@ public class MovieItem extends ThorrentItem {
         }
     }
 
-    private String buildJsonUrl(String rawMovieName, int year) {
-        StringBuffer sb = new StringBuffer();
-
-        sb.append("http://www.omdbapi.com/?t=");
-        sb.append(rawMovieName.replace(" ", "%20"));
-        sb.append("&y=");
-        sb.append(year);
-        sb.append("&plot=full&r=json");
-
-        return sb.toString();
+    public static String buildJsonUrl(String rawMovieName, int year) {
+        return "http://www.omdbapi.com/?t=" + rawMovieName.replace(" ", "%20") + "&y=" + year + "&plot=full&r=json";
     }
 
     protected String getTitle() {
@@ -148,7 +140,7 @@ public class MovieItem extends ThorrentItem {
         year = getYear();
 
         for (int i = 0; i < yearIndex; i++) {
-            sb.append(splittedStrings[i] + " ");
+            sb.append(splittedStrings[i]).append(" ");
         }
 
 
@@ -156,9 +148,9 @@ public class MovieItem extends ThorrentItem {
             // Remove the last space from title
             rawMovieName = sb.toString().substring(0, sb.toString().length() - 1);
 
-            sb.append("(" + year + ")");
+            sb.append("(").append(year).append(")");
 
-            if (sb.toString() != "") {
+            if (!sb.toString().equals("")) {
                 formattedTitle = sb.toString();
             }
         }

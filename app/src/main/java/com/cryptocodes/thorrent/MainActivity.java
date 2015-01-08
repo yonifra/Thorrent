@@ -3,7 +3,6 @@ package com.cryptocodes.thorrent;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -224,8 +223,7 @@ public class MainActivity extends ActionBarActivity
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            return rootView;
+            return inflater.inflate(R.layout.fragment_main, container, false);
         }
 
         @Override
@@ -494,10 +492,7 @@ public class MainActivity extends ActionBarActivity
                         // Add Header to card
                         header.setTitle(currentItem.formattedTitle);
 
-                        StringBuilder sb = new StringBuilder();
-
-                        card.setTitle(sb.append(currentItem.time).append("\n").append(getActivity().getString(R.string.by_user_text))
-                            .append(" ").append(currentItem.creator).append("\n").append(currentItem.description).toString());
+                        card.setTitle(currentItem.time + "\n" + getActivity().getString(R.string.by_user_text) + " " + currentItem.creator + "\n" + currentItem.description);
 
                         card.addCardHeader(header);
                         CardThumbnail thumb = new CardThumbnail(getActivity());
@@ -518,12 +513,13 @@ public class MainActivity extends ActionBarActivity
                                 card.setOnClickListener(new Card.OnCardClickListener() {
                                     @Override
                                     public void onClick(Card card, View view) {
-                                        if (movie.imdbUrl == "") {
+                                        if (movie.imdbUrl.equals("")) {
                                             Toast.makeText(getActivity(), "No info", Toast.LENGTH_SHORT).show();
                                         } else {
 //                                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(movie.imdbUrl));
                                             Intent movieDetailsIntent = new Intent(getActivity(), MediaDetailActivity.class);
                                             movieDetailsIntent.putExtra("MOVIE_NAME", movie.rawMovieName);
+                                            movieDetailsIntent.putExtra("MOVIE_YEAR", String.valueOf(movie.year));
                                             startActivity(movieDetailsIntent);
                                         }
                                     }

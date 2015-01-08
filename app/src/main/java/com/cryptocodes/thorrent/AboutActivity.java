@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-
 public class AboutActivity extends Activity {
     private final String LOGTAG = "AboutActivity";
 
@@ -26,7 +25,6 @@ public class AboutActivity extends Activity {
             Log.e(LOGTAG, e.getMessage());
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
