@@ -1,21 +1,27 @@
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="0dp"
-    android:paddingRight="0dp"
-    android:paddingTop="0dp"
-    android:paddingBottom="0dp"
-    tools:context="com.cryptocodes.thorrent.MediaDetailActivity"
-    android:background="@color/card_background"
-    android:id="@+id/movieDetailsLayout"
-    android:orientation="vertical">
 
-    <ScrollView
+
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:paddingLeft="0dp"-->
+    <!--android:paddingRight="0dp"-->
+    <!--android:paddingTop="0dp"-->
+    <!--android:paddingBottom="0dp"-->
+    <!--tools:context="com.cryptocodes.thorrent.MediaDetailActivity"-->
+    <!--android:background="@color/card_background"-->
+    <!--android:id="@+id/movieDetailsLayout"-->
+    <!--android:orientation="vertical">-->
+
+    <com.nirhart.parallaxscroll.views.ParallaxScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/card_background"
-        android:id="@+id/movieDetailsScrollView">
+        app:parallax_factor="1.9"
+        tools:context="com.cryptocodes.thorrent.MediaDetailActivity"
+        android:id="@+id/parallaxScrollView">
 
         <LinearLayout
             android:padding="5dp"
@@ -23,41 +29,53 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-    <TextView android:text="Movie Name"
-        android:textColor="@color/card_text_color_header"
-        android:textSize="26dp"
-        android:fontFamily="sans-serif-condensed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/movieDetailsMovieName"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:orientation="horizontal"
+                tools:ignore="HardcodedText"
+                android:layout_gravity="center">
+                <TextView android:text="Movie Name"
+                    android:textColor="@color/card_text_color_header"
+                    android:textSize="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:fontFamily="sans-serif-condensed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/movieDetailsMovieName"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="("
-            android:fontFamily="sans-serif-condensed"
-            android:textColor="@color/card_text_color_header"
-            android:textSize="20dp"
-            android:layout_marginLeft="5dp"/>
-        <TextView android:text="N/A"
-            android:textColor="@color/card_text_color_header"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-condensed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/movieDetailsReleaseYear"/>
-        <TextView
-            android:textColor="@color/card_text_color_header"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-condensed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=")"/>
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="("
+                    android:layout_gravity="center"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textColor="@color/card_text_color_header"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="5dp"/>
+                <TextView android:text="N/A"
+                    android:textColor="@color/card_text_color_header"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="4dp"
+                    android:textSize="20dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/movieDetailsReleaseYear"/>
+                <TextView
+                    android:textColor="@color/card_text_color_header"
+                    android:layout_gravity="center"
+                    android:textSize="20dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=")"/>
+            </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -255,7 +273,7 @@
     </LinearLayout>
         </LinearLayout>
 
-    </ScrollView>
+    </com.nirhart.parallaxscroll.views.ParallaxScrollView>
 
-</LinearLayout>
+<!--</LinearLayout>-->
 

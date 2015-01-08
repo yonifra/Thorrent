@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.nirhart.parallaxscroll.views.ParallaxScrollView;
+
 import org.json.JSONObject;
 
 import java.io.InputStream;
@@ -25,7 +27,7 @@ public class MediaDetailActivity extends ActionBarActivity {
     TextView movieName;
     TextView imdbRating;
     TextView metascoreRating;
-    ScrollView scrollView;
+    ParallaxScrollView scrollView;
     TextView country;
     TextView imdbVotes;
 
@@ -43,7 +45,7 @@ public class MediaDetailActivity extends ActionBarActivity {
         movieName = (TextView) findViewById(R.id.movieDetailsMovieName);
         imdbRating = (TextView) findViewById(R.id.movieDetailsRating);
         metascoreRating = (TextView) findViewById(R.id.movieDetailsMetascoreRating);
-        scrollView = (ScrollView)findViewById(R.id.movieDetailsScrollView);
+        scrollView = (ParallaxScrollView)findViewById(R.id.parallaxScrollView);
         country = (TextView)findViewById(R.id.movieDetailsCountry);
         imdbVotes = (TextView) findViewById(R.id.mediaDetailsImdbVotes);
 
