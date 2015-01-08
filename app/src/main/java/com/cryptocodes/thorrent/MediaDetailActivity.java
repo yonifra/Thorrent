@@ -1,26 +1,19 @@
 package com.cryptocodes.thorrent;
 
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
-
 
 public class MediaDetailActivity extends ActionBarActivity {
     TextView plot;
@@ -29,11 +22,11 @@ public class MediaDetailActivity extends ActionBarActivity {
     TextView runtime;
     TextView genre;
     TextView releaseYear;
-    LinearLayout mainLayout;
     TextView movieName;
     TextView imdbRating;
     TextView metascoreRating;
     ScrollView scrollView;
+    TextView country;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +43,7 @@ public class MediaDetailActivity extends ActionBarActivity {
         imdbRating = (TextView) findViewById(R.id.movieDetailsRating);
         metascoreRating = (TextView) findViewById(R.id.movieDetailsMetascoreRating);
         scrollView = (ScrollView)findViewById(R.id.movieDetailsScrollView);
-
-        // Set the background of the activity to be the poster
-        //mainLayout.setBackground();
+        country = (TextView)findViewById(R.id.movieDetailsCountry);
 
         String movieName = getIntent().getStringExtra("MOVIE_NAME");
 
@@ -86,15 +77,13 @@ public class MediaDetailActivity extends ActionBarActivity {
         movieName.setText(md.name);
         metascoreRating.setText(md.metascore);
         imdbRating.setText(md.rating);
+        country.setText(md.country);
     }
 
     public static Drawable LoadImageFromUrl(String url) {
         try {
             Drawable drawable = new RetrievePoster().execute(url).get();
-
             drawable.setAlpha(40);
-            //drawable.setColorFilter(0, PorterDuff.Mode.DARKEN);
-            //drawable.mutate().setColorFilter( 0xff000000, PorterDuff.Mode.OVERLAY);
 
             return drawable;
         } catch (Exception e) {
@@ -127,8 +116,6 @@ public class MediaDetailActivity extends ActionBarActivity {
 
 class RetrieveMovieDetails extends AsyncTask<String, Void, MovieDetail> {
 
-    private Exception exception;
-
     protected MovieDetail doInBackground(String... movies) {
         try {
             String s = "http://www.omdbapi.com/?t=" + movies[0].replace(" ", "%20");
@@ -153,7 +140,6 @@ class RetrieveMovieDetails extends AsyncTask<String, Void, MovieDetail> {
 
             return null;
         } catch (Exception e) {
-            this.exception = e;
             return null;
         }
     }
@@ -165,8 +151,6 @@ class RetrieveMovieDetails extends AsyncTask<String, Void, MovieDetail> {
 }
 
 class RetrievePoster extends AsyncTask<String, Void, Drawable> {
-
-    private Exception exception;
 
     protected Drawable doInBackground(String... urls) {
         try {

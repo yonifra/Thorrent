@@ -103,8 +103,7 @@ public class MovieItem extends ThorrentItem {
     // This method takes most of the time. If you encounter slowness, check this method
     protected void getImdbData() {
         try {
-            String s = "http://www.omdbapi.com/?t=" + rawMovieName;
-            JSONObject jsonObject = JSONReader.readJsonFromUrl(s.replace(" ", "%20"));
+            JSONObject jsonObject = JSONReader.readJsonFromUrl(buildJsonUrl(rawMovieName, year));
 
             if (jsonObject == null)
                 return;
@@ -130,6 +129,18 @@ public class MovieItem extends ThorrentItem {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private String buildJsonUrl(String rawMovieName, int year) {
+        StringBuffer sb = new StringBuffer();
+
+        sb.append("http://www.omdbapi.com/?t=");
+        sb.append(rawMovieName.replace(" ", "%20"));
+        sb.append("&y=");
+        sb.append(year);
+        sb.append("&plot=full&r=json");
+
+        return sb.toString();
     }
 
     protected String getTitle() {

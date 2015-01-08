@@ -72,7 +72,7 @@
     <TextView android:text="N/A"
         android:textColor="@color/card_text_color_header"
         android:textSize="20dp"
-        android:fontFamily="sans-serif-condensed"
+        android:fontFamily="sans-serif-light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/movieDetailsGenre"/>
@@ -92,7 +92,7 @@
         <TextView android:text="N/A"
             android:textColor="@color/card_text_color_header"
             android:textSize="20dp"
-            android:fontFamily="sans-serif-condensed"
+            android:fontFamily="sans-serif-light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/movieDetailsRuntime"/>
@@ -109,7 +109,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView android:text="N/A"
-            android:fontFamily="sans-serif-condensed"
+            android:fontFamily="sans-serif-light"
             android:textColor="@color/card_text_color_header"
             android:textSize="20dp"
             android:layout_width="wrap_content"
@@ -117,7 +117,7 @@
             android:id="@+id/movieDetailsRating"/>
 
         <TextView android:text=" / 10"
-            android:fontFamily="sans-serif-condensed"
+            android:fontFamily="sans-serif-light"
             android:textColor="@color/card_text_color_header"
             android:textSize="20dp"
             android:layout_width="wrap_content"
@@ -136,14 +136,14 @@
             android:layout_height="wrap_content"/>
 
         <TextView android:text="N/A"
-            android:fontFamily="sans-serif-condensed"
+            android:fontFamily="sans-serif-light"
             android:textColor="@color/card_text_color_header"
             android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/movieDetailsMetascoreRating"/>
         <TextView android:text=" / 100"
-            android:fontFamily="sans-serif-condensed"
+            android:fontFamily="sans-serif-light"
             android:textColor="@color/card_text_color_header"
             android:textSize="20dp"
             android:layout_width="wrap_content"
@@ -162,7 +162,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView android:text="N/A"
-            android:fontFamily="sans-serif-condensed"
+            android:fontFamily="sans-serif-light"
             android:textColor="@color/card_text_color_header"
             android:textSize="20dp"
             android:layout_width="wrap_content"
@@ -182,7 +182,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView android:text="N/A"
-            android:fontFamily="sans-serif-condensed"
+            android:fontFamily="sans-serif-light"
             android:textColor="@color/card_text_color_header"
             android:textSize="20dp"
             android:layout_width="wrap_content"
@@ -194,8 +194,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <TextView android:text="Plot summary..."
+        <TextView android:text="Country: "
             android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/card_text_color_header"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView android:text="N/A"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/card_text_color_header"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/movieDetailsCountry"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView android:text="Synopsis: "
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/card_text_color_header"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView android:text="Plot summary..."
+            android:fontFamily="sans-serif-light"
             android:textColor="@color/card_text_color_header"
             android:textSize="20dp"
             android:layout_width="wrap_content"
