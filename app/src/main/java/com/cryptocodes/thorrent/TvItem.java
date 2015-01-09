@@ -2,15 +2,6 @@ package com.cryptocodes.thorrent;
 
 import android.util.Log;
 
-import com.omertron.fanarttvapi.enumeration.FTArtworkType;
-import com.omertron.fanarttvapi.model.FTArtwork;
-import com.omertron.fanarttvapi.model.FTSeries;
-import com.omertron.themoviedbapi.model.MovieDb;
-import com.omertron.thetvdbapi.model.Series;
-import com.omertron.tvrageapi.model.ShowInfo;
-
-import java.util.List;
-
 /**
  * Created by jonathanf on 13/11/2014.
  */
@@ -20,6 +11,10 @@ public class TvItem extends MovieItem {
     private String episodeName;
     private int seIndex = -1; // index for season / episode number (e.g. S03E12)
     private String SEtext;
+
+    public TvItem(ThorrentItem baseItem) {
+        super(baseItem);
+    }
 
     @Override
     protected int getYear() {
@@ -34,19 +29,13 @@ public class TvItem extends MovieItem {
         return formattedTitle;
     }
 
-    public TvItem(ThorrentItem baseItem)
-    {
-        super(baseItem);
-    }
-
     protected String getShowTitle() {
         SEtext = getSeasonAndEpisode();
 
         if (seIndex >= 0) {
             StringBuilder sb = new StringBuilder();
 
-            for (int i = 0; i < seIndex; i++)
-            {
+            for (int i = 0; i < seIndex; i++) {
                 sb.append(splittedStrings[i] + " ");
             }
 
@@ -64,9 +53,9 @@ public class TvItem extends MovieItem {
     protected void getImdbData() {
         posterUrl = "";
 
-       // ShowInfo series = MovieManager.getInstance().getSeries(getShowTitle());
+        // ShowInfo series = MovieManager.getInstance().getSeries(getShowTitle());
         //if (series != null)
-       // {
+        // {
         String showTitle = getShowTitle();
         //FTSeries tvArtwork = MovieManager.getInstance().getTvArtwork(getShowTitle());
 
@@ -78,12 +67,12 @@ public class TvItem extends MovieItem {
 //            }
 //        }
 
-       // }
+        // }
     }
 
     protected String getSeasonAndEpisode() {
         int i = 0;
-        for(String s : splittedStrings) {
+        for (String s : splittedStrings) {
             String lower = s.toLowerCase();
             if (lower.length() >= 6
                     && lower.startsWith("s")
@@ -92,11 +81,10 @@ public class TvItem extends MovieItem {
                     && isDigit(lower.charAt(4)) && isDigit(lower.charAt(5))) {
                 seIndex = i;
                 try {
-                    season = Integer.parseInt(lower.substring(1,2));
+                    season = Integer.parseInt(lower.substring(1, 2));
                     episodeNumber = Integer.parseInt(lower.substring(4, s.length()));
                     return s;
-                }
-                catch (Exception ex) {
+                } catch (Exception ex) {
                     Log.e("MovieItem", ex.getMessage());
                 }
             }

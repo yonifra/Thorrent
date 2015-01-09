@@ -44,8 +44,6 @@ import it.gmariotti.cardslib.library.view.CardListView;
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
-    private final String LOG_TAG = "MainActivity";
-
     private static final String TV_SHOWS_FEED_URL = "http://www.scnsrc.me/category/tv/feed/";
     private static final String MOVIES_FEED_URL = "http://www.scnsrc.me/category/films/feed/";
     private static final String MUSIC_FEED_URL = "http://www.scnsrc.me/category/new-music/feed/";
@@ -53,10 +51,9 @@ public class MainActivity extends ActionBarActivity
     private static final String ALL_FEED_URL = "http://feeds.feedburner.com/scnsrc/rss?format=xml";
     private static final String BOOKS_FEED_URL = "http://www.scnsrc.me/category/ebooks/feed/";
     private static final String APPLICATIONS_FEED_URL = "http://www.scnsrc.me/category/applications/feed/";
-    private static ProgressDialog progress;
-
     public static String CURRENT_RSS_FEED = null;
-
+    private static ProgressDialog progress;
+    private final String LOG_TAG = "MainActivity";
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -66,6 +63,17 @@ public class MainActivity extends ActionBarActivity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+
+    public static void showDialog(Activity context) {
+        progress = ProgressDialog.show(context,
+                context.getString(R.string.loading_dialog_header),
+                context.getString(R.string.loading_dialog_content),
+                true);
+    }
+
+    public static void dismissDialog() {
+        progress.dismiss();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,19 +97,6 @@ public class MainActivity extends ActionBarActivity
         fragmentManager.beginTransaction()
                 .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
                 .commit();
-    }
-
-    public static void showDialog(Activity context)
-    {
-        progress = ProgressDialog.show(context,
-                context.getString(R.string.loading_dialog_header),
-                context.getString(R.string.loading_dialog_content),
-                true);
-    }
-
-    public static void dismissDialog()
-    {
-        progress.dismiss();
     }
 
     public void onSectionAttached(int number) {
@@ -205,6 +200,9 @@ public class MainActivity extends ActionBarActivity
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
+        public PlaceholderFragment() {
+        }
+
         /**
          * Returns a new instance of this fragment for the given section
          * number.
@@ -217,41 +215,13 @@ public class MainActivity extends ActionBarActivity
             return fragment;
         }
 
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.fragment_main, container, false);
-        }
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((MainActivity) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }
-
-        @Override
-        public void onStart() {
-            super.onStart();
-
-            // Show the "Loading" dialog
-            showDialog(getActivity());
-
-            // Run the Async task
-            new GetAndroidPitRssFeedTask().execute();
-        }
-
         public static String getAndroidPitRssFeed() throws IOException {
             InputStream in = null;
             String rssFeed = null;
             try {
                 URL url;
 
-                if (CURRENT_RSS_FEED == null)
-                {
+                if (CURRENT_RSS_FEED == null) {
                     url = new URL(ALL_FEED_URL);
                 } else {
                     url = new URL(CURRENT_RSS_FEED);
@@ -265,8 +235,7 @@ public class MainActivity extends ActionBarActivity
                 }
                 byte[] response = out.toByteArray();
                 rssFeed = new String(response, "UTF-8");
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 rssFeed = null;
                 Log.e("GetRSSFeed", ex.getMessage());
             } finally {
@@ -275,6 +244,30 @@ public class MainActivity extends ActionBarActivity
                 }
             }
             return rssFeed;
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            return inflater.inflate(R.layout.fragment_main, container, false);
+        }
+
+        @Override
+        public void onAttach(Activity activity) {
+            super.onAttach(activity);
+            ((MainActivity) activity).onSectionAttached(
+                    getArguments().getInt(ARG_SECTION_NUMBER));
+        }
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            // Show the "Loading" dialog
+            showDialog(getActivity());
+
+            // Run the Async task
+            new GetAndroidPitRssFeedTask().execute();
         }
 
         public class GetAndroidPitRssFeedTask extends AsyncTask<Void, Void, List<ThorrentItem>> {
@@ -362,11 +355,9 @@ public class MainActivity extends ActionBarActivity
                     } else if (name.equals("category")) {
                         result.category = readCategory(parser, result.category);
 
-                        if (result.category == Category.MOVIE)
-                        {
+                        if (result.category == Category.MOVIE) {
                             result = new MovieItem(result);
-                        } else if (result.category == Category.TV)
-                        {
+                        } else if (result.category == Category.TV) {
                             //result = new TvItem(result);
                         }
                     } else {
@@ -392,7 +383,7 @@ public class MainActivity extends ActionBarActivity
                 String creator = readText(parser);
                 parser.require(XmlPullParser.END_TAG, null, "dc:creator");
 
-                return creator.replace("&#124;","&");
+                return creator.replace("&#124;", "&");
             }
 
             private String readPubDate(XmlPullParser parser)
@@ -401,7 +392,7 @@ public class MainActivity extends ActionBarActivity
                 String dateStr = readText(parser);
                 parser.require(XmlPullParser.END_TAG, null, "pubDate");
 
-                Date date = null;
+                Date date;
                 try {
                     date = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH).parse(dateStr);
                     return date.toString();
@@ -480,7 +471,7 @@ public class MainActivity extends ActionBarActivity
 
                     ArrayList<Card> cards = new ArrayList<Card>();
 
-                    for (int i = 0; i<rssFeed.size(); i++) {
+                    for (int i = 0; i < rssFeed.size(); i++) {
                         // Create a Card
                         Card card = new Card(getActivity());
 
@@ -497,8 +488,7 @@ public class MainActivity extends ActionBarActivity
                         card.addCardHeader(header);
                         CardThumbnail thumb = new CardThumbnail(getActivity());
 
-                        switch (currentItem.category)
-                        {
+                        switch (currentItem.category) {
                             case APPLICATION:
                                 thumb.setDrawableResource(R.drawable.app);
                                 break;
@@ -506,7 +496,7 @@ public class MainActivity extends ActionBarActivity
                                 thumb.setDrawableResource(R.drawable.tv);
                                 break;
                             case MOVIE:
-                                final MovieItem movie = (MovieItem)currentItem;
+                                final MovieItem movie = (MovieItem) currentItem;
                                 thumb.setUrlResource(movie.posterUrl);
 
                                 //Set onClick listener
@@ -550,7 +540,7 @@ public class MainActivity extends ActionBarActivity
                         listView.setAdapter(mCardArrayAdapter);
                     }
 
-                    ((MainActivity)getActivity()).dismissDialog();
+                    ((MainActivity) getActivity()).dismissDialog();
                 }
             }
         }

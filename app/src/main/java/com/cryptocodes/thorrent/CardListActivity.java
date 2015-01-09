@@ -24,7 +24,7 @@ public class CardListActivity extends Activity {
 
         ArrayList<Card> cards = new ArrayList<Card>();
 
-        for (int i = 0; i<5; i++) {
+        for (int i = 0; i < 5; i++) {
             // Create a Card
             Card card = new Card(this);
             // Create a CardHeader

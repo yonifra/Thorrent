@@ -2,14 +2,12 @@ package com.cryptocodes.thorrent;
 
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ScrollView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.nirhart.parallaxscroll.views.ParallaxScrollView;
 
 import org.json.JSONObject;
 
@@ -27,9 +25,20 @@ public class MediaDetailActivity extends ActionBarActivity {
     TextView movieName;
     TextView imdbRating;
     TextView metascoreRating;
-    ParallaxScrollView scrollView;
+    LinearLayout mainLayout;
     TextView country;
     TextView imdbVotes;
+
+    public static Drawable LoadImageFromUrl(String url) {
+        try {
+            Drawable drawable = new RetrievePoster().execute(url).get();
+            drawable.setAlpha(40);
+
+            return drawable;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +54,8 @@ public class MediaDetailActivity extends ActionBarActivity {
         movieName = (TextView) findViewById(R.id.movieDetailsMovieName);
         imdbRating = (TextView) findViewById(R.id.movieDetailsRating);
         metascoreRating = (TextView) findViewById(R.id.movieDetailsMetascoreRating);
-        scrollView = (ParallaxScrollView)findViewById(R.id.parallaxScrollView);
-        country = (TextView)findViewById(R.id.movieDetailsCountry);
+        mainLayout = (LinearLayout) findViewById(R.id.mediaDetailsDataLayout);
+        country = (TextView) findViewById(R.id.movieDetailsCountry);
         imdbVotes = (TextView) findViewById(R.id.mediaDetailsImdbVotes);
 
         String movieName = getIntent().getStringExtra("MOVIE_NAME");
@@ -70,7 +79,7 @@ public class MediaDetailActivity extends ActionBarActivity {
         Drawable posterDrawable = LoadImageFromUrl(md.posterUrl);
 
         if (posterDrawable != null) {
-            scrollView.setBackground(posterDrawable);
+            mainLayout.setBackground(posterDrawable);
         }
 
         plot.setText(md.plot);
@@ -84,17 +93,6 @@ public class MediaDetailActivity extends ActionBarActivity {
         imdbRating.setText(md.rating);
         country.setText(md.country);
         imdbVotes.setText(md.imdbVotes);
-    }
-
-    public static Drawable LoadImageFromUrl(String url) {
-        try {
-            Drawable drawable = new RetrievePoster().execute(url).get();
-            drawable.setAlpha(40);
-
-            return drawable;
-        } catch (Exception e) {
-            return null;
-        }
     }
 
     @Override

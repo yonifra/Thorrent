@@ -5,15 +5,14 @@ package com.cryptocodes.thorrent;
  */
 public class ThorrentItem {
 
-    public ThorrentItem() {
-        category = Category.NONE;
-    }
-
     public String title = "";
     public String formattedTitle = "";
     public String description = "";
     public Category category;
     public String time;
     public String creator = "";
+    public ThorrentItem() {
+        category = Category.NONE;
+    }
 }
 

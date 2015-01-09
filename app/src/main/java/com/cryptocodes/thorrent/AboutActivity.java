@@ -16,7 +16,7 @@ public class AboutActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        TextView tv = (TextView)findViewById(R.id.appVersionTextView);
+        TextView tv = (TextView) findViewById(R.id.appVersionTextView);
         try {
             if (tv != null) {
                 tv.setText(getPackageManager().getPackageInfo(getPackageName(), 0).versionName);

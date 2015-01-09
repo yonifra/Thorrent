@@ -11,30 +11,25 @@ import java.io.IOException;
  * Created by jonathanf on 12/11/2014.
  */
 public class MovieItem extends ThorrentItem {
+    private static final String LOG_TAG = "MovieItemClass";
+    // Used to validate the year range
+    private final int MAX_YEAR = 2100;
+    private final int MIN_YEAR = 1900;
     public Resolution resolution;
     public String posterUrl = "";
     public int year;
     public String rating = "";
     public String imdbUrl = "";
     public String plot = "";
-
+    public String rawMovieName;
     protected String[] splittedStrings;
     protected int yearIndex;
-    public String rawMovieName;
 
-    // Used to validate the year range
-    private final int MAX_YEAR = 2100;
-    private final int MIN_YEAR = 1900;
-
-    private static final String LOG_TAG = "MovieItemClass";
-
-    public MovieItem()
-    {
+    public MovieItem() {
 
     }
 
-    public MovieItem(ThorrentItem baseItem)
-    {
+    public MovieItem(ThorrentItem baseItem) {
         this();
 
         formattedTitle = title = baseItem.title;
@@ -72,9 +67,12 @@ public class MovieItem extends ThorrentItem {
         description = sb.toString();
     }
 
+    public static String buildJsonUrl(String rawMovieName, int year) {
+        return "http://www.omdbapi.com/?t=" + rawMovieName.replace(" ", "%20") + "&y=" + year + "&plot=full&r=json";
+    }
+
     private String getResolutionString(Resolution resolution) {
-        switch (resolution)
-        {
+        switch (resolution) {
             case Bluray:
                 return "Bluray";
             case Cam:
@@ -112,14 +110,13 @@ public class MovieItem extends ThorrentItem {
 
             posterUrl = jsonObject.getString("Poster");
 
-            if (posterUrl == null)
-            {
+            if (posterUrl == null) {
                 posterUrl = "";
             }
 
             String ratingStr = jsonObject.getString("imdbRating");
 
-            if(ratingStr != null || !ratingStr.equals("N/A")) {
+            if (ratingStr != null || !ratingStr.equals("N/A")) {
                 rating = ratingStr;
             }
 
@@ -129,10 +126,6 @@ public class MovieItem extends ThorrentItem {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static String buildJsonUrl(String rawMovieName, int year) {
-        return "http://www.omdbapi.com/?t=" + rawMovieName.replace(" ", "%20") + "&y=" + year + "&plot=full&r=json";
     }
 
     protected String getTitle() {
@@ -158,58 +151,36 @@ public class MovieItem extends ThorrentItem {
         return formattedTitle;
     }
 
-    protected void getResolution()
-    {
-        if (isContained("720"))
-        {
+    protected void getResolution() {
+        if (isContained("720")) {
             resolution = Resolution.HDReady;
-        }
-        else if (isContained("1080"))
-        {
+        } else if (isContained("1080")) {
             resolution = Resolution.FullHD;
-        }
-        else if (isContained("4K"))
-        {
+        } else if (isContained("4K")) {
             resolution = Resolution.FourK;
-        }
-        else if (isContained("2K"))
-        {
+        } else if (isContained("2K")) {
             resolution = Resolution.TwoK;
-        }
-        else if (isContained("DVD"))
-        {
+        } else if (isContained("DVD")) {
             resolution = Resolution.DVD;
-        }
-        else if (isContained("3D"))
-        {
+        } else if (isContained("3D")) {
             resolution = Resolution.ThreeD;
-        }
-        else if (isContained("BDRip") || isContained("BRRip") || isContained("bluray"))
-        {
+        } else if (isContained("BDRip") || isContained("BRRip") || isContained("bluray")) {
             resolution = Resolution.Bluray;
-        }
-        else if (isContained("CAM"))
-        {
+        } else if (isContained("CAM")) {
             resolution = Resolution.Cam;
-        }
-        else if (isContained("TS") || isContained("TELESYNC"))
-        {
+        } else if (isContained("TS") || isContained("TELESYNC")) {
             resolution = Resolution.Telesync;
-        }
-        else
-        {
+        } else {
             resolution = Resolution.NA;
         }
     }
 
-    protected int getYear()
-    {
+    protected int getYear() {
         for (int i = 0; i < splittedStrings.length; i++) {
             int len = splittedStrings[i].length();
 
             // If year is in "(2014)" format
-            if (len == 6 && splittedStrings[i].charAt(0) == '(' && splittedStrings[i].charAt(5) == ')')
-            {
+            if (len == 6 && splittedStrings[i].charAt(0) == '(' && splittedStrings[i].charAt(5) == ')') {
                 try {
                     int year = Integer.parseInt(splittedStrings[i].substring(1, 5));
 
@@ -217,13 +188,11 @@ public class MovieItem extends ThorrentItem {
                         yearIndex = i;
                         return year;
                     }
-                }
-                catch (Exception ex) {
+                } catch (Exception ex) {
                     Log.e("MovieItem", ex.getMessage());
                     continue;
                 }
-            }
-            else if (len != 4) continue;
+            } else if (len != 4) continue;
 
             // Length of string is exactly 4, so try to parse it to an int;
             try {
@@ -234,8 +203,7 @@ public class MovieItem extends ThorrentItem {
                     yearIndex = i;
                     return year;
                 }
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 Log.e("MovieItem", ex.getMessage());
             }
         }
@@ -243,10 +211,8 @@ public class MovieItem extends ThorrentItem {
         return -1;
     }
 
-    protected boolean isContained(String value)
-    {
-        for (String s : splittedStrings)
-        {
+    protected boolean isContained(String value) {
+        for (String s : splittedStrings) {
             if (s.toLowerCase().contains(value.toLowerCase()))
                 return true;
         }

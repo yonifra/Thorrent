@@ -1,16 +1,6 @@
 package com.cryptocodes.thorrent;
 
-import android.graphics.Movie;
 import android.os.AsyncTask;
-
-import com.omertron.omdbapi.OMDBException;
-import com.omertron.omdbapi.OmdbApi;
-import com.omertron.omdbapi.model.OmdbVideoBasic;
-import com.omertron.omdbapi.model.OmdbVideoFull;
-import com.omertron.omdbapi.wrapper.WrapperSearch;
-import com.omertron.themoviedbapi.model.MovieDb;
-
-import java.util.List;
 
 /**
  * Created by Jake on 5/1/2015.

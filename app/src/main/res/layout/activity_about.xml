@@ -1,74 +1,79 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    tools:context="com.cryptocodes.thorrent.AboutActivity"
-    >
+    android:orientation="vertical"
+    tools:context="com.cryptocodes.thorrent.AboutActivity">
 
     <ImageView
         android:layout_width="250dip"
         android:layout_height="42dip"
-        android:src="@drawable/cryptocodes"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/cryptocodes" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_gravity="center_horizontal"
         android:fontFamily="sans-serif-condensed"
-        android:textSize="14sp"
-        android:text="@string/AboutMessage"/>
+        android:gravity="center"
+        android:text="@string/AboutMessage"
+        android:textSize="14sp" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_gravity="center_horizontal"
-        android:gravity="center">
-        <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_gravity="center_horizontal"
-        android:fontFamily="sans-serif-condensed"
-        android:textSize="14sp"
-        android:text="@string/Version"/>
+        android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="4dip"
-            android:gravity="center"
             android:layout_gravity="center_horizontal"
             android:fontFamily="sans-serif-condensed"
-            android:textSize="14sp"
-            android:id="@+id/appVersionTextView"/>
+            android:gravity="center"
+            android:text="@string/Version"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/appVersionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="center"
+            android:paddingLeft="4dip"
+            android:textSize="14sp" />
     </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_gravity="center_horizontal"
         android:fontFamily="sans-serif-condensed"
-        android:textSize="14sp"
-        android:text="@string/ReleaseDate"/>
+        android:gravity="center"
+        android:text="@string/ReleaseDate"
+        android:textSize="14sp" />
 
-    <TextView android:layout_width="wrap_content"
-        android:fontFamily="sans-serif-condensed"
-        android:textSize="14sp"
-        android:layout_height="wrap_content" android:text="@string/cryptocodesUrl"
-        android:autoLink="web" android:id="@+id/websiteUrl"
+    <TextView
+        android:id="@+id/websiteUrl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:linksClickable="true" />
+        android:autoLink="web"
+        android:fontFamily="sans-serif-condensed"
+        android:linksClickable="true"
+        android:text="@string/cryptocodesUrl"
+        android:textSize="14sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="26dp"
         android:fontFamily="sans-serif-condensed"
-        android:textSize="14sp"
-        android:text="@string/TorrentProviderInfo"/>
+        android:text="@string/TorrentProviderInfo"
+        android:textSize="14sp" />
 </LinearLayout>
