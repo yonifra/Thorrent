@@ -29,7 +29,7 @@
     <string name="title_activity_about">Acerca de Thorrent</string>
     <string name="Version">Versión</string>
     <string name="AboutMessage">Hecho con amor por Cryptocodes, Inc.</string>
-    <string name="ReleaseDate">Noviembre 17, 2014</string>
+    <string name="ReleaseDate">9 de Enero, 2015</string>
     <string name="cryptocodesUrl">http://www.cryptocodes.com</string>
     <string name="TorrentProviderInfo">Informacion de Torrents por ScnSrc</string>
     <string name="loading_dialog_header">Cargando...</string>
@@ -42,5 +42,6 @@
     <string name="card_progressbar_cardwithlist_text">Cargando informacion…</string>
     <string name="font_fontFamily_medium">sans-serif</string>
     <string name="font_fontFamily_regular">sans-serif</string>
+    <string name="title_activity_media_detail">Detalles</string>
     <string name="list_card_undo_title">Deshacer</string>
 </resources>

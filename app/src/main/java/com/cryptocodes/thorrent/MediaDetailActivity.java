@@ -87,7 +87,7 @@ public class MediaDetailActivity extends ActionBarActivity {
         director.setText(md.director);
         actors.setText(md.actors);
         genre.setText(md.genre);
-        releaseYear.setText(md.year);
+        releaseYear.setText("(" + md.year + ")");
         movieName.setText(md.name);
         metascoreRating.setText(md.metascore);
         imdbRating.setText(md.rating);

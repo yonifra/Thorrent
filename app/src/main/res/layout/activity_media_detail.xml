@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/card_background"
-    app:parallax_factor="2.5"
+    app:parallax_factor="2.8"
     tools:context="com.cryptocodes.thorrent.MediaDetailActivity">
 
     <!--android:background="#498827"-->
@@ -19,14 +19,13 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:gravity="center"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             tools:ignore="HardcodedText">
 
             <TextView
                 android:id="@+id/movieDetailsMovieName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:fontFamily="sans-serif-condensed"
                 android:text="Movie Name"
                 android:textColor="@color/card_text_color_header"
@@ -34,36 +33,15 @@
                 tools:ignore="HardcodedText" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="4dp"
-                android:fontFamily="sans-serif-condensed"
-                android:text="("
-                android:textColor="@color/card_text_color_header"
-                android:textSize="20dp"
-                tools:ignore="HardcodedText" />
-
-            <TextView
                 android:id="@+id/movieDetailsReleaseYear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:fontFamily="sans-serif-condensed"
+                android:fontFamily="sans-serif-thin"
                 android:text="N/A"
                 android:textColor="@color/card_text_color_header"
-                android:textSize="20dp"
+                android:textSize="16dp"
                 tools:ignore="HardcodedText" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:fontFamily="sans-serif-condensed"
-                android:text=")"
-                android:textColor="@color/card_text_color_header"
-                android:textSize="20dp"
-                tools:ignore="HardcodedText" />
         </LinearLayout>
 
         <LinearLayout

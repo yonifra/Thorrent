@@ -29,7 +29,7 @@
     <string name="title_activity_about">Thorrentאודות </string>
     <string name="Version">גרסא</string>
     <string name="AboutMessage">נעשה באהבה על ידי Cryptocodes, Inc.</string>
-    <string name="ReleaseDate">נובמבר 17, 2014</string>
+    <string name="ReleaseDate">9 לינואר, 2015</string>
     <string name="cryptocodesUrl">http://www.cryptocodes.com</string>
     <string name="TorrentProviderInfo">מידע אודות הטורנטים מסופק על ידי ScnSrc</string>
     <string name="loading_dialog_header">…טוען</string>
@@ -42,5 +42,6 @@
     <string name="card_progressbar_cardwithlist_text">טוען נתונים</string>
     <string name="font_fontFamily_medium">sans-serif</string>
     <string name="font_fontFamily_regular">sans-serif</string>
+    <string name="title_activity_media_detail">פרטים</string>
     <string name="list_card_undo_title">בטל</string>
 </resources>
