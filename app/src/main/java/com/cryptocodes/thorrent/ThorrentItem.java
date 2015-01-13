@@ -14,5 +14,7 @@ public class ThorrentItem {
     public ThorrentItem() {
         category = Category.NONE;
     }
+
+    public void parseItem(String name){}
 }
 

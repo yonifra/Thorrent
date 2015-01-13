@@ -358,7 +358,7 @@ public class MainActivity extends ActionBarActivity
                         if (result.category == Category.MOVIE) {
                             result = new MovieItem(result);
                         } else if (result.category == Category.TV) {
-                            //result = new TvItem(result);
+                            result = new TvItem(result);
                         }
                     } else {
                         skip(parser);
@@ -493,7 +493,9 @@ public class MainActivity extends ActionBarActivity
                                 thumb.setDrawableResource(R.drawable.app);
                                 break;
                             case TV:
-                                thumb.setDrawableResource(R.drawable.tv);
+                                //thumb.setDrawableResource(R.drawable.tv);
+                                final TvItem tvShow = (TvItem) currentItem;
+                                thumb.setUrlResource(tvShow.posterUrl);
                                 break;
                             case MOVIE:
                                 final MovieItem movie = (MovieItem) currentItem;
