@@ -1,5 +1,7 @@
 package com.cryptocodes.thorrent;
 
+import android.app.Application;
+import android.net.Uri;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -57,7 +59,7 @@ public class MovieItem extends ThorrentItem {
         }
 
         // Don't add rating if it's zero
-        if (!rating.equals("0")) {
+        if (!rating.equals("0") && !rating.equals("")) {
             if (resolution != Resolution.NA)
                 sb.append(" ");
 
@@ -110,9 +112,10 @@ public class MovieItem extends ThorrentItem {
 
             posterUrl = jsonObject.getString("Poster");
 
-            if (posterUrl == null) {
-                posterUrl = "";
-            }
+//            if (posterUrl == null || posterUrl == "") {
+//
+//                posterUrl = Uri.parse("R.drawable.app").toString();//ThorrentApp.getContext().getResources().getDrawable(R.drawable.app);;
+//            }
 
             String ratingStr = jsonObject.getString("imdbRating");
 

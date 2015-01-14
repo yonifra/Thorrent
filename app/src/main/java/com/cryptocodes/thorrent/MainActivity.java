@@ -483,23 +483,38 @@ public class MainActivity extends ActionBarActivity
                         // Add Header to card
                         header.setTitle(currentItem.formattedTitle);
 
-                        card.setTitle(currentItem.time + "\n" + getActivity().getString(R.string.by_user_text) + " " + currentItem.creator + "\n" + currentItem.description);
-
                         card.addCardHeader(header);
                         CardThumbnail thumb = new CardThumbnail(getActivity());
 
                         switch (currentItem.category) {
                             case APPLICATION:
+                                SetCardTitle(card, currentItem, true);
                                 thumb.setDrawableResource(R.drawable.app);
                                 break;
                             case TV:
-                                //thumb.setDrawableResource(R.drawable.tv);
+                                SetCardTitle(card, currentItem, false);
+
                                 final TvItem tvShow = (TvItem) currentItem;
-                                thumb.setUrlResource(tvShow.posterUrl);
+                                if (tvShow.posterUrl != null && !tvShow.posterUrl.equals("")) {
+                                    thumb.setUrlResource(tvShow.posterUrl);
+                                }
+                                else {
+                                    thumb.setDrawableResource(R.drawable.tv);
+                                }
+
                                 break;
                             case MOVIE:
+                                SetCardTitle(card, currentItem, false);
+
                                 final MovieItem movie = (MovieItem) currentItem;
-                                thumb.setUrlResource(movie.posterUrl);
+
+                                if (movie.posterUrl != null && !movie.posterUrl.equals("")) {
+                                    thumb.setUrlResource(movie.posterUrl);
+                                }
+                                else
+                                {
+                                    thumb.setDrawableResource(R.drawable.movie);
+                                }
 
                                 //Set onClick listener
                                 card.setOnClickListener(new Card.OnCardClickListener() {
@@ -519,15 +534,19 @@ public class MainActivity extends ActionBarActivity
 
                                 break;
                             case BOOK:
+                                SetCardTitle(card, currentItem, true);
                                 thumb.setDrawableResource(R.drawable.books);
                                 break;
                             case GAME:
+                                SetCardTitle(card, currentItem, true);
                                 thumb.setDrawableResource(R.drawable.games);
                                 break;
                             case MUSIC:
+                                SetCardTitle(card, currentItem, true);
                                 thumb.setDrawableResource(R.drawable.music);
                                 break;
                             case NONE:
+                                SetCardTitle(card, currentItem, true);
                                 thumb.setDrawableResource(R.drawable.ic_error_black_48dp);
                                 break;
                         }
@@ -543,6 +562,15 @@ public class MainActivity extends ActionBarActivity
                     }
 
                     ((MainActivity) getActivity()).dismissDialog();
+                }
+            }
+
+            private void SetCardTitle(Card card, ThorrentItem currentItem, boolean isLong) {
+                if (isLong) {
+                    card.setTitle(currentItem.time + "\n" + getActivity().getString(R.string.by_user_text) + " " + currentItem.creator + "\n" + currentItem.description);
+                }
+                else {
+                    card.setTitle(currentItem.time + "\n" + currentItem.description);
                 }
             }
         }

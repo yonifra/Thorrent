@@ -17,9 +17,8 @@ public class TvItem extends MovieItem {
     private String SEtext;
 
     public TvItem(ThorrentItem baseItem) {
-
         super(baseItem);
-        getTitle();
+        title = getTitle();
     }
 
     @Override
@@ -35,9 +34,11 @@ public class TvItem extends MovieItem {
     @Override
     protected String getTitle() {
         StringBuilder sb = new StringBuilder();
+        String showTitle = getShowTitle();
+        parseItem(showTitle);
 
-        formattedTitle = sb.append(getShowTitle()).append(" ").append(SEtext).toString();
-        parseItem(getShowTitle());
+        formattedTitle = sb.append(showTitle).append(" ").append(SEtext).toString();
+
         return formattedTitle;
     }
 
@@ -65,14 +66,25 @@ public class TvItem extends MovieItem {
     public void parseItem(String name) {
         // name is the name of the TV Show
         // by now, we should have the season number and episode number
+        // This method sets the info in the TvItem in the shows list, NOT the shows' details activity
 
-        JSONObject jsonObject = null;
+        JSONObject jsonObject;
+
         try {
             jsonObject = JSONReader.readJsonFromUrl(buildJsonUrl(name, season, episodeNumber));
             if (jsonObject.getString("Response").equals("False")) return;
 
+            // Set the poster of the series
             posterUrl = jsonObject.getString("Poster");
+
+            // Get the plot of the series
             plot = jsonObject.getString("Plot");
+
+            // Set the rating of the show
+            rating = jsonObject.getString("imdbRating");
+
+
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -91,9 +103,15 @@ public class TvItem extends MovieItem {
             if (lower.matches("(s\\d+e\\d+)")) {
                 seIndex = i;
                 try {
-                    season = Integer.parseInt(lower.substring(1, s.indexOf('e') - 1));
-                    episodeNumber = Integer.parseInt(lower.substring(s.indexOf('e'), s.length()));
-                    return s;
+                    season = Integer.parseInt(lower.substring(1, lower.indexOf('e')));
+                    episodeNumber = Integer.parseInt(lower.substring(lower.indexOf('e') + 1, lower.length()));
+
+                    if (season > 0 && episodeNumber > 0) {
+                        //description += "\nSeason: " + season +"\nEpisode: " + episodeNumber;
+                        return season + "x" + episodeNumber;
+                    }
+
+                    return "";
                 } catch (Exception ex) {
                     Log.e("MovieItem", ex.getMessage());
                 }
