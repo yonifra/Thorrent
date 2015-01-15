@@ -495,20 +495,21 @@ public class MainActivity extends ActionBarActivity
                                 SetCardTitle(card, currentItem, false);
 
                                 final TvItem tvShow = (TvItem) currentItem;
-                                if (tvShow.posterUrl != null && !tvShow.posterUrl.equals("")) {
+                                if (tvShow.posterUrl != null && !tvShow.posterUrl.replace(" ", "").equals("")) {
                                     thumb.setUrlResource(tvShow.posterUrl);
                                 }
                                 else {
                                     thumb.setDrawableResource(R.drawable.tv);
                                 }
 
+                                StartDetailsActivity(card, tvShow);
                                 break;
                             case MOVIE:
                                 SetCardTitle(card, currentItem, false);
 
                                 final MovieItem movie = (MovieItem) currentItem;
 
-                                if (movie.posterUrl != null && !movie.posterUrl.equals("")) {
+                                if (movie.posterUrl != null && !movie.posterUrl.replace(" ", "").equals("")) {
                                     thumb.setUrlResource(movie.posterUrl);
                                 }
                                 else
@@ -516,22 +517,7 @@ public class MainActivity extends ActionBarActivity
                                     thumb.setDrawableResource(R.drawable.movie);
                                 }
 
-                                //Set onClick listener
-                                card.setOnClickListener(new Card.OnCardClickListener() {
-                                    @Override
-                                    public void onClick(Card card, View view) {
-                                        if (movie.imdbUrl.equals("")) {
-                                            Toast.makeText(getActivity(), "No info", Toast.LENGTH_SHORT).show();
-                                        } else {
-//                                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(movie.imdbUrl));
-                                            Intent movieDetailsIntent = new Intent(getActivity(), MediaDetailActivity.class);
-                                            movieDetailsIntent.putExtra("MOVIE_NAME", movie.rawMovieName);
-                                            movieDetailsIntent.putExtra("MOVIE_YEAR", String.valueOf(movie.year));
-                                            startActivity(movieDetailsIntent);
-                                        }
-                                    }
-                                });
-
+                                StartDetailsActivity(card, movie);
                                 break;
                             case BOOK:
                                 SetCardTitle(card, currentItem, true);
@@ -563,6 +549,23 @@ public class MainActivity extends ActionBarActivity
 
                     ((MainActivity) getActivity()).dismissDialog();
                 }
+            }
+
+            private void StartDetailsActivity(Card card, final MovieItem movie) {
+                //Set onClick listener
+                card.setOnClickListener(new Card.OnCardClickListener() {
+                    @Override
+                    public void onClick(Card card, View view) {
+                        if (movie.imdbUrl.equals("")) {
+                            Toast.makeText(getActivity(), "No info", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Intent movieDetailsIntent = new Intent(getActivity(), MediaDetailActivity.class);
+                            movieDetailsIntent.putExtra("MOVIE_NAME", movie.rawMovieName);
+                            movieDetailsIntent.putExtra("MOVIE_YEAR", String.valueOf(movie.year));
+                            startActivity(movieDetailsIntent);
+                        }
+                    }
+                });
             }
 
             private void SetCardTitle(Card card, ThorrentItem currentItem, boolean isLong) {
