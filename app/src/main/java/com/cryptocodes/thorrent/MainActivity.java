@@ -3,14 +3,12 @@ package com.cryptocodes.thorrent;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,8 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -58,17 +54,14 @@ public class MainActivity extends ActionBarActivity
     public static String CURRENT_RSS_FEED = null;
     private static ProgressDialog progress;
     private final String LOG_TAG = "MainActivity";
+    /**
+     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
+     */
+    private NavigationDrawerFragment mNavigationDrawerFragment;
 
-    // Navigation Drawer stuff
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-    private ActionBarDrawerToggle mDrawerToggle;
-
-    private CharSequence mDrawerTitle;
-    CustomDrawerAdapter adapter;
-
-    List<DrawerItem> dataList;
-
+    /**
+     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
+     */
     private CharSequence mTitle;
 
     public static void showDialog(Activity context) {
@@ -87,81 +80,14 @@ public class MainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initializing
-        dataList = new ArrayList<DrawerItem>();
-        mDrawerTitle = mTitle = getTitle();
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.nav_drawer_list_view);
+        mNavigationDrawerFragment = (NavigationDrawerFragment)
+                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+        mTitle = getTitle();
 
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
-                GravityCompat.START);
-
-        // Add Drawer Item to dataList
-        dataList.add(new DrawerItem("Everything", R.drawable.ic_launcher));
-        dataList.add(new DrawerItem("TV Shows", R.drawable.ic_tv));
-        dataList.add(new DrawerItem("Movies", R.drawable.ic_movies));
-        dataList.add(new DrawerItem("Games", R.drawable.ic_games));
-        dataList.add(new DrawerItem("Music", R.drawable.ic_music));
-        dataList.add(new DrawerItem("Books", R.drawable.ic_books));
-        dataList.add(new DrawerItem("Applications", R.drawable.ic_apps));
-        dataList.add(new DrawerItem("About", R.drawable.ic_about));
-//        dataList.add(new DrawerItem("Settings", R.drawable.ic_error_black_48dp));
-
-        // Initialize adapter and set the adapter to the drawer ListView
-        adapter = new CustomDrawerAdapter(this, R.layout.custom_drawer_item,
-                dataList);
-
-        mDrawerList.setAdapter(adapter);
-
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
-
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.drawable.ic_drawer, R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close) {
-            public void onDrawerClosed(View view) {
-                getActionBar().setTitle(mTitle);
-                invalidateOptionsMenu(); // creates call to
-                // onPrepareOptionsMenu()
-            }
-
-            public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle(mDrawerTitle);
-                invalidateOptionsMenu(); // creates call to
-                // onPrepareOptionsMenu()
-            }
-        };
-
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-        if (savedInstanceState == null) {
-            onSectionAttached(0);
-        }
-    }
-
-    private class DrawerItemClickListener implements
-            ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position,
-                                long id) {
-            onSectionAttached(position);
-        }
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        // Pass any configuration change to the drawer toggles
-        mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
+        // Set up the drawer.
+        mNavigationDrawerFragment.setUp(
+                R.id.navigation_drawer,
+                (DrawerLayout) findViewById(R.id.drawer_layout));
     }
 
     @Override
@@ -175,17 +101,17 @@ public class MainActivity extends ActionBarActivity
 
     public void onSectionAttached(int number) {
         switch (number) {
-            case 0:
+            case 1:
                 // All categories
                 mTitle = getString(R.string.Everything);
                 refreshFeed(ALL_FEED_URL, false);
                 break;
-            case 1:
+            case 2:
                 // TV Shows was selected
                 mTitle = getString(R.string.TVShows);
                 refreshFeed(TV_SHOWS_FEED_URL, false);
                 break;
-            case 2:
+            case 3:
                 // Movies was selected
                 Log.i(LOG_TAG, "Starting get on info for movies");
 
@@ -194,30 +120,29 @@ public class MainActivity extends ActionBarActivity
 
                 Log.i(LOG_TAG, "Finished refreshing info for movies");
                 break;
-            case 3:
+            case 4:
                 // Games
                 mTitle = getString(R.string.Games);
                 refreshFeed(GAMES_FEED_URL, false);
                 break;
-            case 4:
+            case 5:
                 // Music
                 mTitle = getString(R.string.Music);
                 refreshFeed(MUSIC_FEED_URL, false);
                 break;
-            case 5:
+            case 6:
                 // Books
                 mTitle = getString(R.string.Books);
                 refreshFeed(BOOKS_FEED_URL, false);
                 break;
-            case 6:
+            case 7:
                 // Applications
                 mTitle = getString(R.string.Applications);
                 refreshFeed(APPLICATIONS_FEED_URL, false);
                 break;
-            case 7:
+            case 8:
                 // About was selected
                 //mTitle = getString(R.string.About);
-
                 // Start the about activity
                 Intent intent = new Intent(this, AboutActivity.class);
                 startActivity(intent);
@@ -233,22 +158,36 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
+    public void restoreActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setTitle(mTitle);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+        if (!mNavigationDrawerFragment.isDrawerOpen()) {
+            // Only show items in the action bar relevant to this screen
+            // if the drawer is not showing. Otherwise, let the drawer
+            // decide what to show in the action bar.
+            getMenuInflater().inflate(R.menu.main, menu);
+            restoreActionBar();
+            return true;
+        }
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // The action bar home/up action should open or close the drawer.
-        // ActionBarDrawerToggle will take care of this.
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        return false;
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -556,7 +495,7 @@ public class MainActivity extends ActionBarActivity
                                 SetCardTitle(card, currentItem, false);
 
                                 final TvItem tvShow = (TvItem) currentItem;
-                                if (tvShow.posterUrl != null && !tvShow.posterUrl.replace(" ", "").equals("") && !tvShow.posterUrl.equals("N/A")) {
+                                if (tvShow.posterUrl != null && !tvShow.posterUrl.replace(" ", "").equals("")) {
                                     thumb.setUrlResource(tvShow.posterUrl);
                                 }
                                 else {
@@ -570,7 +509,7 @@ public class MainActivity extends ActionBarActivity
 
                                 final MovieItem movie = (MovieItem) currentItem;
 
-                                if (movie.posterUrl != null && !movie.posterUrl.replace(" ", "").equals("") && !movie.posterUrl.equals("N/A")) {
+                                if (movie.posterUrl != null && !movie.posterUrl.replace(" ", "").equals("")) {
                                     thumb.setUrlResource(movie.posterUrl);
                                 }
                                 else
