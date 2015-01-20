@@ -44,4 +44,5 @@
     <string name="font_fontFamily_regular">sans-serif</string>
     <string name="title_activity_media_detail">פרטים</string>
     <string name="list_card_undo_title">בטל</string>
+    <string name="Share">שתף</string>
 </resources>

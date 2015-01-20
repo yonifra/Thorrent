@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ShareActionProvider;
 import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -52,8 +54,11 @@ public class MainActivity extends ActionBarActivity
     private static final String BOOKS_FEED_URL = "http://www.scnsrc.me/category/ebooks/feed/";
     private static final String APPLICATIONS_FEED_URL = "http://www.scnsrc.me/category/applications/feed/";
     public static String CURRENT_RSS_FEED = null;
+
     private static ProgressDialog progress;
     private final String LOG_TAG = "MainActivity";
+    private ShareActionProvider mShareActionProvider;
+
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -172,10 +177,26 @@ public class MainActivity extends ActionBarActivity
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.main, menu);
+
+            // Locate MenuItem with ShareActionProvider
+            MenuItem item = menu.findItem(R.id.menu_item_share);
+
+            // Fetch and store ShareActionProvider
+            mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+
             restoreActionBar();
+
             return true;
         }
+
         return super.onCreateOptionsMenu(menu);
+    }
+
+    // Call to update the share intent
+    private void setShareIntent(Intent shareIntent) {
+        if (mShareActionProvider != null) {
+            mShareActionProvider.setShareIntent(shareIntent);
+        }
     }
 
     @Override
@@ -183,11 +204,32 @@ public class MainActivity extends ActionBarActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
+        int id = item.getItemId();
+
+        switch (id)
+        {
+            case R.id.menu_item_share:
+                doShare();
+                return true;
+            case R.id.action_settings:
+                // Handle settings here...
+                return true;
+            case R.id.action_example:
+                // Handle refresh here
+                return true;
+        }
+
+
+
         return super.onOptionsItemSelected(item);
+    }
+
+    public void doShare() {
+        // populate the share intent with data
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, "Hey, I'm using Thorrent to see what was released online. Check it out at http://tinyurl.com/on4p7ns");
+        setShareIntent(intent);
     }
 
     /**
