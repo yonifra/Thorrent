@@ -37,6 +37,7 @@ public class TvItem extends MovieItem {
         String showTitle = getShowTitle();
         parseItem(showTitle);
 
+        rawMovieName = showTitle;
         formattedTitle = sb.append(showTitle).append(" ").append(SEtext).toString();
 
         return formattedTitle;
@@ -78,13 +79,14 @@ public class TvItem extends MovieItem {
             posterUrl = jsonObject.getString("Poster");
 
             // Get the plot of the series
-            plot = jsonObject.getString("Plot");
+            //plot = jsonObject.getString("Plot");
 
             // Set the rating of the show
             rating = jsonObject.getString("imdbRating");
 
+            imdbUrl = jsonObject.getString("imdbID");
 
-
+            year = Integer.parseInt(jsonObject.getString("Year").substring(0,4));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -107,7 +109,7 @@ public class TvItem extends MovieItem {
                     episodeNumber = Integer.parseInt(lower.substring(lower.indexOf('e') + 1, lower.length()));
 
                     if (season > 0 && episodeNumber > 0) {
-                        //description += "\nSeason: " + season +"\nEpisode: " + episodeNumber;
+                        description += "\nSeason: " + season +"\nEpisode: " + episodeNumber;
                         return season + "x" + episodeNumber;
                     }
 

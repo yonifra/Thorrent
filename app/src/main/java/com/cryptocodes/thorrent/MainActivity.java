@@ -593,17 +593,18 @@ public class MainActivity extends ActionBarActivity
                 }
             }
 
-            private void StartDetailsActivity(Card card, final MovieItem movie) {
+            private void StartDetailsActivity(Card card, final MovieItem media) {
                 //Set onClick listener
                 card.setOnClickListener(new Card.OnCardClickListener() {
                     @Override
                     public void onClick(Card card, View view) {
-                        if (movie.imdbUrl.equals("")) {
+                        if (media.imdbUrl.equals("")) {
                             Toast.makeText(getActivity(), "No info", Toast.LENGTH_SHORT).show();
                         } else {
                             Intent movieDetailsIntent = new Intent(getActivity(), MediaDetailActivity.class);
-                            movieDetailsIntent.putExtra("MOVIE_NAME", movie.rawMovieName);
-                            movieDetailsIntent.putExtra("MOVIE_YEAR", String.valueOf(movie.year));
+                            movieDetailsIntent.putExtra("MOVIE_NAME", media.rawMovieName);
+                            movieDetailsIntent.putExtra("MOVIE_YEAR", String.valueOf(media.year));
+                            movieDetailsIntent.putExtra("IS_MOVIE", media instanceof MovieItem);
                             startActivity(movieDetailsIntent);
                         }
                     }

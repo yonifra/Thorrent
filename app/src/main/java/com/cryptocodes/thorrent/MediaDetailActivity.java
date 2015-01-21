@@ -67,7 +67,7 @@ public class MediaDetailActivity extends ActionBarActivity {
     protected void getImdbData(String name, String year) {
         MovieDetail md = null;
         try {
-            md = new RetrieveMovieDetails().execute(name, year).get();
+                md = new RetrieveMovieDetails().execute(name, year).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
