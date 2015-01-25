@@ -614,7 +614,7 @@ public class MainActivity extends ActionBarActivity
                 card.setOnClickListener(new Card.OnCardClickListener() {
                     @Override
                     public void onClick(Card card, View view) {
-                        if (media.imdbUrl.equals("")) {
+                        if (media.year < 1) {
                             Toast.makeText(getActivity(), "No info", Toast.LENGTH_SHORT).show();
                         } else {
                             Intent movieDetailsIntent = new Intent(getActivity(), MediaDetailActivity.class);
