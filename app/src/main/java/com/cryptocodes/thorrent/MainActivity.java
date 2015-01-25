@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -212,7 +211,8 @@ public class MainActivity extends ActionBarActivity
                 doShare();
                 return true;
             case R.id.action_settings:
-                // Handle settings here...
+                Intent settingsIntent= new Intent(this, SettingsActivity.class);
+                startActivity(settingsIntent);
                 return true;
             case R.id.action_example:
                 // Handle refresh here
