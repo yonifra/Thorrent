@@ -3,8 +3,10 @@ package com.cryptocodes.thorrent;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -54,9 +56,14 @@ public class MainActivity extends ActionBarActivity
     private static final String APPLICATIONS_FEED_URL = "http://www.scnsrc.me/category/applications/feed/";
     public static String CURRENT_RSS_FEED = null;
 
+    public static Boolean displayInformation;
+    public static Boolean friendlyName;
+
     private static ProgressDialog progress;
     private final String LOG_TAG = "MainActivity";
     private ShareActionProvider mShareActionProvider;
+
+    SharedPreferences settings;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -92,6 +99,15 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        GetValuesFromSettings();
+    }
+
+    private void GetValuesFromSettings()
+    {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        displayInformation = settings.getBoolean("enable_info_setting", true);
+        friendlyName = settings.getBoolean("show_friendly_name", true);
     }
 
     @Override

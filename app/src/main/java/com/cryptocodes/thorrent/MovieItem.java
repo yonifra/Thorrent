@@ -43,8 +43,14 @@ public class MovieItem extends ThorrentItem {
         splittedStrings = title.split(" ");
 
         getResolution();
-        getTitle();
-        getImdbData();
+
+        if (MainActivity.friendlyName) {
+            getTitle();
+        }
+
+        if (MainActivity.displayInformation) {
+            getImdbData();
+        }
 
         StringBuilder sb = new StringBuilder();
 

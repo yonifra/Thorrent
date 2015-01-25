@@ -18,7 +18,9 @@ public class TvItem extends MovieItem {
 
     public TvItem(ThorrentItem baseItem) {
         super(baseItem);
-        title = getTitle();
+        if (MainActivity.friendlyName) {
+            title = getTitle();
+        }
     }
 
     @Override
@@ -35,7 +37,10 @@ public class TvItem extends MovieItem {
     protected String getTitle() {
         StringBuilder sb = new StringBuilder();
         String showTitle = getShowTitle();
-        parseItem(showTitle);
+
+        if (MainActivity.displayInformation) {
+            parseItem(showTitle);
+        }
 
         rawMovieName = showTitle;
         formattedTitle = sb.append(showTitle).append(" ").append(SEtext).toString();

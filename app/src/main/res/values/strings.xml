@@ -40,5 +40,7 @@
     <string name="by_user_text">By</string>
     <string name="title_activity_media_detail">Details</string>
     <string name="Share">Share</string>
+    <string name="pref_description_friendly_name">Displays a user-friendly name of the release</string>
+    <string name="pref_title_friendly_name">User-friendly name</string>
 
 </resources>

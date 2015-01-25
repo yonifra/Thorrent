@@ -6,9 +6,9 @@
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
 
-    <string name="pref_title_social_recommendations">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations">Recommendations for people to contact
-        based on your message history
+    <string name="pref_title_enable_info">Enable media information</string>
+    <string name="pref_description_enable_info">Shows TV Show / Movie poster along with a plot summary and ratings
+        (could slow down performance significantly)
     </string>
 
     <string name="pref_title_display_name">Display name</string>
