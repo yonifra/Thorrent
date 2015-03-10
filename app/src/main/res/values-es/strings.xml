@@ -45,7 +45,13 @@
     <string name="title_activity_media_detail">Detalles</string>
     <string name="list_card_undo_title">Deshacer</string>
     <string name="Share">Compartir</string>
+    <string name="pref_description_friendly_name">Presenta un nombre para la pelicula o el capitulo que es mas facil de reconocer</string>
+    <string name="pref_title_friendly_name">Nombre familiar</string>
     <string name="share_body_message">Estoy usando Thorrent para saber cuales nuevas peliculas y capitulos salieron al web. Puedes chequearlo en http://tinyurl.com/on4p7ns</string>
     <string name="share_header_text">Estoy usando Thorrent!</string>
     <string name="share_via_header">Compartir con...</string>
+    <string name="pref_title_enable_info">Ver informacion</string>
+    <string name="pref_description_enable_info">Muestra mas informacion de la pelicula o el capitulo con posters. (Puede causar el programa que funcione despacio)</string>
+    <string name="pref_header_general">General</string>
+    <string name="title_activity_settings">Ajustes</string>
 </resources>

@@ -45,5 +45,10 @@
     <string name="share_body_message">Hey, I\'m using Thorrent to see what was released online. Check it out at http://tinyurl.com/on4p7ns</string>
     <string name="share_header_text">Check out Thorrent!</string>
     <string name="share_via_header">Share via</string>
-
+    <string name="pref_title_enable_info">Enable media information</string>
+    <string name="pref_description_enable_info">Shows TV Show / Movie poster along with a plot summary and ratings
+        (could slow down performance significantly)
+    </string>
+    <string name="pref_header_general">General</string>
+    <string name="title_activity_settings">Settings</string>
 </resources>
