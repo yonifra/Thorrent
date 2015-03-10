@@ -253,14 +253,14 @@ public class NavigationDrawerFragment extends Fragment {
             return true;
         }
 
-        if (item.getItemId() == R.id.action_example) {
-            if (getActivity().getLocalClassName() == "MainActivity") {
-                Toast.makeText(getActivity(), getString(R.string.RefreshingMessage), Toast.LENGTH_SHORT).show();
-                ((MainActivity) getActivity()).refreshFeed(((MainActivity) getActivity()).CURRENT_RSS_FEED, true);
-            }
-
-            return true;
-        }
+//        if (item.getItemId() == R.id.action_example) {
+//            if (getActivity().getLocalClassName() == "MainActivity") {
+//                Toast.makeText(getActivity(), getString(R.string.RefreshingMessage), Toast.LENGTH_SHORT).show();
+//                ((MainActivity) getActivity()).refreshFeed(((MainActivity) getActivity()).CURRENT_RSS_FEED, true);
+//            }
+//
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }

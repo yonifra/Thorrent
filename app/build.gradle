@@ -7,9 +7,9 @@ android {
     defaultConfig {
         applicationId "com.cryptocodes.thorrent"
         minSdkVersion 17
-        targetSdkVersion 20
-        versionCode 6
-        versionName "1.5"
+        targetSdkVersion 21
+        versionCode 7
+        versionName "1.6"
     }
     buildTypes {
         release {

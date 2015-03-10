@@ -29,7 +29,7 @@
     <string name="title_activity_about">About Thorrent</string>
     <string name="Version">Version</string>
     <string name="AboutMessage">Made with love by the folks at Cryptocodes, Inc.</string>
-    <string name="ReleaseDate">January 9th, 2015</string>
+    <string name="ReleaseDate">March 10th, 2015</string>
     <string name="cryptocodesUrl">http://www.cryptocodes.com</string>
     <string name="TorrentProviderInfo">Torrent information provided by ScnSrc</string>
     <string name="loading_dialog_header">Loading…</string>
@@ -42,5 +42,8 @@
     <string name="Share">Share</string>
     <string name="pref_description_friendly_name">Displays a user-friendly name of the release</string>
     <string name="pref_title_friendly_name">User-friendly name</string>
+    <string name="share_body_message">Hey, I\'m using Thorrent to see what was released online. Check it out at http://tinyurl.com/on4p7ns</string>
+    <string name="share_header_text">Check out Thorrent!</string>
+    <string name="share_via_header">Share via</string>
 
 </resources>

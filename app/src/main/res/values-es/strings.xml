@@ -29,7 +29,7 @@
     <string name="title_activity_about">Acerca de Thorrent</string>
     <string name="Version">Versión</string>
     <string name="AboutMessage">Hecho con amor por Cryptocodes, Inc.</string>
-    <string name="ReleaseDate">9 de Enero, 2015</string>
+    <string name="ReleaseDate">10 de Marzo, 2015</string>
     <string name="cryptocodesUrl">http://www.cryptocodes.com</string>
     <string name="TorrentProviderInfo">Informacion de Torrents por ScnSrc</string>
     <string name="loading_dialog_header">Cargando...</string>
@@ -45,4 +45,7 @@
     <string name="title_activity_media_detail">Detalles</string>
     <string name="list_card_undo_title">Deshacer</string>
     <string name="Share">Compartir</string>
+    <string name="share_body_message">Estoy usando Thorrent para saber cuales nuevas peliculas y capitulos salieron al web. Puedes chequearlo en http://tinyurl.com/on4p7ns</string>
+    <string name="share_header_text">Estoy usando Thorrent!</string>
+    <string name="share_via_header">Compartir con...</string>
 </resources>

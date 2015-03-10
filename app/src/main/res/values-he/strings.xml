@@ -29,7 +29,7 @@
     <string name="title_activity_about">Thorrentאודות </string>
     <string name="Version">גרסא</string>
     <string name="AboutMessage">נעשה באהבה על ידי Cryptocodes, Inc.</string>
-    <string name="ReleaseDate">9 לינואר, 2015</string>
+    <string name="ReleaseDate">10 למרץ, 2015</string>
     <string name="cryptocodesUrl">http://www.cryptocodes.com</string>
     <string name="TorrentProviderInfo">מידע אודות הטורנטים מסופק על ידי ScnSrc</string>
     <string name="loading_dialog_header">…טוען</string>
@@ -45,4 +45,7 @@
     <string name="title_activity_media_detail">פרטים</string>
     <string name="list_card_undo_title">בטל</string>
     <string name="Share">שתף</string>
+    <string name="share_body_message">http://tinyurl.com/on4p7nsהיי, אני משתמש ב Thorrent כדי לראות אילו סדרות וסרטים חדשים יצאו לרשת. אתם יכולים להוריד את התוכנה בכתובת </string>
+    <string name="share_header_text">אני משתמש ב Thorrent!</string>
+    <string name="share_via_header">שתף באמצעות</string>
 </resources>
