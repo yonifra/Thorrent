@@ -381,7 +381,26 @@ public class MainActivity extends ActionBarActivity
                     }
                     String name = parser.getName();
                     if (name.equals("item")) {
-                        items.add(readItem(parser));
+                        ThorrentItem newItem = readItem(parser);
+                        boolean added = false;
+
+                        if (newItem.getClass() == MovieItem.class) {
+                            for (ThorrentItem item : items) {
+                                if (item.formattedTitle.equals(newItem.formattedTitle)) {
+                                    item.resolutions.add(((MovieItem) newItem).resolution);
+                                    added = true;
+                                    break;
+                                }
+                            }
+
+                            if (!added)
+                            {
+                                items.add(newItem);
+                            }
+                        }
+                        else {
+                            items.add(newItem);
+                        }
                     } else {
                         skip(parser);
                     }
@@ -418,6 +437,7 @@ public class MainActivity extends ActionBarActivity
                         skip(parser);
                     }
                 }
+
                 return result;
             }
 
