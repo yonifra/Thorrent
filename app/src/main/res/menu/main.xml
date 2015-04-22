@@ -6,7 +6,7 @@
         android:id="@+id/menu_item_share"
         app:showAsAction="always"
         android:title="@string/Share"
-        android:icon="@drawable/abc_ic_menu_share_holo_dark"
+        android:icon="@drawable/abc_ic_menu_share_mtrl_alpha"
         android:actionProviderClass="android.widget.ShareActionProvider"
         />
     <!--<item android:id="@+id/action_example"-->

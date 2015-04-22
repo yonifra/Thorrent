@@ -88,7 +88,11 @@ public class MovieItem extends ThorrentItem {
     }
 
     public static String buildJsonUrl(String rawMovieName, int year) {
-        return "http://www.omdbapi.com/?t=" + rawMovieName.replace(" ", "%20") + "&y=" + year + "&plot=full&r=json";
+        if (rawMovieName != null) {
+            return "http://www.omdbapi.com/?t=" + rawMovieName.replace(" ", "%20") + "&y=" + year + "&plot=full&r=json";
+        }
+
+        return "";
     }
 
     private String getResolutionString(Resolution resolution) {
