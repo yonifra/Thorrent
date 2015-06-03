@@ -60,14 +60,23 @@ public class MediaDetailActivity extends ActionBarActivity {
 
         String movieName = getIntent().getStringExtra("MOVIE_NAME");
         String year = getIntent().getStringExtra("MOVIE_YEAR");
+        String isMovie = getIntent().getStringExtra("IS_MOVIE");
+        String season = getIntent().getStringExtra("TV_SEASON");
+        String episode = getIntent().getStringExtra("TV_EPISODE");
 
-        getImdbData(movieName, year);
+        getImdbData(movieName, year, isMovie, season, episode);
     }
 
-    protected void getImdbData(String name, String year) {
+    protected void getImdbData(String name, String year, String isMovie, String season, String episode) {
         MovieDetail md = null;
         try {
+            if (episode == "-1") {
                 md = new RetrieveMovieDetails().execute(name, year).get();
+            }
+            else
+            {
+                md = new RetrieveTvShowDetails().execute(name, season, episode).get();
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -123,6 +132,42 @@ class RetrieveMovieDetails extends AsyncTask<String, Void, MovieDetail> {
     protected MovieDetail doInBackground(String... movies) {
         try {
             JSONObject jsonObject = JSONReader.readJsonFromUrl(MovieItem.buildJsonUrl(movies[0], Integer.parseInt(movies[1])));
+
+            if (jsonObject != null) {
+                MovieDetail md = new MovieDetail();
+                md.actors = jsonObject.getString("Actors");
+                md.posterUrl = jsonObject.getString("Poster");
+                md.plot = jsonObject.getString("Plot");
+                md.genre = jsonObject.getString("Genre");
+                md.director = jsonObject.getString("Director");
+                md.rating = jsonObject.getString("imdbRating");
+                md.runtime = jsonObject.getString("Runtime");
+                md.country = jsonObject.getString("Country");
+                md.metascore = jsonObject.getString("Metascore");
+                md.year = jsonObject.getString("Year");
+                md.name = jsonObject.getString("Title");
+                md.imdbVotes = jsonObject.getString("imdbVotes");
+
+                return md;
+            }
+
+            return null;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    protected void onPostExecute(MovieDetail object) {
+        // TODO: check this.exception
+        // TODO: do something with the feed
+    }
+}
+
+class RetrieveTvShowDetails extends AsyncTask<String, Void, MovieDetail> {
+
+    protected MovieDetail doInBackground(String... params) {
+        try {
+            JSONObject jsonObject = JSONReader.readJsonFromUrl(TvItem.buildJsonUrl(params[0], Integer.parseInt(params[1]), Integer.parseInt(params[2])));
 
             if (jsonObject != null) {
                 MovieDetail md = new MovieDetail();

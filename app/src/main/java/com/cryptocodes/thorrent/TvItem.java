@@ -33,6 +33,14 @@ public class TvItem extends MovieItem {
         //super.getImdbData();
     }
 
+    public int getSeason(){
+        return season;
+    }
+
+    public int getEpisodeNumber(){
+        return episodeNumber;
+    }
+
     @Override
     protected String getTitle() {
         StringBuilder sb = new StringBuilder();
@@ -84,7 +92,7 @@ public class TvItem extends MovieItem {
             posterUrl = jsonObject.getString("Poster");
 
             // Get the plot of the series
-            //plot = jsonObject.getString("Plot");
+            plot = jsonObject.getString("Plot");
 
             // Set the rating of the show
             rating = jsonObject.getString("imdbRating");
@@ -99,8 +107,10 @@ public class TvItem extends MovieItem {
         }
     }
 
-    public String buildJsonUrl(String tvShowName, int season, int episodeNumber) {
-        return "http://www.omdbapi.com/?t=" + tvShowName.replace(" ", "%20") + "&plot=short&r=json";
+    public static String buildJsonUrl(String tvShowName, int season, int episodeNumber) {
+        return "http://www.omdbapi.com/?t=" + tvShowName.replace(" ", "%20") +
+                "&Season=" + season + "&Episode=" + episodeNumber +
+                "&plot=short&r=json";
     }
 
     protected String getSeasonAndEpisode() {

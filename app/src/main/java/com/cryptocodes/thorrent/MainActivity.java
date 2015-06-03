@@ -197,7 +197,7 @@ public class MainActivity extends ActionBarActivity
             MenuItem item = menu.findItem(R.id.menu_item_share);
 
             // Fetch and store ShareActionProvider
-            mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+         //   mShareActionProvider = (ShareActionProvider) item.getActionProvider();
 
             restoreActionBar();
 
@@ -636,7 +636,19 @@ public class MainActivity extends ActionBarActivity
                             Intent movieDetailsIntent = new Intent(getActivity(), MediaDetailActivity.class);
                             movieDetailsIntent.putExtra("MOVIE_NAME", media.rawMovieName);
                             movieDetailsIntent.putExtra("MOVIE_YEAR", String.valueOf(media.year));
-                            movieDetailsIntent.putExtra("IS_MOVIE", media instanceof MovieItem);
+                            movieDetailsIntent.putExtra("IS_MOVIE", String.valueOf(media instanceof MovieItem));
+
+                            if (media instanceof TvItem)
+                            {
+                                movieDetailsIntent.putExtra("TV_SEASON",  String.valueOf(((TvItem) media).getSeason()));
+                                movieDetailsIntent.putExtra("TV_EPISODE", String.valueOf(((TvItem) media).getEpisodeNumber()));
+                            }
+                            else
+                            {
+                                movieDetailsIntent.putExtra("TV_SEASON", String.valueOf(-1));
+                                movieDetailsIntent.putExtra("TV_EPISODE", String.valueOf(-1));
+                            }
+
                             startActivity(movieDetailsIntent);
                         }
                     }
