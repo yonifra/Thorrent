@@ -70,7 +70,7 @@ public class MediaDetailActivity extends ActionBarActivity {
     protected void getImdbData(String name, String year, String isMovie, String season, String episode) {
         MovieDetail md = null;
         try {
-            if (episode == "-1") {
+            if (episode == null) {
                 md = new RetrieveMovieDetails().execute(name, year).get();
             }
             else

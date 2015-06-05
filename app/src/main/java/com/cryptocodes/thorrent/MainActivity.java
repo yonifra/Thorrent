@@ -643,11 +643,11 @@ public class MainActivity extends ActionBarActivity
                                 movieDetailsIntent.putExtra("TV_SEASON",  String.valueOf(((TvItem) media).getSeason()));
                                 movieDetailsIntent.putExtra("TV_EPISODE", String.valueOf(((TvItem) media).getEpisodeNumber()));
                             }
-                            else
-                            {
-                                movieDetailsIntent.putExtra("TV_SEASON", String.valueOf(-1));
-                                movieDetailsIntent.putExtra("TV_EPISODE", String.valueOf(-1));
-                            }
+//                            else
+//                            {
+//                                movieDetailsIntent.putExtra("TV_SEASON", );
+//                                movieDetailsIntent.putExtra("TV_EPISODE", null);
+//                            }
 
                             startActivity(movieDetailsIntent);
                         }

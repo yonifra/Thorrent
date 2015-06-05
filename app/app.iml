@@ -106,6 +106,7 @@
     <orderEntry type="library" exported="" name="support-v4-22.1.0" level="project" />
     <orderEntry type="library" exported="" name="jackson-annotations-2.4.2" level="project" />
     <orderEntry type="library" exported="" name="api-common-1.1" level="project" />
+    <orderEntry type="library" exported="" name="dragtoplayout-1.2.1" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-22.1.0" level="project" />
   </component>
 </module>

@@ -1,26 +1,19 @@
-<com.nirhart.parallaxscroll.views.ParallaxScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<github.chenupt.dragtoplayout.DragTopLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/parallaxScrollView"
     android:layout_width="match_parent"
+    android:id="@+id/parallaxScrollView"
     android:layout_height="match_parent"
     android:background="@color/card_background"
-    app:parallax_factor="2.8"
     tools:context="com.cryptocodes.thorrent.MediaDetailActivity">
-
-    <!--android:background="#498827"-->
-    <LinearLayout
-        android:id="@+id/mediaDetailsDataLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:gravity="center"
             android:orientation="vertical"
-            tools:ignore="HardcodedText">
+            tools:ignore="HardcodedText"
+            android:id="@+id/mediaDetailsDataLayout">
 
             <TextView
                 android:id="@+id/movieDetailsMovieName"
@@ -28,6 +21,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
                 android:text="Movie Name"
+                android:gravity="center_horizontal"
                 android:textColor="@color/card_text_color_header"
                 android:textSize="30dp"
                 tools:ignore="HardcodedText" />
@@ -285,7 +279,4 @@
                     android:textSize="20dp" />
             </LinearLayout>
         </LinearLayout>
-
-    </LinearLayout>
-
-</com.nirhart.parallaxscroll.views.ParallaxScrollView>
+</github.chenupt.dragtoplayout.DragTopLayout>

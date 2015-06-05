@@ -38,4 +38,5 @@ dependencies {
     compile files('libs/API-OMDB-1.0-20141230.200036-39.jar')
     compile 'org.json:json:20141113'
     compile 'com.github.nirhart:parallaxscroll:1.0'
+    compile 'com.github.chenupt.android:dragtoplayout:1.2.1@aar'
 }
