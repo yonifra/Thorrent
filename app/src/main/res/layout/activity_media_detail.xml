@@ -15,10 +15,12 @@
             tools:ignore="HardcodedText"
             android:id="@+id/mediaDetailsDataLayout">
             <ImageView
-                android:layout_width="80sp"
+                android:layout_width="82sp"
                 android:layout_height="120sp"
                 android:id="@+id/mediaPosterImageView"
+                android:background="@drawable/image_view_border"
                 android:layout_margin="10sp"
+                android:padding="1sp"
                 />
 
             <LinearLayout
@@ -27,25 +29,25 @@
                 android:layout_margin="10sp"
                 android:orientation="vertical"
                 android:gravity="center_vertical">
-            <TextView
-                android:id="@+id/movieDetailsMovieName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed"
-                android:text="Movie Name"
-                android:textColor="@color/card_text_color_header"
-                android:textSize="30sp"
-                tools:ignore="HardcodedText" />
+                <TextView
+                    android:id="@+id/movieDetailsMovieName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Movie Name"
+                    android:textColor="@color/card_text_color_header"
+                    android:textSize="30sp"
+                    tools:ignore="HardcodedText" />
 
-            <TextView
-                android:id="@+id/movieDetailsReleaseYear"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-thin"
-                android:text="N/A"
-                android:textColor="@color/card_text_color_header"
-                android:textSize="16sp"
-                tools:ignore="HardcodedText" />
+                <TextView
+                    android:id="@+id/movieDetailsReleaseYear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-thin"
+                    android:text="N/A"
+                    android:textColor="@color/card_text_color_header"
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
             </LinearLayout>
 
         </LinearLayout>

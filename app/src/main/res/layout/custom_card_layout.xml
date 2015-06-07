@@ -40,10 +40,12 @@
             <it.gmariotti.cardslib.library.view.component.CardThumbnailView
                 android:id="@+id/card_thumbnail_layout"
                 style="@style/card_thumbnail_outer_layout"
-                android:layout_width="80dp"
+                android:layout_width="82dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center_vertical"
-                android:layout_margin="5dp" />
+                android:layout_margin="5dp"
+                android:padding="1sp"
+                android:background="@drawable/image_view_border"/>
         <!--</LinearLayout>-->
 
         <LinearLayout

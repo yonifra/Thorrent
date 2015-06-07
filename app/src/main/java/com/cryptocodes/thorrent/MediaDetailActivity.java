@@ -34,7 +34,7 @@ public class MediaDetailActivity extends ActionBarActivity {
     public static Drawable LoadImageFromUrl(String url) {
         try {
             Drawable drawable = new RetrievePoster().execute(url).get();
-            drawable.setAlpha(40);
+           // drawable.setAlpha(40);
 
             return drawable;
         } catch (Exception e) {
