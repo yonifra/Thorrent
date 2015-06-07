@@ -39,4 +39,5 @@ dependencies {
     compile 'org.json:json:20141113'
     compile 'com.github.nirhart:parallaxscroll:1.0'
     compile 'com.github.chenupt.android:dragtoplayout:1.2.1@aar'
+    compile 'com.ikimuhendis:ldrawer:0.1'
 }

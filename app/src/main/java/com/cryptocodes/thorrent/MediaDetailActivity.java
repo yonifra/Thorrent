@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONObject;
@@ -25,9 +27,9 @@ public class MediaDetailActivity extends ActionBarActivity {
     TextView movieName;
     TextView imdbRating;
     TextView metascoreRating;
-    LinearLayout mainLayout;
     TextView country;
     TextView imdbVotes;
+    private ImageView posterImageView;
 
     public static Drawable LoadImageFromUrl(String url) {
         try {
@@ -54,7 +56,7 @@ public class MediaDetailActivity extends ActionBarActivity {
         movieName = (TextView) findViewById(R.id.movieDetailsMovieName);
         imdbRating = (TextView) findViewById(R.id.movieDetailsRating);
         metascoreRating = (TextView) findViewById(R.id.movieDetailsMetascoreRating);
-        mainLayout = (LinearLayout) findViewById(R.id.mediaDetailsDataLayout);
+        posterImageView = (ImageView) findViewById(R.id.mediaPosterImageView);
         country = (TextView) findViewById(R.id.movieDetailsCountry);
         imdbVotes = (TextView) findViewById(R.id.mediaDetailsImdbVotes);
 
@@ -88,7 +90,7 @@ public class MediaDetailActivity extends ActionBarActivity {
         Drawable posterDrawable = LoadImageFromUrl(md.posterUrl);
 
         if (posterDrawable != null) {
-            mainLayout.setBackground(posterDrawable);
+            posterImageView.setImageDrawable(posterDrawable);
         }
 
         plot.setText(md.plot);
