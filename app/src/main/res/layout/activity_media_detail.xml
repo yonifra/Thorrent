@@ -7,7 +7,7 @@
     android:background="@color/card_background"
     tools:context="com.cryptocodes.thorrent.MediaDetailActivity">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:gravity="center"
@@ -15,12 +15,21 @@
             tools:ignore="HardcodedText"
             android:id="@+id/mediaDetailsDataLayout">
             <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/backdropImageView"
+                android:layout_gravity="center_vertical"
+                android:scaleType="centerCrop"
+                />
+
+            <ImageView
                 android:layout_width="82sp"
                 android:layout_height="120sp"
                 android:id="@+id/mediaPosterImageView"
                 android:background="@drawable/image_view_border"
                 android:layout_margin="10sp"
                 android:padding="1sp"
+                android:layout_gravity="center_vertical"
                 />
 
             <LinearLayout
@@ -28,7 +37,8 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10sp"
                 android:orientation="vertical"
-                android:gravity="center_vertical">
+                android:gravity="right"
+                android:layout_gravity="right">
                 <TextView
                     android:id="@+id/movieDetailsMovieName"
                     android:layout_width="wrap_content"
@@ -50,7 +60,7 @@
                     tools:ignore="HardcodedText" />
             </LinearLayout>
 
-        </LinearLayout>
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

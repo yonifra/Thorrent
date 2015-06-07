@@ -30,6 +30,7 @@ public class MediaDetailActivity extends ActionBarActivity {
     TextView country;
     TextView imdbVotes;
     private ImageView posterImageView;
+    private ImageView backdropImageView;
 
     public static Drawable LoadImageFromUrl(String url) {
         try {
@@ -57,6 +58,7 @@ public class MediaDetailActivity extends ActionBarActivity {
         imdbRating = (TextView) findViewById(R.id.movieDetailsRating);
         metascoreRating = (TextView) findViewById(R.id.movieDetailsMetascoreRating);
         posterImageView = (ImageView) findViewById(R.id.mediaPosterImageView);
+        backdropImageView = (ImageView) findViewById(R.id.backdropImageView);
         country = (TextView) findViewById(R.id.movieDetailsCountry);
         imdbVotes = (TextView) findViewById(R.id.mediaDetailsImdbVotes);
 
@@ -91,6 +93,8 @@ public class MediaDetailActivity extends ActionBarActivity {
 
         if (posterDrawable != null) {
             posterImageView.setImageDrawable(posterDrawable);
+            backdropImageView.setImageDrawable(posterDrawable);
+            backdropImageView.setAlpha(0.3f);
         }
 
         plot.setText(md.plot);
