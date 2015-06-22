@@ -34,10 +34,7 @@ public class MediaDetailActivity extends ActionBarActivity {
 
     public static Drawable LoadImageFromUrl(String url) {
         try {
-            Drawable drawable = new RetrievePoster().execute(url).get();
-           // drawable.setAlpha(40);
-
-            return drawable;
+            return new RetrievePoster().execute(url).get();
         } catch (Exception e) {
             return null;
         }
@@ -77,8 +74,7 @@ public class MediaDetailActivity extends ActionBarActivity {
             if (episode == null) {
                 md = new RetrieveMovieDetails().execute(name, year).get();
             }
-            else
-            {
+            else {
                 md = new RetrieveTvShowDetails().execute(name, season, episode).get();
             }
         } catch (InterruptedException e) {
@@ -94,6 +90,7 @@ public class MediaDetailActivity extends ActionBarActivity {
         if (posterDrawable != null) {
             posterImageView.setImageDrawable(posterDrawable);
             backdropImageView.setImageDrawable(posterDrawable);
+            backdropImageView.setAdjustViewBounds(true);
             backdropImageView.setAlpha(0.3f);
         }
 

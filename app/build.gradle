@@ -8,8 +8,8 @@ android {
         applicationId "com.cryptocodes.thorrent"
         minSdkVersion 17
         targetSdkVersion 21
-        versionCode 7
-        versionName "1.6"
+        versionCode 8
+        versionName "1.7"
     }
     buildTypes {
         release {
@@ -35,9 +35,11 @@ dependencies {
     compile 'com.omertron:thetvdbapi:1.6'
     compile 'com.omertron:tvrageapi:1.4'
     compile 'com.omertron:fanarttvapi:3.0'
-    compile files('libs/API-OMDB-1.0-20141230.200036-39.jar')
     compile 'org.json:json:20141113'
     compile 'com.github.nirhart:parallaxscroll:1.0'
     compile 'com.github.chenupt.android:dragtoplayout:1.2.1@aar'
     compile 'com.ikimuhendis:ldrawer:0.1'
+    compile 'com.flaviofaria:kenburnsview:1.0.6'
+    compile 'me.biubiubiu.zoomlistview:library:0.2.1'
+    compile 'com.omertron:API-OMDB:1.0'
 }
