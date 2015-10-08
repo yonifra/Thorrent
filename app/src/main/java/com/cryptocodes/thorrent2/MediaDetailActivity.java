@@ -1,4 +1,4 @@
-package com.cryptocodes.thorrent;
+package com.cryptocodes.thorrent2;
 
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -7,8 +7,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONObject;

@@ -1,4 +1,4 @@
-package com.cryptocodes.thorrent;
+package com.cryptocodes.thorrent2;
 
 /**
  * Created by jonathanf on 12/11/2014.

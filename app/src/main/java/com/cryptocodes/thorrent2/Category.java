@@ -1,4 +1,4 @@
-package com.cryptocodes.thorrent;
+package com.cryptocodes.thorrent2;
 
 public enum Category {
     TV,

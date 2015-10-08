@@ -1,4 +1,4 @@
-package com.cryptocodes.thorrent;
+package com.cryptocodes.thorrent2;
 
 import org.json.JSONException;
 import org.json.JSONObject;

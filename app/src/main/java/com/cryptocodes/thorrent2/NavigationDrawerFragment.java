@@ -1,4 +1,4 @@
-package com.cryptocodes.thorrent;
+package com.cryptocodes.thorrent2;
 
 import android.app.Activity;
 import android.content.SharedPreferences;

@@ -1,7 +1,5 @@
-package com.cryptocodes.thorrent;
+package com.cryptocodes.thorrent2;
 
-import android.app.Application;
-import android.net.Uri;
 import android.util.Log;
 
 import org.json.JSONException;

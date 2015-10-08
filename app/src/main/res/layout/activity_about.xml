@@ -5,13 +5,14 @@
     android:gravity="center"
     android:orientation="vertical"
     android:background="@color/card_background"
-    tools:context="com.cryptocodes.thorrent.AboutActivity">
+    tools:context="com.cryptocodes.thorrent2.AboutActivity">
 
     <ImageView
         android:layout_width="250dip"
         android:layout_height="42dip"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/cryptocodes" />
+        android:src="@drawable/cryptocodes"
+        android:contentDescription="@string/logoDescription" />
 
     <TextView
         android:layout_width="wrap_content"
