@@ -132,11 +132,6 @@ public class MovieItem extends ThorrentItem {
 
             posterUrl = jsonObject.getString("Poster");
 
-//            if (posterUrl == null || posterUrl == "") {
-//
-//                posterUrl = Uri.parse("R.drawable.app").toString();//ThorrentApp.getContext().getResources().getDrawable(R.drawable.app);;
-//            }
-
             String ratingStr = jsonObject.getString("imdbRating");
 
             if (ratingStr != null || !ratingStr.equals("N/A")) {
@@ -144,9 +139,7 @@ public class MovieItem extends ThorrentItem {
             }
 
             imdbUrl = "http://www.imdb.com/title/" + jsonObject.getString("imdbID");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -158,7 +151,6 @@ public class MovieItem extends ThorrentItem {
         for (int i = 0; i < yearIndex; i++) {
             sb.append(splittedStrings[i]).append(" ");
         }
-
 
         if (sb.length() > 0) {
             // Remove the last space from title
