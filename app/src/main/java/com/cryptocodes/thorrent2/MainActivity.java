@@ -7,17 +7,17 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -42,7 +42,7 @@ import it.gmariotti.cardslib.library.internal.CardHeader;
 import it.gmariotti.cardslib.library.internal.CardThumbnail;
 import it.gmariotti.cardslib.library.view.CardListView;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     private static final String TV_SHOWS_FEED_URL = "http://www.scnsrc.me/category/tv/feed/";
@@ -549,7 +549,8 @@ public class MainActivity extends AppCompatActivity
             protected void onPostExecute(List<ThorrentItem> rssFeed) {
                 if (rssFeed != null) {
                     if (rssFeed.size() == 0) {
-                        Toast.makeText(getActivity(), getString(R.string.CheckInternetConn), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity(), getString(R.string.CheckInternetConn), Toast.LENGTH_LONG).show();
+                        Snackbar.make(getActivity().findViewById(R.id.container), getString(R.string.CheckInternetConn), Snackbar.LENGTH_LONG).show();
                         return;
                     }
 
@@ -640,7 +641,8 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onClick(Card card, View view) {
                         if (media.year < 1) {
-                            Toast.makeText(getActivity(), "No info", Toast.LENGTH_SHORT).show();
+                            Snackbar.make(view, "No info", Snackbar.LENGTH_SHORT).show();
+                            //Toast.makeText(getActivity(), "No info", Toast.LENGTH_SHORT).show();
                         } else {
                             Intent movieDetailsIntent = new Intent(getActivity(), MediaDetailActivity.class);
                             movieDetailsIntent.putExtra("MOVIE_NAME", media.rawMovieName);
