@@ -10,14 +10,13 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ShareActionProvider;
 import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -43,7 +42,7 @@ import it.gmariotti.cardslib.library.internal.CardHeader;
 import it.gmariotti.cardslib.library.internal.CardThumbnail;
 import it.gmariotti.cardslib.library.view.CardListView;
 
-public class MainActivity extends ActionBarActivity
+public class MainActivity extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     private static final String TV_SHOWS_FEED_URL = "http://www.scnsrc.me/category/tv/feed/";
@@ -60,7 +59,6 @@ public class MainActivity extends ActionBarActivity
 
     private static ProgressDialog progress;
     private final String LOG_TAG = "MainActivity";
-    private ShareActionProvider mShareActionProvider;
 
     SharedPreferences settings;
 
@@ -179,9 +177,11 @@ public class MainActivity extends ActionBarActivity
 
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
-      //  actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
+
+        if (actionBar != null) {
+            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setTitle(mTitle);
+        }
     }
 
     @Override
@@ -271,6 +271,7 @@ public class MainActivity extends ActionBarActivity
         public static String getAndroidPitRssFeed() throws IOException {
             InputStream in = null;
             String rssFeed = null;
+
             try {
                 URL url;
 
@@ -279,6 +280,7 @@ public class MainActivity extends ActionBarActivity
                 } else {
                     url = new URL(CURRENT_RSS_FEED);
                 }
+
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 in = conn.getInputStream();
                 ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -336,9 +338,7 @@ public class MainActivity extends ActionBarActivity
                     } else {
                         result = parse(feed);
                     }
-                } catch (XmlPullParserException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
+                } catch (XmlPullParserException | IOException e) {
                     e.printStackTrace();
                 }
                 return result;
@@ -354,7 +354,7 @@ public class MainActivity extends ActionBarActivity
 
             private List<ThorrentItem> readRss(XmlPullParser parser)
                     throws XmlPullParserException, IOException {
-                List<ThorrentItem> items = new ArrayList<ThorrentItem>();
+                List<ThorrentItem> items = new ArrayList<>();
                 parser.require(XmlPullParser.START_TAG, null, "rss");
                 while (parser.next() != XmlPullParser.END_TAG) {
                     if (parser.getEventType() != XmlPullParser.START_TAG) {
@@ -372,13 +372,16 @@ public class MainActivity extends ActionBarActivity
 
             private List<ThorrentItem> readChannel(XmlPullParser parser)
                     throws IOException, XmlPullParserException {
-                List<ThorrentItem> items = new ArrayList<ThorrentItem>();
+                List<ThorrentItem> items = new ArrayList<>();
                 parser.require(XmlPullParser.START_TAG, null, "channel");
+
                 while (parser.next() != XmlPullParser.END_TAG) {
                     if (parser.getEventType() != XmlPullParser.START_TAG) {
                         continue;
                     }
+
                     String name = parser.getName();
+
                     if (name.equals("item")) {
                         ThorrentItem newItem = readItem(parser);
                         boolean added = false;
@@ -410,30 +413,38 @@ public class MainActivity extends ActionBarActivity
             private ThorrentItem readItem(XmlPullParser parser) throws XmlPullParserException, IOException {
                 ThorrentItem result = new ThorrentItem();
                 parser.require(XmlPullParser.START_TAG, null, "item");
+
                 while (parser.next() != XmlPullParser.END_TAG) {
+
                     if (parser.getEventType() != XmlPullParser.START_TAG) {
                         continue;
                     }
-                    String name = parser.getName();
-                    if (name.equals("title")) {
-                        result.title = readTitle(parser);
-                        result.formattedTitle = result.title;
-                    } else if (name.equals("pubDate")) {
-                        // get pubdate
-                        result.time = readPubDate(parser);
-                    } else if (name.equals("dc:creator")) {
-                        // get creator
-                        result.creator = readCreator(parser);
-                    } else if (name.equals("category")) {
-                        result.category = readCategory(parser, result.category);
 
-                        if (result.category == Category.MOVIE) {
-                            result = new MovieItem(result);
-                        } else if (result.category == Category.TV) {
-                            result = new TvItem(result);
-                        }
-                    } else {
-                        skip(parser);
+                    String name = parser.getName();
+
+                    switch (name) {
+                        case "title":
+                            result.title = readTitle(parser);
+                            result.formattedTitle = result.title;
+                            break;
+                        case "pubDate":
+                            result.time = readPubDate(parser);
+                            break;
+                        case "dc:creator":
+                            result.creator = readCreator(parser);
+                            break;
+                        case "category":
+                            result.category = readCategory(parser, result.category);
+
+                            if (result.category == Category.MOVIE) {
+                                result = new MovieItem(result);
+                            } else if (result.category == Category.TV) {
+                                result = new TvItem(result);
+                            }
+                            break;
+                        default:
+                            skip(parser);
+                            break;
                     }
                 }
 
@@ -542,7 +553,7 @@ public class MainActivity extends ActionBarActivity
                         return;
                     }
 
-                    ArrayList<Card> cards = new ArrayList<Card>();
+                    ArrayList<Card> cards = new ArrayList<>();
 
                     for (int i = 0; i < rssFeed.size(); i++) {
                         // Create a Card
@@ -625,7 +636,6 @@ public class MainActivity extends ActionBarActivity
             }
 
             private void StartDetailsActivity(Card card, final MovieItem media) {
-                //Set onClick listener
                 card.setOnClickListener(new Card.OnCardClickListener() {
                     @Override
                     public void onClick(Card card, View view) {
@@ -642,11 +652,6 @@ public class MainActivity extends ActionBarActivity
                                 movieDetailsIntent.putExtra("TV_SEASON",  String.valueOf(((TvItem) media).getSeason()));
                                 movieDetailsIntent.putExtra("TV_EPISODE", String.valueOf(((TvItem) media).getEpisodeNumber()));
                             }
-//                            else
-//                            {
-//                                movieDetailsIntent.putExtra("TV_SEASON", );
-//                                movieDetailsIntent.putExtra("TV_EPISODE", null);
-//                            }
 
                             startActivity(movieDetailsIntent);
                         }
@@ -656,7 +661,8 @@ public class MainActivity extends ActionBarActivity
 
             private void SetCardTitle(Card card, ThorrentItem currentItem, boolean isLong) {
                 if (isLong) {
-                    card.setTitle(currentItem.time + "\n" + getActivity().getString(R.string.by_user_text) + " " + currentItem.creator + "\n" + currentItem.description);
+                    card.setTitle(currentItem.time + "\n" + getActivity().getString(R.string.by_user_text) + " "
+                            + currentItem.creator + "\n" + currentItem.description);
                 }
                 else {
                     card.setTitle(currentItem.time + "\n" + currentItem.description);
