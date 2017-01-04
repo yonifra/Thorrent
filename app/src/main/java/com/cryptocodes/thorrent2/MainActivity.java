@@ -549,10 +549,12 @@ public class MainActivity extends ActionBarActivity
             protected void onPostExecute(List<ThorrentItem> rssFeed) {
                 if (rssFeed != null) {
                     if (rssFeed.size() == 0) {
-                        //Toast.makeText(getActivity(), getString(R.string.CheckInternetConn), Toast.LENGTH_LONG).show();
                         Snackbar.make(getActivity().findViewById(R.id.container), getString(R.string.CheckInternetConn), Snackbar.LENGTH_LONG).show();
                         return;
                     }
+
+                    // TODO: Create an instance of the ListViewAdapter and give it a CardView from Android Design Lib
+                    // This will customize the cards rather than using Mario's cards
 
                     ArrayList<Card> cards = new ArrayList<>();
 
@@ -642,7 +644,6 @@ public class MainActivity extends ActionBarActivity
                     public void onClick(Card card, View view) {
                         if (media.year < 1) {
                             Snackbar.make(view, "No info", Snackbar.LENGTH_SHORT).show();
-                            //Toast.makeText(getActivity(), "No info", Toast.LENGTH_SHORT).show();
                         } else {
                             Intent movieDetailsIntent = new Intent(getActivity(), MediaDetailActivity.class);
                             movieDetailsIntent.putExtra("MOVIE_NAME", media.rawMovieName);
