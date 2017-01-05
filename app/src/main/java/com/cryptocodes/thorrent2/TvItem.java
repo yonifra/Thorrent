@@ -13,6 +13,8 @@ import java.io.IOException;
 public class TvItem extends MovieItem {
     private int season;
     private int episodeNumber;
+    private String episodeTitle;
+    private String seriesId;
     private int seIndex = -1; // index for season / episode number (e.g. S03E12)
     private String SEtext;
 
@@ -23,14 +25,15 @@ public class TvItem extends MovieItem {
         }
     }
 
-    @Override
-    protected int getYear() {
-        return super.getYear();
+    static String buildJsonUrl(String tvShowName, int season, int episodeNumber) {
+        return "http://www.omdbapi.com/?t=" + tvShowName.replace(" ", "%20") +
+                "&Season=" + season + "&Episode=" + episodeNumber +
+                "&plot=short&r=json";
     }
 
     @Override
-    protected void getImdbData() {
-        //super.getImdbData();
+    protected int getYear() {
+        return super.getYear();
     }
 
     public int getSeason(){
@@ -63,7 +66,7 @@ public class TvItem extends MovieItem {
             StringBuilder sb = new StringBuilder();
 
             for (int i = 0; i < seIndex; i++) {
-                sb.append(splittedStrings[i] + " ");
+                sb.append(splittedStrings[i]).append(" ");
             }
 
             String titleString = sb.toString();
@@ -88,32 +91,20 @@ public class TvItem extends MovieItem {
             jsonObject = JSONReader.readJsonFromUrl(buildJsonUrl(name, season, episodeNumber));
             if (jsonObject.getString("Response").equals("False")) return;
 
-            // Set the poster of the series
             posterUrl = jsonObject.getString("Poster");
-
-            // Get the plot of the series
             plot = jsonObject.getString("Plot");
-
-            // Set the rating of the show
             rating = jsonObject.getString("imdbRating");
-
+            episodeTitle = jsonObject.getString("Title");
+            seriesId = jsonObject.getString("seriesID");
             imdbUrl = jsonObject.getString("imdbID");
-
             year = Integer.parseInt(jsonObject.getString("Year").substring(0,4));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public static String buildJsonUrl(String tvShowName, int season, int episodeNumber) {
-        return "http://www.omdbapi.com/?t=" + tvShowName.replace(" ", "%20") +
-                "&Season=" + season + "&Episode=" + episodeNumber +
-                "&plot=short&r=json";
-    }
-
-    protected String getSeasonAndEpisode() {
+    private String getSeasonAndEpisode() {
         int i = 0;
         for (String s : splittedStrings) {
             String lower = s.toLowerCase();

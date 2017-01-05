@@ -22,6 +22,9 @@ public class MovieItem extends ThorrentItem {
     public String imdbUrl = "";
     public String plot = "";
     public String rawMovieName;
+    public String runtime;
+    public String genres;
+    public String releaseDate;
     protected String[] splittedStrings;
     protected int yearIndex;
 
@@ -131,6 +134,9 @@ public class MovieItem extends ThorrentItem {
             if (jsonObject.getString("Response").equals("False")) return;
 
             posterUrl = jsonObject.getString("Poster");
+            runtime = jsonObject.getString("Runtime");
+            genres = jsonObject.getString("Genre");
+            releaseDate = jsonObject.getString("Released");
 
             String ratingStr = jsonObject.getString("imdbRating");
 

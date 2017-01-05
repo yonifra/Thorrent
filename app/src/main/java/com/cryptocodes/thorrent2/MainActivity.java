@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -37,10 +38,6 @@ import java.util.List;
 import java.util.Locale;
 
 import it.gmariotti.cardslib.library.internal.Card;
-import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
-import it.gmariotti.cardslib.library.internal.CardHeader;
-import it.gmariotti.cardslib.library.internal.CardThumbnail;
-import it.gmariotti.cardslib.library.view.CardListView;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -548,93 +545,22 @@ public class MainActivity extends ActionBarActivity
             @Override
             protected void onPostExecute(List<ThorrentItem> rssFeed) {
                 if (rssFeed != null) {
-                    if (rssFeed.size() == 0) {
-                        Snackbar.make(getActivity().findViewById(R.id.container), getString(R.string.CheckInternetConn), Snackbar.LENGTH_LONG).show();
-                        return;
-                    }
-
-                    // TODO: Create an instance of the ListViewAdapter and give it a CardView from Android Design Lib
-                    // This will customize the cards rather than using Mario's cards
-
-                    ArrayList<Card> cards = new ArrayList<>();
-
-                    for (int i = 0; i < rssFeed.size(); i++) {
-                        // Create a Card
-                        Card card = new Card(getActivity());
-
-                        // Create a CardHeader
-                        CardHeader header = new CardHeader(getActivity());
-
-                        ThorrentItem currentItem = rssFeed.get(i);
-
-                        // Add Header to card
-                        header.setTitle(currentItem.formattedTitle);
-
-                        card.addCardHeader(header);
-                        CardThumbnail thumb = new CardThumbnail(getActivity());
-
-                        switch (currentItem.category) {
-                            case APPLICATION:
-                                SetCardTitle(card, currentItem, true);
-                                thumb.setDrawableResource(R.drawable.app);
-                                break;
-                            case TV:
-                                SetCardTitle(card, currentItem, false);
-
-                                final TvItem tvShow = (TvItem) currentItem;
-                                if (tvShow.posterUrl != null && !tvShow.posterUrl.replace(" ", "").equals("")) {
-                                    thumb.setUrlResource(tvShow.posterUrl);
-                                }
-                                else {
-                                    thumb.setDrawableResource(R.drawable.tv);
-                                }
-
-                                StartDetailsActivity(card, tvShow);
-                                break;
-                            case MOVIE:
-                                SetCardTitle(card, currentItem, false);
-
-                                final MovieItem movie = (MovieItem) currentItem;
-
-                                if (movie.posterUrl != null && !movie.posterUrl.replace(" ", "").equals("")) {
-                                    thumb.setUrlResource(movie.posterUrl);
-                                }
-                                else
-                                {
-                                    thumb.setDrawableResource(R.drawable.movie);
-                                }
-
-                                StartDetailsActivity(card, movie);
-                                break;
-                            case BOOK:
-                                SetCardTitle(card, currentItem, true);
-                                thumb.setDrawableResource(R.drawable.books);
-                                break;
-                            case GAME:
-                                SetCardTitle(card, currentItem, true);
-                                thumb.setDrawableResource(R.drawable.games);
-                                break;
-                            case MUSIC:
-                                SetCardTitle(card, currentItem, true);
-                                thumb.setDrawableResource(R.drawable.music);
-                                break;
-                            case NONE:
-                                SetCardTitle(card, currentItem, true);
-                                thumb.setDrawableResource(R.drawable.ic_error_black_48dp);
-                                break;
+                    try {
+                        if (rssFeed.size() == 0) {
+                            Snackbar.make(getActivity().findViewById(R.id.container), getString(R.string.CheckInternetConn), Snackbar.LENGTH_LONG).show();
+                            return;
                         }
 
-                        card.addCardThumbnail(thumb);
-                        cards.add(card);
-                    }
+                        ListViewAdapter adapter = new ListViewAdapter(getContext(), new ArrayList<>(rssFeed));
 
-                    CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(getActivity(), cards);
-                    CardListView listView = (CardListView) getActivity().findViewById(R.id.myList);
-                    if (listView != null) {
-                        listView.setAdapter(mCardArrayAdapter);
-                    }
+                        ListView listView = (ListView) getActivity().findViewById(R.id.myList);
 
-                    ((MainActivity) getActivity()).dismissDialog();
+                        if (listView != null) {
+                            listView.setAdapter(adapter);
+                        }
+                    } finally {
+                        ((MainActivity) getActivity()).dismissDialog();
+                    }
                 }
             }
 
