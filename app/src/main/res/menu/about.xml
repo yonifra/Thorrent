@@ -1,5 +1,5 @@
 <menu xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.cryptocodes.thorrent2.AboutActivity">
+    tools:context="com.cryptocodes.mediator.AboutActivity">
     <!--<item android:id="@+id/action_settings"-->
         <!--android:title="@string/action_settings"-->
         <!--android:orderInCategory="100"-->

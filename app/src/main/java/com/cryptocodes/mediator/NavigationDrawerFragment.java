@@ -1,12 +1,10 @@
-package com.cryptocodes.thorrent2;
+package com.cryptocodes.mediator;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import com.ikimuhendis.ldrawer.ActionBarDrawerToggle;
-import com.ikimuhendis.ldrawer.DrawerArrowDrawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -21,6 +19,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.ikimuhendis.ldrawer.ActionBarDrawerToggle;
+import com.ikimuhendis.ldrawer.DrawerArrowDrawable;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.

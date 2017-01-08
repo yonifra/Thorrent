@@ -2,26 +2,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/card_background"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@color/card_background"
-    tools:context="com.cryptocodes.thorrent2.AboutActivity">
+    tools:context="com.cryptocodes.mediator.AboutActivity">
 
     <ImageView
         android:layout_width="250dip"
         android:layout_height="42dip"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/cryptocodes"
-        android:contentDescription="@string/logoDescription" />
+        android:contentDescription="@string/logoDescription"
+        android:src="@drawable/cryptocodes" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/card_text_color_header"
         android:layout_gravity="center_horizontal"
         android:fontFamily="sans-serif-condensed"
         android:gravity="center"
         android:text="@string/AboutMessage"
+        android:textColor="@color/card_text_color_header"
         android:textSize="14sp" />
 
     <LinearLayout
@@ -34,33 +34,33 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/card_text_color_header"
             android:layout_gravity="center_horizontal"
             android:fontFamily="sans-serif-condensed"
             android:gravity="center"
             android:text="@string/Version"
+            android:textColor="@color/card_text_color_header"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/appVersionTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/card_text_color_header"
             android:layout_gravity="center_horizontal"
             android:fontFamily="sans-serif-condensed"
             android:gravity="center"
             android:paddingLeft="4dip"
+            android:textColor="@color/card_text_color_header"
             android:textSize="14sp" />
     </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/card_text_color_header"
         android:layout_gravity="center_horizontal"
         android:fontFamily="sans-serif-condensed"
         android:gravity="center"
         android:text="@string/ReleaseDate"
+        android:textColor="@color/card_text_color_header"
         android:textSize="14sp" />
 
     <TextView
@@ -78,9 +78,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:textColor="@color/card_text_color_header"
         android:layout_marginTop="26dp"
         android:fontFamily="sans-serif-condensed"
         android:text="@string/TorrentProviderInfo"
+        android:textColor="@color/card_text_color_header"
         android:textSize="14sp" />
 </LinearLayout>

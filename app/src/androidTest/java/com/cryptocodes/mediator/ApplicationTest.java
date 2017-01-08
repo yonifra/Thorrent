@@ -1,4 +1,4 @@
-package com.cryptocodes.thorrent2;
+package com.cryptocodes.mediator;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -1,4 +1,4 @@
-package com.cryptocodes.thorrent2;
+package com.cryptocodes.mediator;
 
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;

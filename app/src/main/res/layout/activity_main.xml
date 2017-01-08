@@ -14,16 +14,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <ListView
-        android:id="@+id/myList"
+    <!--<ListView-->
+    <!--android:id="@+id/myList"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:divider="#d3d3d3"-->
+    <!--android:dividerHeight="1dp" />-->
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/listRecyclerView"
+            android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="#d3d3d3"
-        android:dividerHeight="1dp" />
+            android:scrollbars="vertical" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <fragment
         android:id="@+id/navigation_drawer"
-        android:name="com.cryptocodes.thorrent2.NavigationDrawerFragment"
+        android:name="com.cryptocodes.mediator.NavigationDrawerFragment"
         android:layout_width="@dimen/navigation_drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"

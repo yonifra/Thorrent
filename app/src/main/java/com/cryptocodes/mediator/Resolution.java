@@ -1,4 +1,4 @@
-package com.cryptocodes.thorrent2;
+package com.cryptocodes.mediator;
 
 /**
  * Created by jonathanf on 12/11/2014.

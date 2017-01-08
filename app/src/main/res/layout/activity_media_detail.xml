@@ -1,43 +1,43 @@
 <github.chenupt.dragtoplayout.DragTopLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/parallaxScrollView"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/card_background"
-    tools:context="com.cryptocodes.thorrent2.MediaDetailActivity">
+    tools:context="com.cryptocodes.mediator.MediaDetailActivity">
 
         <FrameLayout
+            android:id="@+id/mediaDetailsDataLayout"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:gravity="center"
             android:orientation="horizontal"
-            tools:ignore="HardcodedText"
-            android:id="@+id/mediaDetailsDataLayout">
+            tools:ignore="HardcodedText">
 
             <com.flaviofaria.kenburnsview.KenBurnsView
+                android:id="@+id/backdropImageView"
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/backdropImageView"
                 />
 
             <ImageView
+                android:id="@+id/mediaPosterImageView"
                 android:layout_width="82sp"
                 android:layout_height="120sp"
-                android:id="@+id/mediaPosterImageView"
-                android:background="@drawable/image_view_border"
-                android:layout_margin="10sp"
-                android:padding="1sp"
                 android:layout_gravity="center_vertical"
-                android:contentDescription="MediaPoster" />
+                android:layout_margin="10sp"
+                android:background="@drawable/image_view_border"
+                android:contentDescription="MediaPoster"
+                android:padding="1sp" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="right"
                 android:layout_margin="10dp"
-                android:orientation="vertical"
                 android:gravity="right"
-                android:layout_gravity="right">
+                android:orientation="vertical">
                 <TextView
                     android:id="@+id/movieDetailsMovieName"
                     android:layout_width="wrap_content"

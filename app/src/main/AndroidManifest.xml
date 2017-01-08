@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cryptocodes.thorrent2" >
+    package="com.cryptocodes.mediator">
 
     <uses-sdk
         android:minSdkVersion="17"
@@ -17,13 +17,13 @@
         android:maxSdkVersion="18" />
 
     <application
-        android:name="com.cryptocodes.thorrent2.ThorrentApp"
+        android:name="com.cryptocodes.mediator.ThorrentApp"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.cryptocodes.thorrent2.MainActivity"
+            android:name="com.cryptocodes.mediator.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name" >
             <intent-filter>
@@ -32,15 +32,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.cryptocodes.thorrent2.AboutActivity"
+            android:name="com.cryptocodes.mediator.AboutActivity"
             android:label="@string/title_activity_about" >
         </activity>
         <activity
-            android:name="com.cryptocodes.thorrent2.MediaDetailActivity"
+            android:name="com.cryptocodes.mediator.MediaDetailActivity"
             android:label="@string/title_activity_media_detail" >
         </activity>
         <activity
-            android:name="com.cryptocodes.thorrent2.SettingsActivity"
+            android:name="com.cryptocodes.mediator.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
     </application>

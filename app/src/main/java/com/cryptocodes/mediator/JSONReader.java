@@ -1,4 +1,4 @@
-package com.cryptocodes.thorrent2;
+package com.cryptocodes.mediator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
