@@ -43,6 +43,10 @@
             android:name="com.cryptocodes.mediator.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="a3a165bb3f5d5f38bf92970aa35dd90e942eb3c9" />
     </application>
 
 </manifest>

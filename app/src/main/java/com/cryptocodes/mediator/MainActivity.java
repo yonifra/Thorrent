@@ -35,25 +35,13 @@ public class MainActivity extends ActionBarActivity
     private static final String BOOKS_FEED_URL = "http://www.scnsrc.me/category/ebooks/feed/";
     private static final String APPLICATIONS_FEED_URL = "http://www.scnsrc.me/category/applications/feed/";
     public static String CURRENT_RSS_FEED = null;
-
     public static Boolean displayInformation;
     public static Boolean friendlyName;
-
     private static ProgressDialog progress;
     private final String LOG_TAG = "MainActivity";
-
-    SharedPreferences settings;
-
-    /**
-     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
-     */
+    private SharedPreferences settings;
     private NavigationDrawerFragment mNavigationDrawerFragment;
-
     private SwipeRefreshLayout mSwipeRefreshLayout;
-
-    /**
-     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
-     */
     private CharSequence mTitle;
 
 //    public static void showDialog(Activity context) {
@@ -83,11 +71,12 @@ public class MainActivity extends ActionBarActivity
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
 
+        final Activity activity = this;
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 // TODO: Refresh the items here
-                new GetAndroidPitRssFeedTask().execute();
+                new RssFeedRetrieverAsync(activity).execute();
                 onItemsLoadComplete();
             }
         });
@@ -324,7 +313,7 @@ public class MainActivity extends ActionBarActivity
             // TODO: Refresh the current feed
 
             // Run the Async task
-            new GetAndroidPitRssFeedTask().execute();
+            new RssFeedRetrieverAsync(this.getActivity()).execute();
         }
     }
 }

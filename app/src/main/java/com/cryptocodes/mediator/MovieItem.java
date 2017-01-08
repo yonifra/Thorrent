@@ -7,9 +7,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-/**
- * Created by jonathanf on 12/11/2014.
- */
 public class MovieItem extends ThorrentItem {
     private static final String LOG_TAG = "MovieItemClass";
     // Used to validate the year range

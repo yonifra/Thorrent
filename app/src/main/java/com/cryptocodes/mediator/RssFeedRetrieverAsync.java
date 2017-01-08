@@ -25,11 +25,13 @@ import it.gmariotti.cardslib.library.internal.Card;
 import static com.cryptocodes.mediator.MainActivity.PlaceholderFragment.getAndroidPitRssFeed;
 import static com.cryptocodes.mediator.ThorrentApp.getContext;
 
-/**
- * Created by yonifra on 8/1/17.
- */
+class RssFeedRetrieverAsync extends AsyncTask<Void, Void, List<ThorrentItem>> {
 
-public class GetAndroidPitRssFeedTask extends AsyncTask<Void, Void, List<ThorrentItem>> {
+    private Activity mCallingActivity;
+
+    public RssFeedRetrieverAsync(Activity callingActivity) {
+        mCallingActivity = callingActivity;
+    }
 
     @Override
     protected List<ThorrentItem> doInBackground(Void... voids) {
@@ -38,17 +40,17 @@ public class GetAndroidPitRssFeedTask extends AsyncTask<Void, Void, List<Thorren
             String feed = getAndroidPitRssFeed();
 
             if (feed == null) {
-                return new ArrayList<ThorrentItem>();
+                return new ArrayList<>();
             } else {
                 result = parse(feed);
             }
-        } catch (XmlPullParserException | IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return result;
     }
 
-    private List<ThorrentItem> parse(String rssFeed) throws XmlPullParserException, IOException {
+    private List<ThorrentItem> parse(String rssFeed) throws Exception {
         XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
         XmlPullParser xpp = factory.newPullParser();
         xpp.setInput(new StringReader(rssFeed));
@@ -57,7 +59,7 @@ public class GetAndroidPitRssFeedTask extends AsyncTask<Void, Void, List<Thorren
     }
 
     private List<ThorrentItem> readRss(XmlPullParser parser)
-            throws XmlPullParserException, IOException {
+            throws Exception {
         List<ThorrentItem> items = new ArrayList<>();
         parser.require(XmlPullParser.START_TAG, null, "rss");
         while (parser.next() != XmlPullParser.END_TAG) {
@@ -249,23 +251,21 @@ public class GetAndroidPitRssFeedTask extends AsyncTask<Void, Void, List<Thorren
 
     @Override
     protected void onPostExecute(List<ThorrentItem> rssFeed) {
-        if (rssFeed != null) {
-            try {
+        if (rssFeed != null && mCallingActivity != null) {
                 if (rssFeed.size() == 0) {
-                    Snackbar.make(((Activity) getContext()).findViewById(R.id.container), getContext().getString(R.string.CheckInternetConn), Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(mCallingActivity.findViewById(R.id.container),
+                            getContext().getString(R.string.CheckInternetConn),
+                            Snackbar.LENGTH_LONG).show();
                     return;
                 }
 
                 ListViewAdapter adapter = new ListViewAdapter(getContext(), new ArrayList<>(rssFeed));
 
-                ListView listView = (ListView) ((Activity) getContext()).findViewById(R.id.myList);
+            ListView listView = (ListView) mCallingActivity.findViewById(R.id.listRecyclerView);
 
                 if (listView != null) {
                     listView.setAdapter(adapter);
                 }
-            } finally {
-                //((MainActivity) getActivity()).dismissDialog();
-            }
         }
     }
 
@@ -276,28 +276,22 @@ public class GetAndroidPitRssFeedTask extends AsyncTask<Void, Void, List<Thorren
                 if (media.year < 1) {
                     Snackbar.make(view, "No info", Snackbar.LENGTH_SHORT).show();
                 } else {
+                    boolean flag = true;
                     Intent movieDetailsIntent = new Intent(getContext(), MediaDetailActivity.class);
                     movieDetailsIntent.putExtra("MOVIE_NAME", media.rawMovieName);
                     movieDetailsIntent.putExtra("MOVIE_YEAR", String.valueOf(media.year));
-                    movieDetailsIntent.putExtra("IS_MOVIE", String.valueOf(media instanceof MovieItem));
 
                     if (media instanceof TvItem) {
+                        flag = false;
                         movieDetailsIntent.putExtra("TV_SEASON", String.valueOf(((TvItem) media).getSeason()));
                         movieDetailsIntent.putExtra("TV_EPISODE", String.valueOf(((TvItem) media).getEpisodeNumber()));
                     }
+
+                    movieDetailsIntent.putExtra("IS_MOVIE", String.valueOf(flag));
 
                     getContext().startActivity(movieDetailsIntent);
                 }
             }
         });
-    }
-
-    private void SetCardTitle(Card card, ThorrentItem currentItem, boolean isLong) {
-        if (isLong) {
-            card.setTitle(currentItem.time + "\n" + getContext().getString(R.string.by_user_text) + " "
-                    + currentItem.creator + "\n" + currentItem.description);
-        } else {
-            card.setTitle(currentItem.time + "\n" + currentItem.description);
-        }
     }
 }

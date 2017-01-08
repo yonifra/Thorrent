@@ -9,6 +9,7 @@ public enum Resolution {
     HDReady,
     FullHD,
     FourK,
+    EightK,
     TwoK,
     ThreeD,
     Bluray,

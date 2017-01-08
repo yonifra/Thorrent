@@ -11,16 +11,15 @@ import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
 
-/**
- * Created by Jake on 6/1/2015.
- */
 public class JSONReader {
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
         int cp;
+
         while ((cp = rd.read()) != -1) {
             sb.append((char) cp);
         }
+
         return sb.toString();
     }
 

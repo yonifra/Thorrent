@@ -2,9 +2,6 @@ package com.cryptocodes.mediator;
 
 import java.util.ArrayList;
 
-/**
- * Created by Jake on 23/10/2014.
- */
 public class ThorrentItem {
 
     public String title = "";
@@ -18,7 +15,7 @@ public class ThorrentItem {
     public ThorrentItem() {
 
         category = Category.NONE;
-        resolutions = new ArrayList<Resolution>();
+        resolutions = new ArrayList<>();
     }
 
     public void parseItem(String name){}
