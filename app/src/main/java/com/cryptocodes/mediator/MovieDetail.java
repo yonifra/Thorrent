@@ -5,6 +5,7 @@ package com.cryptocodes.mediator;
  */
 public class MovieDetail {
     public String posterUrl;
+    public String backdropUrl;
     public String rating;
     public String actors;
     public String plot;

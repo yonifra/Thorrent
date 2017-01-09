@@ -58,18 +58,10 @@
                 android:padding="2dp">
 
                 <TextView
-                    android:id="@+id/mediaRuntimeTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/card_base_cardwithlist_list_margin_top"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                    tools:text="125 min" />
-
-                <TextView
                     android:id="@+id/mediaDateTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/card_base_cardwithlist_list_margin_top"
+                    android:paddingRight="@dimen/card_base_cardwithlist_list_margin_top"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                     tools:text="Oct 18, 2016" />
 
@@ -79,6 +71,14 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                     tools:text="8.5 / 10" />
+
+                <TextView
+                    android:id="@+id/mediaRuntimeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/card_base_cardwithlist_list_margin_top"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+                    tools:text="125 min" />
 
             </LinearLayout>
 

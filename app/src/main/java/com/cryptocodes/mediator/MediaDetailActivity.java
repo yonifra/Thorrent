@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,8 +24,9 @@ public class MediaDetailActivity extends ActionBarActivity {
     TextView director;
     TextView runtime;
     TextView genre;
-    TextView releaseYear;
-    TextView movieName;
+    //TextView releaseYear;
+    //TextView movieName;
+    Toolbar activityToolbar;
     TextView imdbRating;
     TextView metascoreRating;
     TextView country;
@@ -50,14 +52,15 @@ public class MediaDetailActivity extends ActionBarActivity {
         director = (TextView) findViewById(R.id.movieDetailsDirector);
         runtime = (TextView) findViewById(R.id.movieDetailsRuntime);
         genre = (TextView) findViewById(R.id.movieDetailsGenre);
-        releaseYear = (TextView) findViewById(R.id.movieDetailsReleaseYear);
-        movieName = (TextView) findViewById(R.id.movieDetailsMovieName);
+        // releaseYear = (TextView) findViewById(R.id.movieDetailsReleaseYear);
+        // movieName = (TextView) findViewById(R.id.movieDetailsMovieName);
         imdbRating = (TextView) findViewById(R.id.movieDetailsRating);
         metascoreRating = (TextView) findViewById(R.id.movieDetailsMetascoreRating);
         posterImageView = (ImageView) findViewById(R.id.mediaPosterImageView);
         backdropImageView = (ImageView) findViewById(R.id.backdropImageView);
         country = (TextView) findViewById(R.id.movieDetailsCountry);
         imdbVotes = (TextView) findViewById(R.id.mediaDetailsImdbVotes);
+        activityToolbar = (Toolbar) findViewById(R.id.main_toolbar);
 
         String movieName = getIntent().getStringExtra("MOVIE_NAME");
         String year = getIntent().getStringExtra("MOVIE_YEAR");
@@ -85,12 +88,12 @@ public class MediaDetailActivity extends ActionBarActivity {
         if (md == null) return;
 
         Drawable posterDrawable = LoadImageFromUrl(md.posterUrl);
+        ;
+        Drawable backdropDrawable = LoadImageFromUrl(md.backdropUrl);
 
         if (posterDrawable != null) {
             posterImageView.setImageDrawable(posterDrawable);
-            backdropImageView.setImageDrawable(posterDrawable);
-            backdropImageView.setAdjustViewBounds(true);
-            backdropImageView.setAlpha(0.3f);
+            backdropImageView.setImageDrawable(backdropDrawable);
         }
 
         plot.setText(md.plot);
@@ -98,8 +101,10 @@ public class MediaDetailActivity extends ActionBarActivity {
         director.setText(md.director);
         actors.setText(md.actors);
         genre.setText(md.genre);
-        releaseYear.setText("(" + md.year + ")");
-        movieName.setText(md.name);
+
+        activityToolbar.setTitle(md.name);
+        // releaseYear.setText("(" + md.year + ")");
+        // movieName.setText(md.name);
         metascoreRating.setText(md.metascore);
         imdbRating.setText(md.rating);
         country.setText(md.country);
@@ -139,6 +144,7 @@ class RetrieveMovieDetails extends AsyncTask<String, Void, MovieDetail> {
                 MovieDetail md = new MovieDetail();
                 md.actors = jsonObject.getString("Actors");
                 md.posterUrl = jsonObject.getString("Poster");
+                md.backdropUrl = jsonObject.getString("Poster");
                 md.plot = jsonObject.getString("Plot");
                 md.genre = jsonObject.getString("Genre");
                 md.director = jsonObject.getString("Director");
@@ -176,6 +182,7 @@ class RetrieveTvShowDetails extends AsyncTask<String, Void, MovieDetail> {
                 MovieDetail md = new MovieDetail();
                 md.actors = jsonObject.getString("Actors");
                 md.posterUrl = jsonObject.getString("Poster");
+                md.backdropUrl = jsonObject.getString("Poster");
                 md.plot = jsonObject.getString("Plot");
                 md.genre = jsonObject.getString("Genre");
                 md.director = jsonObject.getString("Director");

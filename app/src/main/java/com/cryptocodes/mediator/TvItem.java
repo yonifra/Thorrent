@@ -116,7 +116,23 @@ public class TvItem extends MovieItem {
 
                     if (season > 0 && episodeNumber > 0) {
                         description += "\nSeason: " + season +"\nEpisode: " + episodeNumber;
-                        return season + "x" + episodeNumber;
+
+                        StringBuilder sb = new StringBuilder();
+                        sb.append("S");
+
+                        if (season < 10) {
+                            sb.append("0");
+                        }
+
+                        sb.append(season);
+                        sb.append("E");
+
+                        if (episodeNumber < 10) {
+                            sb.append("0");
+                        }
+                        sb.append(episodeNumber);
+
+                        return sb.toString();
                     }
 
                     return "";

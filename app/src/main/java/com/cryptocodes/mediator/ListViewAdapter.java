@@ -22,8 +22,12 @@ import java.util.Objects;
 
 public class ListViewAdapter extends ArrayAdapter<ThorrentItem> {
 
+    Context activityContext;
+
     public ListViewAdapter(Context context, ArrayList<ThorrentItem> items) {
         super(context, 0, items);
+
+        activityContext = context;
     }
 
     public static Date getDateFromString(String date) {
@@ -153,8 +157,10 @@ public class ListViewAdapter extends ArrayAdapter<ThorrentItem> {
                     }
 
                     movieDetailsIntent.putExtra("IS_MOVIE", String.valueOf(flag));
+                    movieDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                    view.getContext().startActivity(movieDetailsIntent);
+                    //view.getContext().startActivity(movieDetailsIntent);
+                    activityContext.startActivity(movieDetailsIntent);
                 }
             }
         });
