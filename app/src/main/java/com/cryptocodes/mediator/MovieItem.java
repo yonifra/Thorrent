@@ -169,6 +169,10 @@ public class MovieItem extends ThorrentItem {
         return formattedTitle;
     }
 
+    protected String getRawMovieName() {
+        return rawMovieName;
+    }
+
     protected void getResolution() {
         if (isContained("720")) {
             resolution = Resolution.HDReady;

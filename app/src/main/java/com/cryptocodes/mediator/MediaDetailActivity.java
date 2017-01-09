@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -16,6 +17,7 @@ import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
 public class MediaDetailActivity extends ActionBarActivity {
+    private final String TAG = "MediaDetailsActivity";
     TextView plot;
     TextView actors;
     TextView director;
@@ -75,10 +77,9 @@ public class MediaDetailActivity extends ActionBarActivity {
             else {
                 md = new RetrieveTvShowDetails().execute(name, season, episode).get();
             }
-        } catch (InterruptedException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+            Log.e(TAG, e.getMessage());
         }
 
         if (md == null) return;
@@ -154,6 +155,7 @@ class RetrieveMovieDetails extends AsyncTask<String, Void, MovieDetail> {
 
             return null;
         } catch (Exception e) {
+            Log.e("RetrieveMovieDetails", e.getMessage());
             return null;
         }
     }
@@ -190,6 +192,7 @@ class RetrieveTvShowDetails extends AsyncTask<String, Void, MovieDetail> {
 
             return null;
         } catch (Exception e) {
+            Log.e("MediaDetailsActivity", e.getMessage());
             return null;
         }
     }
@@ -207,6 +210,7 @@ class RetrievePoster extends AsyncTask<String, Void, Drawable> {
             InputStream is = (InputStream) new URL(urls[0]).getContent();
             return Drawable.createFromStream(is, "src name");
         } catch (Exception e) {
+            Log.e("RetrievePoster", e.getMessage());
             return null;
         }
     }

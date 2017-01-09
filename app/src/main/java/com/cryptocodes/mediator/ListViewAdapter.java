@@ -137,18 +137,22 @@ public class ListViewAdapter extends ArrayAdapter<ThorrentItem> {
                     Snackbar.make(view, "No info available", Snackbar.LENGTH_LONG).show();
                 } else {
                     Intent movieDetailsIntent = new Intent(view.getContext(), MediaDetailActivity.class);
+                    boolean flag = true;
 
                     if (item.getClass() == MovieItem.class) {
                         MovieItem movie = (MovieItem) item;
-                        movieDetailsIntent.putExtra("MOVIE_NAME", movie.getTitle());
+                        movieDetailsIntent.putExtra("MOVIE_NAME", movie.getRawMovieName());
                         movieDetailsIntent.putExtra("MOVIE_YEAR", String.valueOf(movie.getYear()));
-                        movieDetailsIntent.putExtra("IS_MOVIE", String.valueOf(true));
+
                     }
 
                     if (item.getClass() == TvItem.class) {
+                        flag = false;
                         movieDetailsIntent.putExtra("TV_SEASON", String.valueOf(((TvItem) item).getSeason()));
                         movieDetailsIntent.putExtra("TV_EPISODE", String.valueOf(((TvItem) item).getEpisodeNumber()));
                     }
+
+                    movieDetailsIntent.putExtra("IS_MOVIE", String.valueOf(flag));
 
                     view.getContext().startActivity(movieDetailsIntent);
                 }
