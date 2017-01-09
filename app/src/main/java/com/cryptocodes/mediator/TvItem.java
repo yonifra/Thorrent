@@ -7,9 +7,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-/**
- * Created by jonathanf on 13/11/2014.
- */
 public class TvItem extends MovieItem {
     private int season;
     private int episodeNumber;

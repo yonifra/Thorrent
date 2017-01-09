@@ -1,10 +1,8 @@
 package com.cryptocodes.mediator;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.widget.ListView;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -20,8 +18,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import it.gmariotti.cardslib.library.internal.Card;
-
 import static com.cryptocodes.mediator.MainActivity.PlaceholderFragment.getAndroidPitRssFeed;
 import static com.cryptocodes.mediator.ThorrentApp.getContext;
 
@@ -29,7 +25,7 @@ class RssFeedRetrieverAsync extends AsyncTask<Void, Void, List<ThorrentItem>> {
 
     private Activity mCallingActivity;
 
-    public RssFeedRetrieverAsync(Activity callingActivity) {
+    RssFeedRetrieverAsync(Activity callingActivity) {
         mCallingActivity = callingActivity;
     }
 
@@ -267,31 +263,5 @@ class RssFeedRetrieverAsync extends AsyncTask<Void, Void, List<ThorrentItem>> {
                     listView.setAdapter(adapter);
                 }
         }
-    }
-
-    private void StartDetailsActivity(Card card, final MovieItem media) {
-        card.setOnClickListener(new Card.OnCardClickListener() {
-            @Override
-            public void onClick(Card card, View view) {
-                if (media.year < 1) {
-                    Snackbar.make(view, "No info", Snackbar.LENGTH_SHORT).show();
-                } else {
-                    boolean flag = true;
-                    Intent movieDetailsIntent = new Intent(getContext(), MediaDetailActivity.class);
-                    movieDetailsIntent.putExtra("MOVIE_NAME", media.rawMovieName);
-                    movieDetailsIntent.putExtra("MOVIE_YEAR", String.valueOf(media.year));
-
-                    if (media instanceof TvItem) {
-                        flag = false;
-                        movieDetailsIntent.putExtra("TV_SEASON", String.valueOf(((TvItem) media).getSeason()));
-                        movieDetailsIntent.putExtra("TV_EPISODE", String.valueOf(((TvItem) media).getEpisodeNumber()));
-                    }
-
-                    movieDetailsIntent.putExtra("IS_MOVIE", String.valueOf(flag));
-
-                    getContext().startActivity(movieDetailsIntent);
-                }
-            }
-        });
     }
 }

@@ -121,10 +121,15 @@ public class ListViewAdapter extends ArrayAdapter<ThorrentItem> {
                     break;
             }
 
-            if (p.getClass() == MovieItem.class) {
+            if (p.getClass() == MovieItem.class || p.getClass() == TvItem.class) {
+
+                String posterUrl = ((MovieItem) p).posterUrl;
+
+                if (posterUrl != null && posterUrl != "") {
                     Picasso.with(getContext())
                             .load(((MovieItem) p).posterUrl)
                             .into(imgView);
+                }
             }
         }
 
@@ -133,15 +138,18 @@ public class ListViewAdapter extends ArrayAdapter<ThorrentItem> {
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                assert item != null;
+                if (item == null || (item.getClass() != MovieItem.class && item.getClass() != TvItem.class)) {
+                    return;
+                }
 
-                Date mediaDate = getDateFromString(item.time);
+                String posterUrl = ((MovieItem) item).posterUrl;
 
-                if (mediaDate == null) {
-                    Snackbar.make(view, "No info available", Snackbar.LENGTH_LONG).show();
+                if (posterUrl == null || Objects.equals(posterUrl, "")) {
+                    Snackbar.make(view, "No information available", Snackbar.LENGTH_LONG).show();
                 } else {
                     Intent movieDetailsIntent = new Intent(view.getContext(), MediaDetailActivity.class);
                     boolean flag = true;
+
 
                     if (item.getClass() == MovieItem.class) {
                         MovieItem movie = (MovieItem) item;
@@ -152,14 +160,16 @@ public class ListViewAdapter extends ArrayAdapter<ThorrentItem> {
 
                     if (item.getClass() == TvItem.class) {
                         flag = false;
-                        movieDetailsIntent.putExtra("TV_SEASON", String.valueOf(((TvItem) item).getSeason()));
-                        movieDetailsIntent.putExtra("TV_EPISODE", String.valueOf(((TvItem) item).getEpisodeNumber()));
+                        TvItem episode = (TvItem) item;
+                        movieDetailsIntent.putExtra("MOVIE_NAME", episode.getRawMovieName());
+                        movieDetailsIntent.putExtra("MOVIE_YEAR", String.valueOf(episode.getYear()));
+                        movieDetailsIntent.putExtra("TV_SEASON", String.valueOf(episode.getSeason()));
+                        movieDetailsIntent.putExtra("TV_EPISODE", String.valueOf(episode.getEpisodeNumber()));
                     }
 
                     movieDetailsIntent.putExtra("IS_MOVIE", String.valueOf(flag));
                     movieDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                    //view.getContext().startActivity(movieDetailsIntent);
                     activityContext.startActivity(movieDetailsIntent);
                 }
             }
@@ -167,5 +177,4 @@ public class ListViewAdapter extends ArrayAdapter<ThorrentItem> {
 
         return v;
     }
-
 }
