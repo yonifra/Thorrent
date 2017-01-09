@@ -134,6 +134,7 @@ public class MovieItem extends ThorrentItem {
             runtime = jsonObject.getString("Runtime");
             genres = jsonObject.getString("Genre");
             releaseDate = jsonObject.getString("Released");
+            plot = jsonObject.getString("Plot");
 
             String ratingStr = jsonObject.getString("imdbRating");
 
