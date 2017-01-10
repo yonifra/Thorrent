@@ -22,7 +22,7 @@ import java.util.Objects;
 
 public class ListViewAdapter extends ArrayAdapter<ThorrentItem> {
 
-    Context activityContext;
+    private Context activityContext;
 
     public ListViewAdapter(Context context, ArrayList<ThorrentItem> items) {
         super(context, 0, items);
@@ -125,7 +125,7 @@ public class ListViewAdapter extends ArrayAdapter<ThorrentItem> {
 
                 String posterUrl = ((MovieItem) p).posterUrl;
 
-                if (posterUrl != null && posterUrl != "") {
+                if (posterUrl != null && !Objects.equals(posterUrl, "")) {
                     Picasso.with(getContext())
                             .load(((MovieItem) p).posterUrl)
                             .into(imgView);

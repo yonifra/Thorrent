@@ -44,17 +44,6 @@ public class MainActivity extends ActionBarActivity
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private CharSequence mTitle;
 
-//    public static void showDialog(Activity context) {
-//        progress = ProgressDialog.show(context,
-//                context.getString(R.string.loading_dialog_header),
-//                context.getString(R.string.loading_dialog_content),
-//                true);
-//    }
-//
-//    public static void dismissDialog() {
-//        progress.dismiss();
-//    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

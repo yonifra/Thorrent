@@ -71,6 +71,30 @@ public class TvItem extends MovieItem {
             if (titleString.length() > 0) {
                 return sb.toString().substring(0, titleString.length() - 1);
             }
+        } else {
+            StringBuilder titleBuilder = new StringBuilder();
+            Integer number = -1;
+
+            for (String splittedString : splittedStrings) {
+
+                try {
+                    number = Integer.parseInt(splittedString);
+                } catch (Exception ex) {
+
+                }
+
+                if (number < 0) {
+                    if (titleBuilder.length() > 0) {
+                        titleBuilder.append(" ");
+                    }
+
+                    titleBuilder.append(splittedString);
+                } else {
+                    break;
+                }
+            }
+
+            title = titleBuilder.toString();
         }
 
         return title;
