@@ -30,7 +30,7 @@ public class MediaDetailActivity extends ActionBarActivity {
     TextView imdbRating;
     TextView metascoreRating;
     TextView country;
-    TextView imdbVotes;
+    // TextView imdbVotes;
     private ImageView posterImageView;
     private ImageView backdropImageView;
 
@@ -59,7 +59,7 @@ public class MediaDetailActivity extends ActionBarActivity {
         posterImageView = (ImageView) findViewById(R.id.mediaPosterImageView);
         backdropImageView = (ImageView) findViewById(R.id.backdropImageView);
         country = (TextView) findViewById(R.id.movieDetailsCountry);
-        imdbVotes = (TextView) findViewById(R.id.mediaDetailsImdbVotes);
+        // imdbVotes = (TextView) findViewById(R.id.mediaDetailsImdbVotes);
         activityToolbar = (Toolbar) findViewById(R.id.main_toolbar);
 
         String movieName = getIntent().getStringExtra("MOVIE_NAME");
@@ -88,7 +88,6 @@ public class MediaDetailActivity extends ActionBarActivity {
         if (md == null) return;
 
         Drawable posterDrawable = LoadImageFromUrl(md.posterUrl);
-        ;
         Drawable backdropDrawable = LoadImageFromUrl(md.backdropUrl);
 
         if (posterDrawable != null) {
@@ -108,7 +107,7 @@ public class MediaDetailActivity extends ActionBarActivity {
         metascoreRating.setText(md.metascore);
         imdbRating.setText(md.rating);
         country.setText(md.country);
-        imdbVotes.setText(md.imdbVotes);
+        //  imdbVotes.setText(md.imdbVotes);
     }
 
     @Override
