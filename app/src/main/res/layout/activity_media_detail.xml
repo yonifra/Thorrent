@@ -94,9 +94,10 @@
                         <LinearLayout
                         android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_margin="5dp"
                             android:layout_weight="1"
                             android:gravity="bottom"
-                        android:orientation="horizontal"
+                            android:orientation="horizontal"
                         tools:ignore="HardcodedText">
 
                         <TextView
@@ -143,13 +144,27 @@
                             android:orientation="vertical"
                             tools:ignore="HardcodedText">
 
-                            <TextView
-                                android:id="@+id/movieDetailsRating"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textAppearance="@android:style/TextAppearance.Material.WindowTitle"
-                                android:textSize="30sp"
-                                tools:text="8.8" />
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/movieDetailsRating"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="@android:style/TextAppearance.Material.WindowTitle"
+                                    android:textSize="30sp"
+                                    tools:text="8.8" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="@android:style/TextAppearance.Material.Widget.TabWidget"
+                                    android:textSize="12sp"
+                                    tools:text="/10" />
+                            </LinearLayout>
+
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -166,13 +181,27 @@
                             android:orientation="vertical"
                             tools:ignore="HardcodedText">
 
-                            <TextView
-                                android:id="@+id/movieDetailsMetascoreRating"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textAppearance="@android:style/TextAppearance.Material.WindowTitle"
-                                android:textSize="30sp"
-                                tools:text="85" />
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/movieDetailsMetascoreRating"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="@android:style/TextAppearance.Material.WindowTitle"
+                                    android:textSize="30sp"
+                                    tools:text="85" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="@android:style/TextAppearance.Material.Widget.TabWidget"
+                                    android:textSize="12sp"
+                                    tools:text="/100" />
+                            </LinearLayout>
+
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -197,15 +226,15 @@
                 android:layout_marginRight="@dimen/card_base_cardwithlist_list_margin_left">
 
                 <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="5dp"
-            tools:ignore="HardcodedText">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    tools:ignore="HardcodedText">
 
                     <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:text="Synopsis"
                         android:textAllCaps="true"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
@@ -213,9 +242,10 @@
                     <TextView
                         android:id="@+id/movieDetailsPlot"
                         android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                        android:layout_height="wrap_content"
                         android:textAppearance="@android:style/TextAppearance.Material.Subhead"
-                        tools:text="Now that there is the Tec-9, a crappy spray gun from South Miami. This gun is advertised as the most popular gun in American crime. Do you believe that shit? It actually says that in the little book that comes with it: the most popular gun in American crime. Like they're actually proud of that shit." />
+                        tools:text="Blah" />
+                    <!--tools:text="Now that there is the Tec-9, a crappy spray gun from South Miami. This gun is advertised as the most popular gun in American crime. Do you believe that shit? It actually says that in the little book that comes with it: the most popular gun in American crime. Like they're actually proud of that shit." />-->
             </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -234,24 +264,18 @@
                     android:padding="5dp"
                     tools:ignore="HardcodedText">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Cast"
-                        android:textAllCaps="true"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         tools:ignore="HardcodedText">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Director: "
-                            android:textAppearance="@android:style/TextAppearance.Material.Subhead" />
+                            android:text="Director"
+                            android:textAllCaps="true"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
 
                         <TextView
                             android:id="@+id/movieDetailsDirector"
@@ -264,14 +288,16 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp"
+                        android:orientation="vertical"
                         tools:ignore="HardcodedText">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Actors: "
-                            android:textAppearance="@android:style/TextAppearance.Material.Subhead" />
+                            android:text="Cast"
+                            android:textAllCaps="true"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
 
                         <TextView
                             android:id="@+id/movieDetailsActors"
