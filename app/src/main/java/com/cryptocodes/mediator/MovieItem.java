@@ -22,6 +22,8 @@ public class MovieItem extends ThorrentItem {
     public String runtime;
     public String genres;
     public String releaseDate;
+    public String director;
+    public String pgRating;
     protected String[] splittedStrings;
     protected int yearIndex;
 
@@ -135,6 +137,8 @@ public class MovieItem extends ThorrentItem {
             genres = jsonObject.getString("Genre");
             releaseDate = jsonObject.getString("Released");
             plot = jsonObject.getString("Plot");
+            director = jsonObject.getString("Director");
+            pgRating = jsonObject.getString("Rated");
 
             String ratingStr = jsonObject.getString("imdbRating");
 
@@ -159,8 +163,6 @@ public class MovieItem extends ThorrentItem {
         if (sb.length() > 0) {
             // Remove the last space from title
             rawMovieName = sb.toString().substring(0, sb.toString().length() - 1);
-
-            sb.append("(").append(year).append(")");
 
             if (!sb.toString().equals("")) {
                 formattedTitle = sb.toString();

@@ -59,11 +59,14 @@ public class ListViewAdapter extends ArrayAdapter<ThorrentItem> {
 
         if (p != null) {
             TextView headerTv = (TextView) v.findViewById(R.id.mediaHeaderTextView);
-            TextView dateTv = (TextView) v.findViewById(R.id.mediaDateTextView);
-            TextView descriptionTv = (TextView) v.findViewById(R.id.mediaPlotTextView);
+            TextView genresTv = (TextView) v.findViewById(R.id.mediaGenresTextView);
+            TextView pgRatingTv = (TextView) v.findViewById(R.id.audienceRatingTextView);
+            TextView directorTv = (TextView) v.findViewById(R.id.directorTextView);
             TextView runtimeTv = (TextView) v.findViewById(R.id.mediaRuntimeTextView);
             TextView ratingTv = (TextView) v.findViewById(R.id.mediaRatingTextView);
+            TextView yearTv = (TextView) v.findViewById(R.id.mediaYearTextView);
             ImageView imgView = (ImageView) v.findViewById(R.id.mediaImageView);
+            TextView resolutionsTv = (TextView) v.findViewById(R.id.resolutionsTextView);
 
             if (headerTv != null) {
                 headerTv.setText(p.formattedTitle);
@@ -72,16 +75,31 @@ public class ListViewAdapter extends ArrayAdapter<ThorrentItem> {
             if (p instanceof MovieItem) {
                 MovieItem item = (MovieItem) p;
                 runtimeTv.setText(item.runtime);
-                descriptionTv.setText(item.plot);
+                //  descriptionTv.setText(item.);
 
                 if (item.rating != null && !item.rating.isEmpty() && !Objects.equals(item.rating, "N/A")) {
-                    ratingTv.setText(item.rating + " / 10");
+                    ratingTv.setText(item.rating);
                 }
 
-            }
+                if (genresTv != null) {
+                    genresTv.setText(item.genres);
+                }
 
-            if (dateTv != null) {
-                dateTv.setText(p.time);
+                if (directorTv != null) {
+                    directorTv.setText(item.director);
+                }
+
+                if (pgRatingTv != null) {
+                    pgRatingTv.setText(item.pgRating);
+                }
+
+                if (yearTv != null && item.year > 1950) {
+                    yearTv.setText(String.format("%d", item.year));
+                }
+
+                if (resolutionsTv != null && item.resolution != null) {
+                    resolutionsTv.setText(ConvertToResString(item.resolution));
+                }
             }
 
             switch (p.category) {
@@ -176,5 +194,33 @@ public class ListViewAdapter extends ArrayAdapter<ThorrentItem> {
         });
 
         return v;
+    }
+
+    private String ConvertToResString(Resolution resolution) {
+        switch (resolution) {
+            case Bluray:
+                return "Bluray";
+            case EightK:
+                return "8K UHD";
+            case FullHD:
+                return "1080p";
+            case HDReady:
+                return "720p";
+            case DVD:
+                return "DVD";
+            case FourK:
+                return "4K UHD";
+            case TwoK:
+                return "2K";
+            case Telesync:
+                return "Telesync";
+            case ThreeD:
+                return "3D";
+            case Cam:
+                return "Camcorder";
+            default:
+            case NA:
+                return "Unknown resolution";
+        }
     }
 }

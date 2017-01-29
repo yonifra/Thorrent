@@ -3,18 +3,14 @@
     package="com.cryptocodes.mediator">
 
     <uses-sdk
-        android:minSdkVersion="17"
-        android:targetSdkVersion="23" />
+        android:minSdkVersion="21"
+        android:targetSdkVersion="25" />
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name="com.cryptocodes.mediator.ThorrentApp"

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     app:cardCornerRadius="@dimen/cardview_default_radius"
     app:cardElevation="@dimen/cardview_default_elevation">
@@ -17,14 +17,15 @@
             android:id="@+id/mediaImageView"
             android:layout_width="80dp"
             android:layout_height="120dp"
-            android:layout_margin="@dimen/card_header_button_padding_left"
-            app:srcCompat="@android:drawable/ic_delete" />
+            android:layout_margin="@dimen/card_base_cardwithlist_list_margin_top"
+            app:srcCompat="@drawable/poster" />
 
-        <LinearLayout
+        <GridLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/card_header_button_padding_left"
-            android:orientation="vertical">
+            android:layout_marginTop="@dimen/card_base_cardwithlist_list_margin_top"
+            android:columnCount="1"
+            android:rowCount="4">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -39,7 +40,7 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:textAppearance="@android:style/TextAppearance.Material.Subhead"
-                    tools:text="Movie Name" />
+                    tools:text="The Sleeping Beauty" />
 
                 <TextView
                     android:id="@+id/mediaYearTextView"
@@ -60,40 +61,96 @@
                 android:padding="2dp">
 
                 <TextView
-                    android:id="@+id/mediaDateTextView"
+                    android:id="@+id/mediaGenresTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingRight="@dimen/card_base_cardwithlist_list_margin_top"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                    tools:text="Oct 18, 2016" />
+                    tools:text="Action | Crime | Thriller" />
 
-                <TextView
-                    android:id="@+id/mediaRatingTextView"
+            </LinearLayout>
+
+            <!--<TextView-->
+            <!--android:id="@+id/mediaPlotTextView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:ellipsize="end"-->
+            <!--android:maxLines="4"-->
+            <!--android:padding="2dp"-->
+            <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"-->
+            <!--tools:text="The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness, for he is truly his brother's keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who would attempt to poison and destroy My brothers. And you will know My name is the Lord when I lay My vengeance upon thee." />-->
+
+            <TextView
+                android:id="@+id/directorTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+                tools:text="Steven Spielberg" />
+
+            <TextView
+                android:id="@+id/resolutionsTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+                tools:text="1080p, 720p, 4K" />
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:columnCount="3"
+                android:rowCount="1">
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/star128" />
+                    <!--android:src="@android:drawable/star_off"/>-->
+                    <TextView
+                        android:id="@+id/mediaRatingTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="4dp"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+                        tools:text="8.5" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/audienceRatingTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    android:padding="2dp"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                    tools:text="8.5 / 10" />
+                    tools:text="PG" />
 
                 <TextView
                     android:id="@+id/mediaRuntimeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
                     android:paddingLeft="@dimen/card_base_cardwithlist_list_margin_top"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                     tools:text="125 min" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/mediaPlotTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="4"
-                android:padding="2dp"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                tools:text="The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness, for he is truly his brother's keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who would attempt to poison and destroy My brothers. And you will know My name is the Lord when I lay My vengeance upon thee." />
-        </LinearLayout>
+            </GridLayout>
+        </GridLayout>
     </LinearLayout>
 
 

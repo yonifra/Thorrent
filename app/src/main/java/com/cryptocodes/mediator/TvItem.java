@@ -118,7 +118,12 @@ public class TvItem extends MovieItem {
             episodeTitle = jsonObject.getString("Title");
             seriesId = jsonObject.getString("seriesID");
             imdbUrl = jsonObject.getString("imdbID");
+            director = jsonObject.getString("Director");
+            genres = jsonObject.getString("Genre");
+            pgRating = jsonObject.getString("Rated");
             year = Integer.parseInt(jsonObject.getString("Year").substring(0,4));
+            season = Integer.parseInt(jsonObject.getString("Season"));
+            episodeNumber = Integer.parseInt(jsonObject.getString("Episode"));
 
         } catch (IOException | JSONException e) {
             e.printStackTrace();
@@ -127,6 +132,26 @@ public class TvItem extends MovieItem {
 
     private String getSeasonAndEpisode() {
         int i = 0;
+
+        if (episodeNumber > 0) {
+            String seasonText;
+            String episodeText;
+
+            if (season < 10) {
+                seasonText = "0" + season;
+            } else {
+                seasonText = "" + season;
+            }
+
+            if (episodeNumber < 10) {
+                episodeText = "0" + episodeNumber;
+            } else {
+                episodeText = "" + episodeNumber;
+            }
+
+            return "S" + seasonText + "E" + episodeText;
+        }
+
         for (String s : splittedStrings) {
             String lower = s.toLowerCase();
             if (lower.matches("(s\\d+e\\d+)")) {
