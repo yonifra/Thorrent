@@ -1,6 +1,7 @@
 package com.cryptocodes.mediator;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 import java.util.ArrayList;
@@ -10,8 +11,14 @@ import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
 import it.gmariotti.cardslib.library.internal.CardHeader;
 import it.gmariotti.cardslib.library.internal.CardThumbnail;
 import it.gmariotti.cardslib.library.view.CardListView;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class CardListActivity extends Activity {
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

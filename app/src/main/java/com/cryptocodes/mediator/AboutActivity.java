@@ -1,12 +1,15 @@
 package com.cryptocodes.mediator;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class AboutActivity extends Activity {
     private final String LOGTAG = "AboutActivity";
@@ -24,6 +27,11 @@ public class AboutActivity extends Activity {
         } catch (PackageManager.NameNotFoundException e) {
             Log.e(LOGTAG, e.getMessage());
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override

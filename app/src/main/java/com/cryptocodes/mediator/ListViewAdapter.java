@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class ListViewAdapter extends ArrayAdapter<ThorrentItem> {
 
     private Context activityContext;
@@ -28,6 +30,8 @@ public class ListViewAdapter extends ArrayAdapter<ThorrentItem> {
         super(context, 0, items);
 
         activityContext = context;
+
+            CalligraphyContextWrapper.wrap(activityContext);
     }
 
     public static Date getDateFromString(String date) {

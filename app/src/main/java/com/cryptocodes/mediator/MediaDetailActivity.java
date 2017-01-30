@@ -1,5 +1,6 @@
 package com.cryptocodes.mediator;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MediaDetailActivity extends ActionBarActivity {
     private final String TAG = "MediaDetailsActivity";
@@ -108,6 +111,11 @@ public class MediaDetailActivity extends ActionBarActivity {
         imdbRating.setText(md.rating);
         country.setText(md.country);
         //  imdbVotes.setText(md.imdbVotes);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override
