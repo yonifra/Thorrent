@@ -1,6 +1,6 @@
 package com.cryptocodes.mediator;
 
-public enum Category {
+enum Category {
     TV,
     MOVIE,
     MUSIC,
