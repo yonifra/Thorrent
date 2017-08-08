@@ -1,7 +1,5 @@
 package com.cryptocodes.mediator;
 
-import android.util.Log;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,9 +15,9 @@ public class TvItem extends MovieItem {
 
     public TvItem(ThorrentItem baseItem) {
         super(baseItem);
-        if (MainActivity.friendlyName) {
+        // if (MainActivity.friendlyName) {
             title = getTitle();
-        }
+        // }
     }
 
     static String buildJsonUrl(String tvShowName, int season, int episodeNumber) {
@@ -43,61 +41,16 @@ public class TvItem extends MovieItem {
 
     @Override
     protected String getTitle() {
-        StringBuilder sb = new StringBuilder();
-        String showTitle = getShowTitle();
-
-        if (MainActivity.displayInformation) {
-            parseItem(showTitle);
-        }
-
-        rawMovieName = showTitle;
-        formattedTitle = sb.append(showTitle).append(" ").append(SEtext).toString();
+        SEtext = TitleParser.parseSeasonAndEpisode(title);
+        season = TitleParser.parseSeasonNumber(SEtext);
+        episodeNumber = TitleParser.parseEpisodeNumber(SEtext);
+        formattedTitle = getShowTitle() + " " + SEtext;
 
         return formattedTitle;
     }
 
     protected String getShowTitle() {
-        SEtext = getSeasonAndEpisode();
-
-        if (seIndex >= 0) {
-            StringBuilder sb = new StringBuilder();
-
-            for (int i = 0; i < seIndex; i++) {
-                sb.append(splittedStrings[i]).append(" ");
-            }
-
-            String titleString = sb.toString();
-
-            if (titleString.length() > 0) {
-                return sb.toString().substring(0, titleString.length() - 1);
-            }
-        } else {
-            StringBuilder titleBuilder = new StringBuilder();
-            Integer number = -1;
-
-            for (String splittedString : splittedStrings) {
-
-                try {
-                    number = Integer.parseInt(splittedString);
-                } catch (Exception ex) {
-
-                }
-
-                if (number < 0) {
-                    if (titleBuilder.length() > 0) {
-                        titleBuilder.append(" ");
-                    }
-
-                    titleBuilder.append(splittedString);
-                } else {
-                    break;
-                }
-            }
-
-            title = titleBuilder.toString();
-        }
-
-        return title;
+        return TitleParser.parseTitle(title);
     }
 
     @Override
@@ -109,7 +62,7 @@ public class TvItem extends MovieItem {
         JSONObject jsonObject;
 
         try {
-            jsonObject = JSONReader.readJsonFromUrl(buildJsonUrl(name, season, episodeNumber));
+            jsonObject = JSONReader.readJsonFromUrl(buildJsonUrl(getShowTitle(), season, episodeNumber));
             if (jsonObject.getString("Response").equals("False")) return;
 
             posterUrl = jsonObject.getString("Poster");
@@ -128,68 +81,5 @@ public class TvItem extends MovieItem {
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    private String getSeasonAndEpisode() {
-        int i = 0;
-
-        if (episodeNumber > 0) {
-            String seasonText;
-            String episodeText;
-
-            if (season < 10) {
-                seasonText = "0" + season;
-            } else {
-                seasonText = "" + season;
-            }
-
-            if (episodeNumber < 10) {
-                episodeText = "0" + episodeNumber;
-            } else {
-                episodeText = "" + episodeNumber;
-            }
-
-            return "S" + seasonText + "E" + episodeText;
-        }
-
-        for (String s : splittedStrings) {
-            String lower = s.toLowerCase();
-            if (lower.matches("(s\\d+e\\d+)")) {
-                seIndex = i;
-                try {
-                    season = Integer.parseInt(lower.substring(1, lower.indexOf('e')));
-                    episodeNumber = Integer.parseInt(lower.substring(lower.indexOf('e') + 1, lower.length()));
-
-                    if (season > 0 && episodeNumber > 0) {
-                        description += "\nSeason: " + season +"\nEpisode: " + episodeNumber;
-
-                        StringBuilder sb = new StringBuilder();
-                        sb.append("S");
-
-                        if (season < 10) {
-                            sb.append("0");
-                        }
-
-                        sb.append(season);
-                        sb.append("E");
-
-                        if (episodeNumber < 10) {
-                            sb.append("0");
-                        }
-                        sb.append(episodeNumber);
-
-                        return sb.toString();
-                    }
-
-                    return "";
-                } catch (Exception ex) {
-                    Log.e("MovieItem", ex.getMessage());
-                }
-            }
-
-            i++;
-        }
-
-        return "";
     }
 }
